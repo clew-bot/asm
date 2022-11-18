@@ -1,6 +1,7 @@
+<style>
+</style>
 <template>
-    <div class="m-10">
-        HELLO
+    <div class="container m-auto">
         <slot/>
     </div>
 </template>
