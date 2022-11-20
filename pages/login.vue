@@ -119,10 +119,22 @@ const passwordRules = ref([
 ]);
 const valid = ref(false);
 const loading = ref([]);
-const load = (i) => {
+
+
+const load = async (i) => {
   loading.value[i] = true;
+console.log('hi')
+  const response = await $fetch("/api/user/user", {
+    method: "POST",
+    body: { name: firstName.value, email: email.value, password: password.value },
+    });
+
+    console.log(response)
+
   setTimeout(() => {
     loading.value[i] = false;
   }, 2000);
+
+
 };
 </script>

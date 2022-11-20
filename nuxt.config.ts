@@ -13,4 +13,13 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/tailwindcss', 
       ],
+    app: {
+        pageTransition: { name: 'page', mode: 'out-in' }
+      },
+    runtimeConfig: {
+        MONGO_URI: process.env.MONGO_URI,
+      },
+    nitro: {
+        plugins: ['@/server/db/index.js']
+        },
 })

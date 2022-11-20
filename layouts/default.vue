@@ -8,7 +8,7 @@
           <div class="flex">
           <li class="p-2"><nuxt-link to="/">Home</nuxt-link></li>
           <li class="p-2"><nuxt-link to="/about">About</nuxt-link></li>
-          <li class="p-2"><nuxt-link to="/contact">Contact</nuxt-link></li>
+          <li class="p-2"><nuxt-link to="/login">Login</nuxt-link></li>
         </div>
         </ul>
       </nav>

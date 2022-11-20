@@ -1,12 +1,13 @@
 <style scoped></style>
 <template>
-  <ClientOnly>
+
     <div class="text-center text-5xl font-bold pt-10">
       <h1 class="">The <span class="text-green-500">Nuxt</span> Big Thing</h1>
       <div class="text-3xl scroll-pt-10">
         <p class="p-10">Tailwind</p>
         <div class="flex justify-center items-center">
           <div class="w-1/2">
+            <ClientOnly>
             <v-select
               label="Select"
               :items="cols"
@@ -29,6 +30,7 @@
               single-line
             >
             </v-select>
+          </ClientOnly>
             <v-checkbox v-model="checked" label="Checkbox"></v-checkbox>
           </div>
         </div>
@@ -69,13 +71,17 @@
         <p class="p-10">MDI Icons</p>
       </div>
       <i>mdi-chevron</i>
-    </div>
-  </ClientOnly>
-  <button @click="checkValue">on</button>
+    </div> 
+    <button @click="checkValue">on</button>
+ 
 </template>
 
 <script setup>
 import { ref, reactive } from "vue";
+definePageMeta({
+  pageTransition: false,
+  layoutTransition: false
+})
 const checked = ref(false);
 const select = ref({ class: "Select a Class" });
 const selectTwo = ref({ class: "Select a Class" });
@@ -94,4 +100,5 @@ const rows = ref([
 const checkValue = () => {
   console.log(select.value.class);
 };
+
 </script>
