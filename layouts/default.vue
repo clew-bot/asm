@@ -1,4 +1,13 @@
 <style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 </style>
 <template>
     <header>
@@ -14,16 +23,22 @@
       </nav>
     </header>
    
-    <div class="container m-auto">
+    <div class="container m-auto pb-12">
       <slot />
     </div>
     <footer>
-      <div class="bg-gray-800 text-white text-center p-4 fixed w-full bottom-0">
-        <p>Made with ❤️ by<span><a class="p-2 rounded hover:bg-green-900 bg-green-700 shadow-md translate-y-10 transition-all" href="https://github.com/clew-bot" target="_blank">Chad Lew</a></span></p>
-        
+      <Transition>
+      <div v-if="!closeFooter"
+           class="bg-gray-800 text-white text-center p-4 w-full fixed bottom-0"
+           >
+        <p>Made with ❤️ by<span><a class="p-2 rounded text-yellow-500 font-semibold underline" href="https://github.com/clew-bot" target="_blank">Chad Lew</a></span></p>
+        <v-icon class="absolute right-4 bottom-4 cursor-pointer"
+                @click="closeFooter = true">mdi-close</v-icon>
       </div>
+    </Transition>
     </footer>
 </template>
 <script setup>
 import Test from "@/components/Test.vue";
+const closeFooter = ref(false);
 </script>

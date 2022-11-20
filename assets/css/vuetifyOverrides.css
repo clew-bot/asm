@@ -1,0 +1,77 @@
+/* THIS IS FOR V-TEXT-FIELD AKA INPUTS ON LOGIN*/
+* {
+    font-family: 'Quicksand', sans-serif !important;
+  }
+  .log >>> .v-input__details {
+    display: none;
+  }
+  
+  .button >>> .v-btn {
+    width: 100% !important;
+    background: var(--loginSignUpButton) !important;
+    border-radius: 5px;
+    text-transform: none !important;
+    transition: all 0.3s ease-in-out !important;
+  }
+  .log >>> .v-field--variant-filled .v-field__outline::before,
+  .v-field--variant-underlined .v-field__outline::before {
+    display: none;
+  }
+  
+  .log >>> .v-field__outline::after {
+    border: none !important;
+  }
+  .log >>> .v-field {
+    border-radius: 0px !important;
+  }
+  .log >>> .v-field--variant-filled {  
+    border-radius: 15px !important;
+    box-shadow: none !important;
+    width: 75% !important;
+    background: rgb(11, 12, 5);
+  }
+  
+  .log >>> .v-input__control {
+    width: 100% !important;
+  }
+  
+
+
+
+  /* .signup >>> .v-input__details {
+    display: none;
+  } */
+  
+  .signup-btn >>> .v-btn {
+    width: 100% !important;
+    background: var(--loginSignUpButton) !important;
+    border-radius: 5px;
+    text-transform: none !important;
+    transition: all 0.3s ease-in-out !important;
+  }
+.signup >>> .v-field--variant-filled .v-field__outline::before,
+  .v-field--variant-underlined .v-field__outline::before {
+    display: none;
+  }
+  
+  .signup >>> .v-field__outline::after {
+    border: none !important;
+  }
+  .signup >>> .v-field {
+    border-radius: 0px !important;
+  }
+  .signup >>> .v-field--variant-filled {
+    border: solid 1px linear-gradient(90deg, rgba(211, 233, 10, 0.767) 0%, rgba(39, 189, 94, 0.767) 100%) !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    width: 75% !important;
+    background: #27272a;
+    border-bottom: solid 4px var(--signUpInputBorder) !important;
+    border-right: solid 3px var(--signUpInputBorder) !important;
+  }
+  
+  .signup >>> .v-input__control {
+    width: 100% !important;
+    color: white !important;
+  }
+  

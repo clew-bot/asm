@@ -2,3 +2,8 @@
 * {
     font-family: 'Quicksand', sans-serif !important;
   }
+
+:root {
+    --signUpInputBorder: rgb(99, 99, 114);
+    --loginSignUpButton: rgba(4, 52, 83, 0.869);
+}
