@@ -157,14 +157,9 @@
             email
         }
         console.log(data)
-        const clientSignUp = await store.signUp(data)
-        console.log(clientSignUp)
-        if(clientSignUp === "Hello!" ) {
-            navigateTo("/dashboard")
-        } else {
-            console.log("error")
-        }
-
+        const clientSignUpToken = await store.signUp(data)
+        console.log(clientSignUpToken)
+        
     }
 
 </script>

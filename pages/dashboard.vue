@@ -9,7 +9,7 @@
         <NuxtLayout name="dash">
         <template #header>HOME</template>
         <template #rightSide><RightBarSuggested/></template>
-    Hello
+    <p>hi</p>
 </NuxtLayout>
 </template>
 
@@ -25,8 +25,21 @@ import more from "@/assets//svg/more.svg";
 import Navigation from "@/components/Navigation.vue";
 import RightBarSuggested from "@/components/RightBarSuggested.vue";
 
+onMounted(() => {
+  const counter = useCookie('counter')
+counter.value = counter.value || Math.round(Math.random() * 1000)
+console.log(counter.value)
+});
+
+const checkMe = async () => {
+  const cookie = useCookie('altine')
+  
+  console.log(cookie.value)
+};
+
 definePageMeta({
   layout: false,
+  middleware: ["auth"],
 });
 
 </script>

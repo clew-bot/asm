@@ -39,6 +39,12 @@
                     <li class="p-4 flex justify-center items-center"> <img
                         :src="more" alt="" class="pl-1 icon-hover">
                         <p class="ml-5 hidden xl:block">More</p></li>
+    
+                    <li  @click="logout" class="p-4 flex justify-center items-center cursor-pointer
+                    transition-all"> <img
+                        :src="more" alt="" class="pl-1 icon-hover">
+                        <p class= "transition-all
+                        ml-5 hidden xl:block">Logout</p></li>
                 </ul>
             </div>
         </div>
@@ -53,6 +59,15 @@ import bookmark from "@/assets//svg/bookmark.svg";
 import profile from "@/assets//svg/profile.svg";
 import more from "@/assets//svg/more.svg";
 
+import { useUserStore } from "@/store/userStore";
+
+const store = useUserStore(); 
+
+const logout = async () => {
+    console.log('logout')
+    const loggingOut = await store.logout();
+    navigateTo('/login')
+    }
 </script>
 
 <style lang="scss" scoped>

@@ -1,7 +1,7 @@
 import UserModel from "~~/server/models/User.model";
 import mongoose from "mongoose";
-
-import { defineEventHandler } from "h3";
+const toId = mongoose.Types.ObjectId;
+import jwt from 'jsonwebtoken';
 
 interface CreateAccountPostBody {
     username: string;
@@ -17,16 +17,25 @@ export default defineEventHandler(async (event) => {
     });
 
     if (userExist === null) {
-        const newUser:CreateAccountPostBody = await UserModel.create({
+        const newUser = await UserModel.create({
                 username: body.username,
                 email: body.email,
                 password: body.password,
             });
-
+        console.log(newUser);
+        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+            expiresIn: 86400, // 24 hours
+        });
+        console.log('token: ',token);
+        setCookie(event, "altine", token, {
+            httpOnly: true,
+            maxAge: 86400,
+            path: "/",
+        });
         console.log(body.username, "has been created 🔥");
-        return "Hello!"
+        return token
     } else {
         console.log("User already exist");
-        return "User already exist";
+        return { error: true, message: "User Already Exists" };
     }
 })

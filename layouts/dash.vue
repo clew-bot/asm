@@ -9,9 +9,7 @@
                 </div>
             </div>
             <div class="border-1 p-5">
-            <v-card>
                 <slot/>
-            </v-card>
             </div>
         </div>
         <slot name="rightSide"></slot>

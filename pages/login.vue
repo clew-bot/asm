@@ -14,35 +14,39 @@
       <div class="flex justify-center flex-col items-center">
       <v-card class="bg-zinc-800 min-w-[80%] rounded-2xl drop-shadow-2xl">
       <v-form v-model="valid"
-      @submit.prevent="handleLogin">
+              @submit.prevent="handleLogin"
+              id="login-form">
         <v-text-field
+          name="username"
           autocomplete="off"
           aria-autocomplete="list"
           class="p-3 pb-1"
           v-model="username"
           :rules="nameRules"
           :counter="10"
-          label="Username or Email"
+          :label="userLabel"
           required
+          :class="{ 'text-red-500': usernameError }"
         ></v-text-field>
         <v-text-field
+          name="password"
           autocomplete="off"
           aria-autocomplete="list"
           class="px-3 py-1"
           v-model="password"
           :rules="passwordRules"
           :counter="10"
-          label="Password"
+          :label="passLabel"
           type="password"
           append-inner-icon="mdi-lock"
           required
+          :class="{ 'text-red-500': passwordError }"
         ></v-text-field>
         <div class="p-2 px-3 pb-4 button">
           <v-btn
             :loading="loading[1]"
             :disabled="!valid"
             color="primary"
-            @click="load(1)"
             append-icon="mdi-login"
             form="login-form"
             type="submit"
@@ -64,9 +68,19 @@
 <script setup>
 import { ref } from "vue";
 import Modal from "@/components/Modal.vue";
+import { useUserStore } from "@/store/userStore";
+
+const store = useUserStore();
+
 const username = ref("");
 const password = ref("");
 const email = ref("");
+const userLabel = ref("Username or Password");
+const passLabel = ref("Password");
+
+
+const usernameError = ref(false);
+const passwordError = ref(false);
 
 const nameRules = ref([
   (v) => !!v
@@ -81,24 +95,27 @@ const passwordRules = ref([
 const valid = ref(false);
 const loading = ref([]);
 
-const handleLogin = (e) => {
-  const { username, password, email } = Object.fromEntries(new FormData(e.target));
+const handleLogin = async (e) => {
+  passwordError.value = false;
+  usernameError.value = false;
+  const { username, password } = Object.fromEntries(new FormData(e.target));
+  const data = {
+    username,
+    password,
+  };
+  const {error, message} = await store.login(data);
+  console.log(error)
+  if (error) {
+    if( message.includes("Password")) {
+      passwordError.value = true;
+      passLabel.value = message;
+    } else {
+      usernameError.value = true;
+      userLabel.value = message;
+    }
+  } else {
+    navigateTo("/dashboard");
+  }
+
 }
-
-
-// const load = async (i) => {
-// loading.value[i] = true;
-//   const response = await $fetch("/api/user/user", {
-//     method: "POST",
-//     body: { name: firstName.value, email: email.value, password: password.value },
-//     });
-
-//     console.log(response)
-
-//   setTimeout(() => {
-//     loading.value[i] = false;
-//   }, 2000);
-
-
-// };
 </script>
