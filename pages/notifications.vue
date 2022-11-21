@@ -14,7 +14,7 @@ onMounted(() => {
   console.log("mounted");
 });
 definePageMeta({
-  layout: "false",
+  layout: false,
 });
 </script>
 

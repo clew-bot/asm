@@ -29,6 +29,7 @@
             >
         <label class="font-semibold text-slate-300 italic p-3 mt-10">Choose a username</label>
         <v-text-field
+          autocomplete="off"
           name="username"
           class="p-3 pb-1 pt-0"
           v-model="username"
@@ -39,6 +40,7 @@
         ></v-text-field>
         <label class="font-semibold text-slate-300 italic p-3 mt-10">Choose a password</label>
         <v-text-field
+        autocomplete="off"
           name="password"
           class="px-3 py-1 pt-0"
           v-model="password"
@@ -52,6 +54,7 @@
         ></v-text-field>
         <label class="font-semibold text-slate-300 italic p-3 mt-10">Verify password</label>
         <v-text-field
+        autocomplete="off"
           name="securePassword"
           class="px-3 py-1 pt-0"
           v-model="securePassword"
@@ -65,6 +68,7 @@
         ></v-text-field>
         <label class="font-semibold text-slate-300 italic p-3 mt-10">Enter an email</label>
         <v-text-field
+          autocomplete="off"
           name="email"
           class="px-3 py-1 pt-0"
           v-model="email"
@@ -103,6 +107,10 @@
   <script setup>
     import { ref } from "vue";
     import SmallIcon from "@/components/SmallIcon.vue";
+    import { useUserStore } from "@/store/userStore";
+
+    const store = useUserStore();
+
     const dialog = ref(false);
     const show1 = ref(false);
     const valid = ref(false);
@@ -139,9 +147,23 @@
     const checkValues = () => {
         console.log(emailRules.value)
     }
-
+    console.log(store.$state.count)
     const handleCreateAccount = async (e) => {
         const { username, password, securePassword, email } = Object.fromEntries(new FormData(e.target))
+        console.log(username, password, securePassword, email)
+        const data = {
+            username,
+            password,
+            email
+        }
+        console.log(data)
+        const clientSignUp = await store.signUp(data)
+        console.log(clientSignUp)
+        if(clientSignUp === "Hello!" ) {
+            navigateTo("/dashboard")
+        } else {
+            console.log("error")
+        }
 
     }
 

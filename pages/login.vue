@@ -16,6 +16,8 @@
       <v-form v-model="valid"
       @submit.prevent="handleLogin">
         <v-text-field
+          autocomplete="off"
+          aria-autocomplete="list"
           class="p-3 pb-1"
           v-model="username"
           :rules="nameRules"
@@ -24,6 +26,8 @@
           required
         ></v-text-field>
         <v-text-field
+          autocomplete="off"
+          aria-autocomplete="list"
           class="px-3 py-1"
           v-model="password"
           :rules="passwordRules"

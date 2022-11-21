@@ -25,12 +25,9 @@ import more from "@/assets//svg/more.svg";
 import Navigation from "@/components/Navigation.vue";
 import RightBarSuggested from "@/components/RightBarSuggested.vue";
 
-import {useCounterStore} from "@/store/counterStore";
 definePageMeta({
   layout: false,
 });
 
-const store = useCounterStore();
-console.log(store.$state.name)
 </script>
 
