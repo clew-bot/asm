@@ -21,13 +21,17 @@
                             <img :src="bell" alt="" class="pl-1 icon-hover">
                             <p class="ml-5 hidden xl:block">Notifications</p></li>
                     </NuxtLink>
-                    <li class="p-4 flex justify-center items-center">
-                        <img :src="message" alt="" class="pl-1 icon-hover">
-                        <p class="ml-5 hidden xl:block">Messages</p></li>
+                    <NuxtLink to="/messages">
+                        <li class="p-4 flex justify-center items-center">
+                            <img :src="message" alt="" class="pl-1 icon-hover">
+                            <p class="ml-5 hidden xl:block">Messages</p></li>
+                    </NuxtLink>
+                    <NuxtLink to="/bookmarks">
                     <li class="p-4 flex justify-center items-center"> <img
                         :src="bookmark" alt="" class="pl-1 icon-hover">
                         <p class="ml-5 hidden xl:block">Bookmarks</p></li>
-                    <NuxtLink to="/test">
+                    </NuxtLink>
+                    <NuxtLink to="/profile">
                     <li class="p-4 flex justify-center items-center"> <img
                         :src="profile" alt="" class="pl-1 icon-hover">
                         <p class="ml-5 hidden xl:block">My Profile</p></li>

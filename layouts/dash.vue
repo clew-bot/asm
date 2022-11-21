@@ -14,8 +14,8 @@
             </v-card>
             </div>
         </div>
-    
-       <RightBarSuggested/>
+        <slot name="rightSide"></slot>
+       <!-- <RightBarSuggested/> -->
     </div>
     </div>
 </template>

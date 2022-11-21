@@ -7,11 +7,10 @@
 </style>
 <template>
         <NuxtLayout name="dash">
-    <template #header>HOME</template>
+        <template #header>HOME</template>
+        <template #rightSide><RightBarSuggested/></template>
     Hello
 </NuxtLayout>
-  <h1>Yo!</h1>
-
 </template>
 
 <script setup>
@@ -24,6 +23,9 @@ import profile from "@/assets//svg/profile.svg";
 import more from "@/assets//svg/more.svg";
 
 import Navigation from "@/components/Navigation.vue";
+import RightBarSuggested from "@/components/RightBarSuggested.vue";
+
+
 
 
 

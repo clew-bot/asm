@@ -1,24 +1,21 @@
 <template>
-    <NuxtLayout name="dash">
-        <template #header>Notifications</template>
+      <NuxtLayout name="dash">
+        <template #header>Messages</template>
         <template #rightSide><RightBarSuggested/></template>
 
         <div>
-          Hello World
+            Messages
         </div>
     </NuxtLayout>
+ 
 </template>
 
 <script setup>
-onMounted(() => {
-  console.log("mounted");
-});
 definePageMeta({
   layout: "false",
 });
 </script>
 
 <style lang="scss" scoped>
-
 
 </style>
