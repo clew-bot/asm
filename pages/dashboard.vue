@@ -1,42 +1,13 @@
-<style scoped>
-.icon-hover {
-    cursor: pointer;
-    transition: all 1s ease-in-out;
-    -webkit-transition: opacity 1s ease-in-out;
-}
-</style>
 <template>
-        <NuxtLayout name="dash">
-        <template #header>HOME</template>
-        <template #rightSide><RightBarSuggested/></template>
-    <p>hi</p>
-</NuxtLayout>
+  <NuxtLayout name="dash">
+    <template #header>HOME</template>
+    <template #rightSide><RightBarSuggested/></template>
+    <template #postStatus><DashPost/></template>
+    <template #postMedia><MediaPostBoard/></template>
+  </NuxtLayout>
 </template>
 
 <script setup>
-import heart from "@/assets//svg/heart.svg";
-import home from "@/assets//svg/home.svg";
-import message from "@/assets//svg/message.svg";
-import bell from "@/assets//svg/bell.svg";
-import bookmark from "@/assets//svg/bookmark.svg";
-import profile from "@/assets//svg/profile.svg";
-import more from "@/assets//svg/more.svg";
-
-import Navigation from "@/components/Navigation.vue";
-import RightBarSuggested from "@/components/RightBarSuggested.vue";
-
-onMounted(() => {
-  const counter = useCookie('counter')
-counter.value = counter.value || Math.round(Math.random() * 1000)
-console.log(counter.value)
-});
-
-const checkMe = async () => {
-  const cookie = useCookie('altine')
-  
-  console.log(cookie.value)
-};
-
 definePageMeta({
   layout: false,
   middleware: ["auth"],

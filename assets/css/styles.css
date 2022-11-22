@@ -6,4 +6,8 @@
 :root {
     --signUpInputBorder: rgb(99, 99, 114);
     --loginSignUpButton: rgba(4, 52, 83, 0.869);
+    --backgroundColor:   #121212;
+    --dashBorder:        #334155;
+    --blue:              #164e63;
+    --blueHover:         #06b6d4;
 }

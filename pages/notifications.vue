@@ -1,3 +1,5 @@
+<style scoped>
+</style>
 <template>
     <NuxtLayout name="dash">
         <template #header>Notifications</template>
@@ -10,15 +12,8 @@
 </template>
 
 <script setup>
-onMounted(() => {
-  console.log("mounted");
-});
 definePageMeta({
   layout: false,
 });
 </script>
 
-<style lang="scss" scoped>
-
-
-</style>

@@ -147,7 +147,6 @@
     const checkValues = () => {
         console.log(emailRules.value)
     }
-    console.log(store.$state.count)
     const handleCreateAccount = async (e) => {
         const { username, password, securePassword, email } = Object.fromEntries(new FormData(e.target))
         console.log(username, password, securePassword, email)

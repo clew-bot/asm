@@ -1,13 +1,14 @@
+<style scoped>
+
+</style>
 <template>
   <NuxtLayout name="dash">
     <template #header>My Profile</template>
     <template #rightSide><RightBarSuggested/></template>
-
     <div>
         Profile
     </div>
-</NuxtLayout>
-
+  </NuxtLayout>
 </template>
 
 <script setup>
@@ -16,6 +17,3 @@ layout: false,
 });
 </script>
 
-<style lang="scss" scoped>
-
-</style>

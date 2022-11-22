@@ -1,13 +1,15 @@
-<template>
-      <NuxtLayout name="dash">
-        <template #header>Messages</template>
-        <template #rightSide><RightBarSuggested/></template>
+<style scoped>
 
-        <div>
-            Messages
-        </div>
-    </NuxtLayout>
- 
+</style>
+<template>
+  <NuxtLayout name="dash">
+    <template #header>Messages</template>
+    <template #rightSide><RightBarSuggested/></template>
+    <div>
+        Messages
+    </div>
+</NuxtLayout>
+
 </template>
 
 <script setup>
@@ -16,6 +18,3 @@ definePageMeta({
 });
 </script>
 
-<style lang="scss" scoped>
-
-</style>

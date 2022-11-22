@@ -1,3 +1,6 @@
+<style scoped>
+
+</style>
 <template>
     <NuxtLayout name="dash">
       <template #header>Bookmarks</template>
@@ -16,6 +19,3 @@ layout: false,
 });
 </script>
 
-<style lang="scss" scoped>
-
-</style>

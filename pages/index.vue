@@ -1,3 +1,5 @@
+<style scoped>
+</style>
 <template>
   <div>
 <h2 class="text-center text-5xl font-bold pb-52"></h2>
@@ -11,5 +13,3 @@ import TestTwo from "@/components/TestTwo.vue";
 
 </script>
 
-<style scoped>
-</style>
