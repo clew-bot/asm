@@ -2,8 +2,7 @@
        <div 
         class="cursor-pointer">
             <v-icon 
-                class="hover:text-[var(--blueHover)] transition-all"
-                color="var(--blue)"
+                :color="color"
                 size="small"
                 >
                 {{name}}
@@ -13,5 +12,5 @@
 
 <script setup>
 const { props } = defineProps([ 'props' ])
-const { name } = props
+const { name, color } = props
 </script>

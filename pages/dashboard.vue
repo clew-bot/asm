@@ -4,6 +4,22 @@
     <template #rightSide><RightBarSuggested/></template>
     <template #postStatus><DashPost/></template>
     <template #postMedia><MediaPostBoard/></template>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/><UserStatus/><UserStatus/><UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+    <UserStatus/>
+
   </NuxtLayout>
 </template>
 
