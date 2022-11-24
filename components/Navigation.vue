@@ -1,5 +1,5 @@
 <template>
-       <div class="relative w-28 xl:w-1/3 block border-r-[.2px] border-slate-700">
+       <div class="hidden relative w-28 xl:w-1/3 sm:block border-r-[.2px] border-slate-700">
             <div class="sticky top-0 h-screen pt-8 overflow-auto">
                 <ul class="text-lg lg:text-lg font-semibold flex flex-col justify-center items-start">
                     <li>  
@@ -48,6 +48,33 @@
                 </ul>
             </div>
         </div>
+            <div
+           class="bg-[var(--backgroundColor)] text-white text-center p-4 border-t-[.2px] border-t-[var(--dashBorder)] w-full fixed bottom-0 z-10 sm:hidden"
+           >
+        <div class="flex justify-evenly items-center">
+            <NuxtLink to="/dashboard">
+                <IconComponent :props="{ name: 'mdi-home-variant', size: 'large'}"/>
+           </NuxtLink>
+           <NuxtLink to="/notifications">
+                <IconComponent :props="{ name: 'mdi-bell', size: 'large'}"/>
+            </NuxtLink>
+            <NuxtLink to="/dashboard">
+           <IconComponent :props="{ name: 'mdi-plus-box-outline', size: 'large'}"/>
+           </NuxtLink>
+           <NuxtLink to="/messages">
+           <IconComponent :props="{ name: 'mdi-message-bulleted', size: 'large'}"/>
+           </NuxtLink>
+           <NuxtLink to="/profile">
+           <v-avatar 
+            class=""
+            color="blue">
+                <v-icon dark>
+                    mdi-account-circle
+                </v-icon>
+            </v-avatar>
+            </NuxtLink>
+        </div>
+      </div>
 </template>
 
 <script setup>
@@ -58,6 +85,7 @@ import bell from "@/assets//svg/bell.svg";
 import bookmark from "@/assets//svg/bookmark.svg";
 import profile from "@/assets//svg/profile.svg";
 import more from "@/assets//svg/more.svg";
+import plus from "@/assets//svg/plus.png";
 
 import { useUserStore } from "@/store/userStore";
 

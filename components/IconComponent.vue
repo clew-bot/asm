@@ -3,7 +3,7 @@
         class="cursor-pointer">
             <v-icon 
                 :color="color"
-                size="small"
+                :size="size"
                 >
                 {{name}}
             </v-icon>
@@ -12,5 +12,5 @@
 
 <script setup>
 const { props } = defineProps([ 'props' ])
-const { name, color } = props
+const { name, color, size } = props
 </script>

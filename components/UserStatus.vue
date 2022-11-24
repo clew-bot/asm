@@ -31,7 +31,7 @@
                             @destiiinywatsoon
                         </div>
                     </div>
-                    <v-icon class="absolute right-16 top-6" size="xx-small">mdi-timer-sand</v-icon>
+
                     <div class="text-slate-300 absolute top-5 right-6 text-xs cursor-default">
                         Nov 12</div>
                     <div class="text-slate-500 absolute top-9 right-6 text-xs cursor-default">
@@ -41,7 +41,7 @@
 
             </v-card-title>
             <v-card-text class="text-base text-gray-200 pt-2">
-                    I love the seasons it's a great day to be alive I love my boyfriend so much he's the best person in the whole world I think I'm gonna marry him 😍
+                    Rock and Roll!
                  
             </v-card-text>
             <div class="p-3">
@@ -66,6 +66,12 @@
           
                 </div>
                 <CommentPost/>
+                <CommentPost/>
+                <CommentPost/>
+                <CommentPost/>
+                <CommentPost/>
+                <CommentPost/>
+                
         </v-card>
 
     </div>
