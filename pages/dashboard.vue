@@ -15,10 +15,6 @@
     <UserStatus/><UserStatus/><UserStatus/><UserStatus/>
     <UserStatus/>
     <UserStatus/>
-    <UserStatus/>
-    <UserStatus/>
-    <UserStatus/>
-    <UserStatus/>
 
   </NuxtLayout>
 </template>

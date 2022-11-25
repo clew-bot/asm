@@ -93,6 +93,12 @@
   border-radius: 0px !important;
 }
 
+.no-b >>> .v-field--variant-filled, .v-field__overlay  {
+  background-color: inherit !important;
+  border-bottom: none;
+  border-radius: 0px !important;
+}
+
 .text-container >>> .v-field__overlay {
   background-color: inherit !important;
   border-radius: 0px !important;

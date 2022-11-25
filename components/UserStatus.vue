@@ -48,7 +48,7 @@
                 <div class="flex justify-between">
                     <div class="flex">
                         <IconComponent :props="{ name: 'mdi-heart', color: '#6b7280' }"/>
-                        <IconComponent class="ml-2" :props="{ name: 'mdi-message', color: '#6b7280' }"/>
+                        <IconComponent class="ml-3" :props="{ name: 'mdi-message', color: '#6b7280' }"/>
                     </div>
                     <div class="flex">
                         <IconComponent class="mr-2" :props="{ name: 'mdi-bookmark', color: '#6b7280' }"/>
@@ -66,11 +66,8 @@
           
                 </div>
                 <CommentPost/>
-                <CommentPost/>
-                <CommentPost/>
-                <CommentPost/>
-                <CommentPost/>
-                <CommentPost/>
+                <CommentInput/>
+
                 
         </v-card>
 
