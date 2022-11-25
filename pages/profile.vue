@@ -6,7 +6,9 @@
     <template #header>My Profile</template>
     <template #rightSide><RightBarSuggested/></template>
     <div>
-        Profile
+     <ProfileHeader/>
+     <ProfileComponent/>
+     <ProfilePostsAndFriends/>
     </div>
   </NuxtLayout>
 </template>

@@ -43,7 +43,7 @@
 </style>
 <template>
     <div class="flex items-end justify-center border-t-[.2px] border-t-[var(--dashBorder)] ">
-        <div class="p-3">
+        <div class="p-3 pt-[.65rem]">
             <v-avatar
             size="33">
                 <v-img
@@ -68,7 +68,7 @@
             </v-container>
         </div>
         <div
-        class="pb-5 px-4 pt-3  "
+        class="pb-5 px-4 "
         >
             <v-icon
             color="#67e8f9"

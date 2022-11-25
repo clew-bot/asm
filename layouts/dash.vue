@@ -15,7 +15,7 @@
                     <slot name="postMedia"></slot>
             </div>
             
-            <div class="border-1 p-5">
+            <div>
                 <slot/>
             </div>
         </div>

@@ -3,7 +3,7 @@
         <v-card 
         elevation="4"
         color="#18181b"
-        class=" mb-5">
+        class=" mb-2">
             <v-card-title>
                 <div class="flex justify-items-start pt-3">
                     <v-badge
@@ -47,8 +47,8 @@
             <div class="p-3">
                 <div class="flex justify-between">
                     <div class="flex">
-                        <IconComponent :props="{ name: 'mdi-heart', color: '#6b7280' }"/>
-                        <IconComponent class="ml-3" :props="{ name: 'mdi-message', color: '#6b7280' }"/>
+                        <IconComponent :props="{ name: 'mdi-heart', color: '#6b7280', size: 'default' }"/>
+                        <IconComponent class="ml-3" :props="{ name: 'mdi-message', color: '#6b7280', size: 'default' }"/>
                     </div>
                     <div class="flex">
                         <IconComponent class="mr-2" :props="{ name: 'mdi-bookmark', color: '#6b7280' }"/>
