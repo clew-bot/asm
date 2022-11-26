@@ -12,6 +12,22 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+    },
+    friends: {
+        type: Array,
+        default: [],
+    },
+    profilePicture: {
+        type: String,
+        default: "",
+    },
+    coverPicture: {
+        type: String,
+        default: "",
+    },
+    photos: {
+        type: Array,
+        default: [],
     }
     },
 { timestamps: true }

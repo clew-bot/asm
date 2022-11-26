@@ -3,7 +3,7 @@
     <div class="w-full max-w-[1300px] flex m-auto">
      <Navigation/>
         <div class="w-full ml-auto">
-            <div class="sticky top-0 h-[4rem] border-b-[.2px] border-slate-700 z-10 bg-[var(--backgroundColor)]">
+            <div class="sticky top-0 h-[4rem] border-b-[.2px] border-slate-700 z-10 bg-[#1E1E1E]">
                 <div class=" p-5 w-fit text-2xl font-bold uppercase text-slate-300">
                     <slot name="header"></slot>
                 </div>
@@ -29,7 +29,6 @@
 import RightBarHome from '@/components/RightBarHome.vue'
 import RightBarSuggested from '@/components/RightBarSuggested.vue'
 import Navigation from '@/components/Navigation.vue'
-
 
 
 </script>
