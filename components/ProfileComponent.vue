@@ -3,13 +3,16 @@
 </style>
 <template>
     <div class="relative">
-        <div class="h-[130px] w-[130px] border-2 absolute
-        left-3 -top-12 rounded-full z-10">
-        <img 
-        width="130px"
-        height="130px"
-        class="object-contain rounded-full"
-        src="https://thumbsnap.com/t/wEuYWvW3.jpg" alt="">
+        <div >
+        <v-avatar
+        class="h-[130px] w-[130px] border-2 absolute
+        left-3 -top-12 rounded-full z-10"
+            color="primary"
+            size="128"
+            >
+            <img 
+        src="https://thumbsnap.com/t/wEuYWvW3.jpg" alt=""></v-avatar>
+
         </div>
         <div class="absolute top-5 right-6">
             <v-btn
@@ -28,12 +31,21 @@
             <div>
                 @mochitheDog • <span class="italic font-semibold">Online</span>
             </div>
+            <div class="flex text-sm font-semibold pt-4">
+                <IconComponent class="pr-2" :props="{name: 'mdi-calendar-text', size: 'x-small'}"/><span>Joined <span>Nov 13</span></span>
+            </div>
+            <div class="flex text-sm font-semibold pt-1">
+                <IconComponent class="pr-2" :props="{name: 'mdi-map-marker', size: 'x-small'}"/><span>San Fransisco</span>
+            </div>
+            <div class="flex text-sm font-semibold pt-1">
+                <IconComponent class="pr-2" :props="{name: 'mdi-cake-variant', size: 'x-small'}"/><span>July 21, 1995</span>
+            </div>
+            <div class="pt-5 italic">If it ain't broke don't fix it</div>
         </div>
     </div>
 </template>
 
 <script setup>
-
 const image = ref(null)
 const checkFile = (e) => {
     console.log(e.target.files[0])
