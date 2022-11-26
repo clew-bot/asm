@@ -6,7 +6,7 @@
         <div >
         <v-avatar
         class="h-[130px] w-[130px] border-2 absolute
-        left-3 -top-12 rounded-full z-10"
+        left-3 -top-12 rounded-full z-9"
             color="primary"
             size="128"
             >
@@ -20,7 +20,7 @@
             prepend-icon="mdi-cog"
             class="rounded-2xl text-sky-200"
             >Edit Profile</v-btn>
-            <input type="file" @input="checkFile"/>
+            <!-- <input type="file" @input="checkFile"/> -->
         </div>
     </div>
     <div class="pt-24">

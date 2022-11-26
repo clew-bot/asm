@@ -13,6 +13,15 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    handleName: {
+        type: String,
+    },
+    birthday: {
+        type: Date, 
+    },
+    location: {
+        type: String,
+    },
     friends: {
         type: Array,
         default: [],
@@ -28,10 +37,15 @@ const UserSchema = new mongoose.Schema({
     photos: {
         type: Array,
         default: [],
-    }
     },
-{ timestamps: true }
-);
+    posts: {
+        type: Array,
+        default: [],
+        ref: "UserPost",
+    },
+    },
+        { timestamps: true }
+    );
 
 UserSchema.pre("save", async function (next) {
     this.password = bcrypt.hashSync(this.password, 10);
