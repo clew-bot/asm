@@ -16,8 +16,6 @@
 
 <script setup>
 import { usePostStore } from '~~/store/postStore';
-// import ComposeDashPost from '~/components/ComposePost/ComposeDashPost.vue';
-// import MediaPostBoard from '~/components/ComposePost/MediaPostBoard.vue';
 const store = usePostStore();
 const ableToPost = ref(true);
 const isReset = ref(0);
@@ -35,17 +33,21 @@ onMounted( async () => {
 });
 
 watch(posts, (newVal) => {
-  // console.log(newVal);
+   console.log('ran', newVal);
 });
 
 const getValue = (val) => {
   val.length === 0 ? ableToPost.value = true : ableToPost.value = false;
 };
 
-const askForRefresh = (value) => {
+const askForRefresh = async (value) => {
   store.$state.post = "";
   ableToPost.value = true;
   isReset.value++;
+  await store.getPosts();
+  await nextTick(() => {
+    posts.value = store.$state.posts;
+  });
 }
 </script>
 
