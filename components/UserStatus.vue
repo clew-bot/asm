@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div v-for="status in props.modelValue" :key="status._id">
+        <!-- {{status}} -->
         <v-card 
         elevation="4"
         color="#18181b"
@@ -26,10 +27,10 @@
                 </v-badge>
                     <div class="absolute left-16 top-4 ml-2 w-fit">
                         <div class="text-base font-semibold text-gray-300 cursor-pointer">
-                            John Doe
+                            {{status.author.username}}
                         </div>
                         <div class="text-xs text-gray-400 cursor-pointer">
-                            @JohnDoeMas
+                            @{{status.author.handleName}}
                         </div>
                     </div>
 
@@ -42,7 +43,7 @@
 
             </v-card-title>
             <v-card-text class="text-base text-gray-200 pt-2">
-                    Rock and Roll!
+                    {{status.content}}
                  
             </v-card-text>
             <div class="p-3">
@@ -59,9 +60,9 @@
                 </div>
                 <div class="p-3">
                 <div class="flex pb-2">
-                    <span class="font-bold">139&nbsp;</span>
+                    <span class="font-bold">{{status.likeCount}}&nbsp;</span>
                      Likes •&nbsp; 
-                    <span class="font-bold">3&nbsp;</span>
+                    <span class="font-bold">{{status.comments.length}}&nbsp;</span>
                     Comments   
                 </div>
           
@@ -77,7 +78,7 @@
 
 <script setup>
 const props = defineProps(['modelValue'])
-console.log(props)
+console.log(props.modelValue)
 
 </script>
 
