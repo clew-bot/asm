@@ -19,15 +19,20 @@
         </div>
    
     </div>
+    <!-- <button @click="checkValue">check</button> -->
 </template>
 
 <script setup>
 import { usePostStore } from '~~/store/postStore';
 const store = usePostStore();
 const userPost = ref(store.$state.post);
+const props = defineProps(['textReset'])
+const isResetted = ref(props.textReset)
+const checkValue = () => {
+    console.log(isResetted.value)
+}
 const emit = defineEmits(["updatePost"]);
 watch(userPost ,(newVal) => {
-    // console.log("newVal", newVal);
     emit("updatePost", newVal);
     store.$state.post = newVal;
 })

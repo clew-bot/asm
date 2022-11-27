@@ -76,6 +76,8 @@
 </template>
 
 <script setup>
+const props = defineProps(['modelValue'])
+console.log(props)
 
 </script>
 

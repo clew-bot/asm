@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 
 
 export const usePostStore = defineStore('post', {
-    state: () => ({ post: '' }),
+    state: () => ({ post: '', posts: [] }),
     getters: {
       thePost: (state) => state.post
     },
@@ -24,7 +24,8 @@ export const usePostStore = defineStore('post', {
         const response = await $fetch("/api/dashboard/get-posts", {
           method: "GET",
         });
-        return response;
+        usePostStore().posts = response;
+        return response
       }
     },
   })

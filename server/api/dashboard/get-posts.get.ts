@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 
 
 export default defineEventHandler(async (event) => {
-    const getPosts = await UserPost.find({}).populate('author', 'username').exec();
+    const getPosts = await UserPost.find({}).populate('author', ['username', 'handleName']).exec();
     console.log(getPosts);
+    return getPosts;
 })

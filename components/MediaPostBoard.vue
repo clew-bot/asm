@@ -33,7 +33,7 @@ const emit = defineEmits(['userPosted'])
 
 const compose = () => {
   store.composePost();
-  emit('userPosted')
+  emit('userPosted', true)
 };
 
 
