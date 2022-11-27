@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema({
     posts: {
         type: Array,
         default: [],
-        ref: "UserPost",
+        ref: "Post",
     },
     },
         { timestamps: true }

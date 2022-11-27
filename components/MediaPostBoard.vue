@@ -10,7 +10,7 @@
       :props="{ name: 'mdi-puzzle', color: 'var(--blue)' }"
     />
     <v-btn 
-
+    @click="compose"
     class="absolute right-6 top-3 normal-case rounded-lg font-semibold tracking-tight"
     color="#0284c7"
     :class="disable ? 'bg-gray-700 text-white'  : ' '  "
@@ -39,13 +39,10 @@ watchEffect(() => {
  console.log("hiii")
 });
 
-// const updatePost = () => {
-//   if (store.$state.post.length > 0) {
-//     disable.value = false;
-//     store.composePost();
-//   }
-//   // store.check();
-// };
+const compose = () => {
+  store.composePost();
+  // store.check();
+};
 
 
 </script>

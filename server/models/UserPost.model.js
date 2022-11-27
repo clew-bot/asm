@@ -25,4 +25,4 @@ const UserPostSchema = new mongoose.Schema({
     { timestamps: true }
     );
 
-export default mongoose.model("UserPost", UserPost);
+export default mongoose.model("UserPost", UserPostSchema);

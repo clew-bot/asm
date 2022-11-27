@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
     runtimeConfig: {
         MONGO_URI: process.env.MONGO_URI,
+        JWT_SECRET: process.env.JWT_SECRET,
       },
     nitro: {
         plugins: ['@/server/db/index.js']
