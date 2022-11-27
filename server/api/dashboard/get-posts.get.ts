@@ -1,9 +1,10 @@
-import UserModel from "~~/server/models/User.model";
+import UserPost from "~~/server/models/UserPost.model";
 import mongoose from "mongoose";
 const toId = mongoose.Types.ObjectId;
 import jwt from 'jsonwebtoken';
 
 
 export default defineEventHandler(async (event) => {
-    return "Hello World";
+    const getPosts = await UserPost.find({}).populate('author', 'username').exec();
+    console.log(getPosts);
 })
