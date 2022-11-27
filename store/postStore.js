@@ -4,7 +4,7 @@ import { defineStore } from "pinia"
 export const usePostStore = defineStore('post', {
     state: () => ({ post: '' }),
     getters: {
-    //   doubleCount: (state) => state.name
+      thePost: (state) => state.post
     },
     actions: {
       composePost: async (payload) => {
@@ -20,8 +20,8 @@ export const usePostStore = defineStore('post', {
       check: async (payload)  => {
         console.log(usePostStore().post)
       },
-      logout: async () => {
-        const response = await $fetch("/api/user/logout-user", {
+      getPosts: async () => {
+        const response = await $fetch("/api/dashboard/get-posts", {
           method: "GET",
         });
         return response;

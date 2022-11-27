@@ -3,7 +3,7 @@
     <template #header>HOME</template>
     <template #rightSide><RightBarSuggested/></template>
     <template #postStatus><DashPost @updatePost="getValue"/></template>
-    <template #postMedia><MediaPostBoard :post="ableToPost"/></template>
+    <template #postMedia><MediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
     <UserStatus/>
 
   </NuxtLayout>
@@ -18,15 +18,12 @@ definePageMeta({
 const ableToPost = ref(true);
 
 const getValue = (val) => {
-  if(val.length === 0){
-    ableToPost.value = true;
-  } else {
-    ableToPost.value = false;
-  }
-  // console.log(ableToPost.value);
-  // console.log('vddddal', val);
-
+  val.length === 0 ? ableToPost.value = true : ableToPost.value = false;
 };
+
+const askForRefresh =() => {
+  console.log("yes");
+}
 
 
 </script>

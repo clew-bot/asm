@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 const toId = mongoose.Types.ObjectId;
 import jwt from 'jsonwebtoken';
+const config = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
@@ -17,16 +18,10 @@ export default defineEventHandler(async (event) => {
         const passwordMatch = await bcrypt.compare(body.password, userExist?.password);
 
         if (passwordMatch) {
-            console.log("YAY")
-            const token = jwt.sign({ id: userExist._id }, process.env.JWT_SECRET, {
-                expiresIn: 86400, // 24 hours
+            const token = jwt.sign({ id: userExist._id }, config.JWT_SECRET, {
+                expiresIn: 43200, // 24 hours
             });
-            setCookie(event, "altine", token, {
-                httpOnly: true,
-                maxAge: 86400,
-                path: "/",
-                secure: true,
-            });
+            setCookie(event, "altine", token);
 
             return { error: false, message: "Nice", name: userExist.handleName, email: userExist.email };
             } else {

@@ -2,7 +2,7 @@ import UserModel from "~~/server/models/User.model";
 import mongoose from "mongoose";
 const toId = mongoose.Types.ObjectId;
 import jwt from 'jsonwebtoken';
-
+const config = useRuntimeConfig();
 interface CreateAccountPostBody {
     username: string;
     email: string;
@@ -26,15 +26,11 @@ export default defineEventHandler(async (event) => {
                 location: 'Earth',
             });
         console.log(newUser);
-        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
-            expiresIn: 86400, // 24 hours
+        const token = jwt.sign({ id: newUser._id }, config.JWT_SECRET, {
+            expiresIn: 43200, // 12 hours
         });
         console.log('token: ',token);
-        setCookie(event, "altine", token, {
-            httpOnly: true,
-            maxAge: 86400,
-            path: "/",
-        });
+        setCookie(event, "altine", token);
         console.log(body.username, "has been created 🔥");
         return token
     } else {

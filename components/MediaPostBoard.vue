@@ -18,30 +18,22 @@
     :elevation="disable ? '0' : '5'"
     >POST</v-btn>
   </div>
-  <button @click="checkProp">chccccc</button>
+  <!-- <button @click="checkProp">chccccc</button> -->
 </template>
 
 <script setup>
 import { usePostStore } from '~~/store/postStore';
 const store = usePostStore();
 const disable = computed(() => props.post);
-const entry = ref(store.$state.post)
 
 const props = defineProps(['post'])
+const emit = defineEmits(['userPosted'])
 
-console.log(props)
-
-const checkProp = () => {
-  console.log(props.post)
-}
-
-watchEffect(() => {
- console.log("hiii")
-});
+// console.log(props)
 
 const compose = () => {
   store.composePost();
-  // store.check();
+  emit('userPosted')
 };
 
 

@@ -15,12 +15,13 @@
                     >
                     <v-avatar
                     size="48">
-                        <v-img
+                        <!-- <v-img
                             src=""
                             alt="John"
                             class="cursor-pointer"
                         >
-                        </v-img>
+                        </v-img> -->
+                        <span class="text-h5">JD</span>
                     </v-avatar>
                 </v-badge>
                     <div class="absolute left-16 top-4 ml-2 w-fit">
