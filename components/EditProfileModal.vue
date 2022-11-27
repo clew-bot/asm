@@ -1,6 +1,6 @@
 <style scoped>
 .editProfile >>> .v-overlay__content {
-  max-width: 350px !important;
+  max-width: 550px !important;
 }
 
 .editProfile >>> .v-card-text {
@@ -15,7 +15,12 @@
 <template>
   <v-dialog v-model="dialog" persistent class="editProfile">
     <template v-slot:activator="{ props }">
-      <v-btn color="primary" v-bind="props"> Open Dialog </v-btn>
+        <v-btn
+            color="white"
+            prepend-icon="mdi-cog"
+            class="rounded-2xl text-sky-200"
+            v-bind="props"
+            >Edit Profile</v-btn>
     </template>
 
     <div class="flex justify-center">
@@ -50,8 +55,7 @@
           </div>
           <v-window v-model="theTab" direction="vertical">
             <v-window-item v-for="n in tabs" :key="`card-${n}`">
-              <v-card>
-                <div  v-if="theTab === 0">
+                <div class="w-full"  v-if="theTab === 0">
                     <ProfileTab />
                 </div>
                 <div v-if="theTab === 1">
@@ -60,7 +64,6 @@
                 <div v-if="theTab === 2">
                     <SettingsTab />
                 </div>
-              </v-card>
             </v-window-item>
           </v-window>
         </v-card-text>

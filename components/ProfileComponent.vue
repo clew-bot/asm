@@ -15,12 +15,10 @@
 
         </div>
         <div class="absolute top-5 right-6">
-            <v-btn
-            color="white"
-            prepend-icon="mdi-cog"
-            class="rounded-2xl text-sky-200"
-            >Edit Profile</v-btn>
-            <!-- <input type="file" @input="checkFile"/> --><EditProfileModal/>
+          
+            <ClientOnly>
+            <EditProfileModal/>
+            </ClientOnly>
         </div>
     </div>
     <div class="pt-24">
