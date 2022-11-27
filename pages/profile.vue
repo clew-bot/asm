@@ -4,7 +4,7 @@
 <template>
   <NuxtLayout name="dash">
     <template #header>My Profile</template>
-    <template #rightSide><RightBarSuggested/></template>
+    <template #rightSide><LayoutRightBarSuggested/></template>
     <div>
      <ProfileHeader/>
      <ProfileComponent/>

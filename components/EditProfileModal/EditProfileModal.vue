@@ -56,13 +56,13 @@
           <v-window v-model="theTab" direction="vertical">
             <v-window-item v-for="n in tabs" :key="`card-${n}`">
                 <div class="w-full"  v-if="theTab === 0">
-                    <ProfileTab />
+                    <EditProfileTab />
                 </div>
                 <div v-if="theTab === 1">
-                    <AboutTab />
+                    <EditProfileModalAboutTab />
                 </div>
                 <div v-if="theTab === 2">
-                    <SettingsTab />
+                    <EditProfileModalSettingsTab />
                 </div>
             </v-window-item>
           </v-window>

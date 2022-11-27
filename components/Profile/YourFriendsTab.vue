@@ -3,10 +3,10 @@
 </style>
 <template>
     <div class="min-h-screen">
-        <UserStatus/>
-        <UserStatus/>
-        <UserStatus/>
-        <UserStatus/>
+        <StatusUserStatus/>
+        <StatusUserStatus/>
+        <StatusUserStatus/>
+        <StatusUserStatus/>
     </div>
 </template>
 

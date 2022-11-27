@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
     <div class="w-full max-w-[1300px] flex m-auto">
-     <Navigation/>
+     <LayoutNavigation/>
         <div class="w-full ml-auto">
             <div class="sticky top-0 h-[4rem] border-b-[.2px] border-slate-700 z-10 bg-[#1E1E1E]">
                 <div class=" p-5 w-fit text-2xl font-bold uppercase text-slate-300">
@@ -26,9 +26,10 @@
 </template>
 
 <script setup>
-import RightBarHome from '@/components/RightBarHome.vue'
-import RightBarSuggested from '@/components/RightBarSuggested.vue'
-import Navigation from '@/components/Navigation.vue'
+// import RightBarHome from '@/components/RightBarHome.vue'
+// import RightBarSuggested from '@/components/RightBarSuggested.vue'
+// import Navigation from '@/components/Navigation.vue'
+
 
 
 </script>
