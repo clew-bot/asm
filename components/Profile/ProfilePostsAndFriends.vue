@@ -40,10 +40,10 @@
       <v-window-item v-for="item in items" :key="item" :value="'tab-' + item">
         <v-card flat>
           <div v-if="currentItem === 'tab-Your Posts'">
-            <YourPostsTab />
+            <ProfileYourPostsTab />
           </div>
           <div v-else>
-            <YourFriendsTab />
+            <ProfileYourFriendsTab />
           </div>
         </v-card>
       </v-window-item>
@@ -82,8 +82,6 @@
 </template>
 
 <script setup>
-import YourFriendsTab from "@/components/YourFriendsTab.vue";
-import YourPostsTab from "@/components/YourPostsTab.vue";
 const currentItem = ref("tab-Web");
 const items = ref(["Your Posts", "Your Friends"]);
 const components = ref(["Your Posts", "Your Friends"]);

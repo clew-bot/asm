@@ -67,8 +67,8 @@
                 </div>
           
                 </div>
-                <CommentPost/>
-                <CommentInput/>
+                <StatusCommentPost/>
+                <StatusCommentInput/>
 
                 
         </v-card>

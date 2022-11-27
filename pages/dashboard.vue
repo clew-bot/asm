@@ -1,11 +1,11 @@
 <template>
   <NuxtLayout name="dash">
     <template #header>HOME</template>
-    <template #rightSide><RightBarSuggested/></template>
-    <template #postStatus><DashPost :key="isReset" @updatePost="getValue"/></template>
-    <template #postMedia><MediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
+    <template #rightSide><LayoutRightBarSuggested/></template>
+    <template #postStatus><ComposeDashPost :key="isReset" @updatePost="getValue"/></template>
+    <template #postMedia><ComposePostMediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
     <div v-if="posts.length > 0">
-      <UserStatus v-model="posts"/>
+      <StatusUserStatus v-model="posts"/>
     </div>
     
     <button @click="getThePosts">dfdfdfd</button>
@@ -16,6 +16,8 @@
 
 <script setup>
 import { usePostStore } from '~~/store/postStore';
+// import ComposeDashPost from '~/components/ComposePost/ComposeDashPost.vue';
+// import MediaPostBoard from '~/components/ComposePost/MediaPostBoard.vue';
 const store = usePostStore();
 const ableToPost = ref(true);
 const isReset = ref(0);
