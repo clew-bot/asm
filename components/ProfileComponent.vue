@@ -20,7 +20,7 @@
             prepend-icon="mdi-cog"
             class="rounded-2xl text-sky-200"
             >Edit Profile</v-btn>
-            <!-- <input type="file" @input="checkFile"/> -->
+            <!-- <input type="file" @input="checkFile"/> --><EditProfileModal/>
         </div>
     </div>
     <div class="pt-24">

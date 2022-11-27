@@ -1,6 +1,7 @@
 <style scoped>
 .comment-container >>> .v-field__outline {
   display: none !important;
+  
 }
 
 .comment-container >>> .v-field--variant-filled, .v-field__overlay  {
@@ -8,12 +9,14 @@
   border-bottom: solid .2px var(--dashBorder);
   border-radius: 0px !important;
   
+  
 }
 
 .comment-container >>> .v-field--variant-filled, .v-field__overlay  {
   background-color: inherit !important;
   border-bottom: none;
   border-radius: 0px !important;
+  
 
 }
 
@@ -38,6 +41,7 @@
 
 .comment-container >>> .v-container {
   padding: 0px !important;
+
   /* width: 80% !important; */
 }
 </style>
@@ -57,12 +61,13 @@
         <div class="comment-container grow">
             <v-container fluid>
                 <v-textarea
-                variant="filled"
+                elevation="0"
+                variant="solo"
                 label=""
                 auto-grow
                 placeholder="Comment.."
                 rows="1"
-                class="hover:bg-transparent"
+                class=""
                 hide-details="true"
                 ></v-textarea>
             </v-container>

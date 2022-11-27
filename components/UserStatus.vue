@@ -16,7 +16,7 @@
                     <v-avatar
                     size="48">
                         <v-img
-                            src="https://i.ibb.co/RTqVRyz/php-Yam-YTu-c2-PM.jpg"
+                            src=""
                             alt="John"
                             class="cursor-pointer"
                         >
@@ -25,10 +25,10 @@
                 </v-badge>
                     <div class="absolute left-16 top-4 ml-2 w-fit">
                         <div class="text-base font-semibold text-gray-300 cursor-pointer">
-                            des-tony
+                            John Doe
                         </div>
                         <div class="text-xs text-gray-400 cursor-pointer">
-                            @destiiinywatsoon
+                            @JohnDoeMas
                         </div>
                     </div>
 
