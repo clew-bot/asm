@@ -2,9 +2,9 @@ import { defineStore } from "pinia"
 
 
 export const useUserStore = defineStore('user', {
-    state: () => ({ count: 0, name: 'Eduardo' }),
+    state: () => ({ name: '', email: '' }),
     getters: {
-      doubleCount: (state) => state.name
+      // doubleCount: (state) => state.name
     },
     actions: {
       login: async (payload) => {
@@ -12,6 +12,11 @@ export const useUserStore = defineStore('user', {
           method: "POST",
           body: payload
         })
+        if (response.name) {
+          useUserStore().name = response.name;
+          useUserStore().email = response.email;
+        }
+        console.log(response)
         return response;
       },
       signUp: async (payload)  => {

@@ -10,6 +10,7 @@
       :props="{ name: 'mdi-puzzle', color: 'var(--blue)' }"
     />
     <v-btn 
+
     class="absolute right-6 top-3 normal-case rounded-lg font-semibold tracking-tight"
     color="#0284c7"
     :class="disable ? 'bg-gray-700 text-white'  : ' '  "
@@ -17,10 +18,36 @@
     :elevation="disable ? '0' : '5'"
     >POST</v-btn>
   </div>
+  <button @click="checkProp">chccccc</button>
 </template>
 
 <script setup>
-const disable = ref(false);
+import { usePostStore } from '~~/store/postStore';
+const store = usePostStore();
+const disable = computed(() => props.post);
+const entry = ref(store.$state.post)
+
+const props = defineProps(['post'])
+
+console.log(props)
+
+const checkProp = () => {
+  console.log(props.post)
+}
+
+watchEffect(() => {
+ console.log("hiii")
+});
+
+// const updatePost = () => {
+//   if (store.$state.post.length > 0) {
+//     disable.value = false;
+//     store.composePost();
+//   }
+//   // store.check();
+// };
+
+
 </script>
 
 

@@ -15,12 +15,15 @@ export default defineEventHandler(async (event) => {
     const userExist = await UserModel.findOne({
         $or: [{ username: body.username }, { email: body.email }],
     });
+    let r = (Math.random() + 1).toString(36).substring(7);
 
     if (userExist === null) {
         const newUser = await UserModel.create({
                 username: body.username,
                 email: body.email,
                 password: body.password,
+                handleName: 'user' + r.toString(),
+                location: 'Earth',
             });
         console.log(newUser);
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {

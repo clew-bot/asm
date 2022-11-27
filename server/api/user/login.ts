@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
                 secure: true,
             });
 
-            return { error: false, message: "Nice"};
+            return { error: false, message: "Nice", name: userExist.handleName, email: userExist.email };
             } else {
                 console.log("Wrong Password! 🤬");
                 return { error: true, message: "Wrong Password" };
