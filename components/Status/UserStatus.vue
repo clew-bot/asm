@@ -1,12 +1,12 @@
 <style scoped>
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s ease;
+  transition: all 1s ease;
 }
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateY(-40px);
 }
 </style>
 <template>
@@ -47,10 +47,10 @@
                     </div>
 
                     <div class="text-slate-300 absolute top-5 right-6 text-xs cursor-default">
-                        Nov 12</div>
+                        {{regularDate(status.createdAt)}}</div>
                     <div class="text-slate-500 absolute top-9 right-6 text-xs cursor-default">
                  
-                        8:32PM</div>
+                        {{createdAtLog(status.createdAt)}}</div>
                 </div>
 
             </v-card-title>
@@ -90,6 +90,7 @@
 </template>
 
 <script setup>
+import {createdAtLog, regularDate}  from "@/utils/timeConvert";
 const props = defineProps(['modelValue'])
 console.log(props.modelValue)
 

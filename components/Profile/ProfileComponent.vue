@@ -2,6 +2,7 @@
 
 </style>
 <template>
+    <div>
     <div class="relative">
         <div >
         <v-avatar
@@ -24,27 +25,34 @@
     <div class="pt-24">
         <div class="px-5">
             <div class="font-bold text-2xl text-amber-200">
-                Chad Lew    
+                {{props.username}} 
             </div>
             <div>
-                @mochitheDog • <span class="italic font-semibold">Online</span>
+                @{{props.handleName}} • <span class="italic font-semibold">Online</span>
             </div>
             <div class="flex text-sm font-semibold pt-4">
-                <IconComponent class="pr-2" :props="{name: 'mdi-calendar-text', size: 'x-small'}"/><span>Joined <span>Nov 13</span></span>
+                <IconComponent class="pr-2" :props="{name: 'mdi-calendar-text', size: 'x-small'}"/><span>Joined <span class="font-base text-yellow-400">{{memberSinceLog(props.createdAt)}}</span></span>
             </div>
             <div class="flex text-sm font-semibold pt-1">
-                <IconComponent class="pr-2" :props="{name: 'mdi-map-marker', size: 'x-small'}"/><span>San Fransisco</span>
+                <IconComponent class="pr-2" :props="{name: 'mdi-map-marker', size: 'x-small'}"/><span>{{props.location}}</span>
             </div>
             <div class="flex text-sm font-semibold pt-1">
-                <IconComponent class="pr-2" :props="{name: 'mdi-cake-variant', size: 'x-small'}"/><span>July 21, 1995</span>
+                <IconComponent class="pr-2" :props="{name: 'mdi-cake-variant', size: 'x-small'}"/><span>{{memberSinceLog(props.createdAt)}}</span>
             </div>
             <div class="pt-5 italic">If it ain't broke don't fix it</div>
         </div>
     </div>
+</div>
 </template>
 
 <script setup>
+import { memberSinceLog } from '@/utils/timeConvert'
 const image = ref(null)
+const { props } = defineProps(['props'])
+
+console.log(props)
+
+
 const checkFile = (e) => {
     console.log(e.target.files[0])
     const file = e.target.files[0]
