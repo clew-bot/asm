@@ -22,6 +22,7 @@ export default defineEventHandler(async (event) => {
                 expiresIn: 43200, // 24 hours
             });
             setCookie(event, "altine", token);
+            useStorage().setItem("user", userExist._id);
 
             return { error: false, message: "Nice", name: userExist.handleName, email: userExist.email };
             } else {

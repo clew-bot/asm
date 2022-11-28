@@ -29,8 +29,9 @@ export default defineEventHandler(async (event) => {
         const token = jwt.sign({ id: newUser._id }, config.JWT_SECRET, {
             expiresIn: 43200, // 12 hours
         });
-        console.log('token: ',token);
+        // console.log('token: ',token);
         setCookie(event, "altine", token);
+        useStorage().setItem("user", newUser._id);
         console.log(body.username, "has been created 🔥");
         return token
     } else {

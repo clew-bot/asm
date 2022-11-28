@@ -10,8 +10,8 @@ const config = useRuntimeConfig();
                 console.log("err");
                 return "False";
             } else {
-                console.log("decoded", decoded);
-                useStorage().setItem("user", decoded);
+                // console.log("decoded", decoded);
+        
                 return decoded;
             }
           }
