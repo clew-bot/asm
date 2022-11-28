@@ -7,8 +7,13 @@
     <div v-if="posts.length > 0">
       <StatusUserStatus v-model="posts"/>
     </div>
+    <div v-else-if="posts.length === 0">
+        <div class="text-center text-xl font-bold pt-10">
+          You have no new posts. Check back later.
+        </div>
+    </div>
     
-    <button @click="getThePosts">dfdfdfd</button>
+    <!-- <button @click="getThePosts">dfdfdfd</button> -->
 
   </NuxtLayout>
 </template>
@@ -45,9 +50,7 @@ const askForRefresh = async (value) => {
   ableToPost.value = true;
   isReset.value++;
   await store.getPosts();
-  await nextTick(() => {
     posts.value = store.$state.posts;
-  });
 }
 </script>
 

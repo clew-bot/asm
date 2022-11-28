@@ -1,4 +1,16 @@
+<style scoped>
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+</style>
 <template>
+    <TransitionGroup name="list">
     <div v-for="status in props.modelValue" :key="status._id">
         <!-- {{status}} -->
         <v-card 
@@ -74,6 +86,7 @@
         </v-card>
 
     </div>
+</TransitionGroup>
 </template>
 
 <script setup>
@@ -82,6 +95,3 @@ console.log(props.modelValue)
 
 </script>
 
-<style lang="scss" scoped>
-
-</style>

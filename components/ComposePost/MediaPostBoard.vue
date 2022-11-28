@@ -16,7 +16,7 @@
     :class="disable ? 'bg-gray-700 text-white'  : ' '  "
     :disabled="disable"
     :elevation="disable ? '0' : '5'"
-    >POST</v-btn>
+    >{{countDown}}</v-btn>
   </div>
   <!-- <button @click="checkProp">chccccc</button> -->
 </template>
@@ -25,15 +25,25 @@
 import { usePostStore } from '~~/store/postStore';
 const store = usePostStore();
 const disable = computed(() => props.post);
+let countDown = ref("Post");
 
 const props = defineProps(['post'])
 const emit = defineEmits(['userPosted'])
-
-// console.log(props)
-
+let interval = ref(null);
 const compose = () => {
   store.composePost();
   emit('userPosted', true)
+  countDown = ref(5);
+  interval = setInterval(() => {
+    countDown.value--;
+  }, 1000);
+  setTimeout(() => {
+    emit('userPosted')
+    clearInterval(interval)
+    countDown.value = "Post"
+  }, 5000);
+  
+  
 };
 
 
