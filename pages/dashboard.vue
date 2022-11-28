@@ -2,7 +2,7 @@
   <NuxtLayout name="dash">
     <template #header>HOME</template>
     <template #rightSide><LayoutRightBarSuggested/></template>
-    <template #postStatus><ComposeDashPost :key="isReset" @updatePost="getValue"/></template>
+    <template #postStatus><ComposeDashPost :reset="isReset" @updatePost="getValue"/></template>
     <template #postMedia><ComposePostMediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
     <div v-if="posts.length > 0">
       <StatusUserStatus v-model="posts"/>
@@ -23,7 +23,7 @@
 import { usePostStore } from '~~/store/postStore';
 const store = usePostStore();
 const ableToPost = ref(true);
-const isReset = ref(0);
+const isReset = ref(false);
 const posts = ref(store.$state.posts);
 let interval = ref(null);
 definePageMeta({
@@ -47,7 +47,10 @@ const getValue = (val) => {
 
 const askForRefresh = async (value) => {
   store.$state.post = "";
-  isReset.value++;
+  isReset.value = true;
+  setTimeout(() => {
+  isReset.value = false;
+  }, 5000);
   await store.getPosts();
   posts.value = store.$state.posts;
   ableToPost.value = true;

@@ -25,16 +25,28 @@
 <script setup>
 import { usePostStore } from '~~/store/postStore';
 const store = usePostStore();
-const userPost = ref(store.$state.post);
-const props = defineProps(['textReset'])
-const isResetted = ref(props.textReset)
-const checkValue = () => {
-    console.log(isResetted.value)
-}
+const userPost = ref("");
+
 const emit = defineEmits(["updatePost"]);
+const props = defineProps(['reset']);
+
+
+const checkReset = computed(() =>  props.reset )
+
+watch(checkReset, (newVal) => {
+    if (newVal) {
+    userPost.value = "";
+    }
+})
+
 watch(userPost ,(newVal) => {
-    emit("updatePost", newVal);
-    store.$state.post = newVal;
+    console.log(checkReset.value)
+    if(!checkReset.value) {
+    emit("updatePost", userPost.value);
+    store.$state.post = userPost.value;
+    } else {
+     
+    }
 })
 
 </script>
