@@ -90,7 +90,6 @@ export const createdAtLog = (times) => {
       12: "December",
     };
     const date = new Date(times).toLocaleDateString();
-    console.log(date)
     let month = "";
     let array = [...date]
     
@@ -98,20 +97,16 @@ export const createdAtLog = (times) => {
       month += monthHash[array[0]]
     } else if (array.length === 10) {
       month += monthHash[array[0] + array[1]]
-      console.log(month)
     }
     if (month === "January" || month === "February" || month === "March" || month === "April" || month === "May" || month === "June" || month === "July" || month === "August" || month === "September") {
-      console.log("first")
-      console.log(array)
+
         array[1] = "";
         array[0] = month
     }
     if (array[2] !== "/") {
-      console.log('not')
       array[4] = "";
        return `${array[0]}, ${array[2]}${array[3]}`
     } else if (month === "October" || month === 'November' || month === 'December') {
-      console.log(array)
        return `${month} ${array[3]}`
     }
   

@@ -8,10 +8,23 @@
   opacity: 0;
   transform: translateY(-40px);
 }
+
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.2s ease;
+}
+
+.v-enter-from,
+
+.v-leave-to {
+    transform: translateY(-90px);
+    opacity: 0;
+}
 </style>
 <template>
     <TransitionGroup name="list">
-    <div v-for="status in props.modelValue" :key="status._id">
+    <div v-for="status, i in props.modelValue" :key="status._id">
         <!-- {{status}} -->
         <v-card 
         elevation="4"
@@ -62,7 +75,7 @@
                 <div class="flex justify-between">
                     <div class="flex">
                         <IconComponent :props="{ name: 'mdi-heart', color: '#6b7280', size: 'default' }"/>
-                        <IconComponent class="ml-3" :props="{ name: 'mdi-message', color: '#6b7280', size: 'default' }"/>
+                        <IconComponent @click="openComments(i)" class="ml-3" :props="{ name: 'mdi-message', color: '#6b7280', size: 'default' }"/>
                     </div>
                     <div class="flex">
                         <IconComponent class="mr-2" :props="{ name: 'mdi-bookmark', color: '#6b7280' }"/>
@@ -79,8 +92,16 @@
                 </div>
           
                 </div>
-                <StatusCommentPost/>
-                <StatusCommentInput/>
+                <Transition>
+                <div v-if="openObj[i]">
+                
+                    <StatusCommentPost />
+                    <StatusCommentInput/>
+              
+                </div>
+                    
+            </Transition>
+            
 
                 
         </v-card>
@@ -92,6 +113,19 @@
 <script setup>
 import {createdAtLog, regularDate}  from "@/utils/timeConvert";
 const props = defineProps(['modelValue'])
+const isCommentOpened = ref(false)
+let selected = ref(null);
+let openObj = ref({});
+
+watch(selected, (val) => {
+    console.log('watch',val)
+    console.log('watch',selected.value)
+})
+
+const openComments = (i) => {
+   openObj.value[i] === undefined ? openObj.value[i] = true 
+   : openObj.value[i] === true ? openObj.value[i] = false : openObj.value[i] = true
+}
 console.log(props.modelValue)
 
 </script>
