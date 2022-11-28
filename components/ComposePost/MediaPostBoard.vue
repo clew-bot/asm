@@ -38,7 +38,6 @@ const compose = () => {
     countDown.value--;
   }, 1000);
   setTimeout(() => {
-    emit('userPosted')
     clearInterval(interval)
     countDown.value = "Post"
   }, 5000);

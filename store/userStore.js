@@ -31,6 +31,12 @@ export const useUserStore = defineStore('user', {
           method: "GET",
         });
         return response;
+      },
+      getProfileInfo: async () => {
+        const response = await $fetch("/api/profile/get-profile", {
+          method: "GET",
+        });
+        return response;
       }
     },
   })

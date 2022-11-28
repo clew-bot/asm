@@ -25,7 +25,7 @@ const store = usePostStore();
 const ableToPost = ref(true);
 const isReset = ref(0);
 const posts = ref(store.$state.posts);
-
+let interval = ref(null);
 definePageMeta({
   layout: false,
   middleware: ["auth"],
@@ -38,7 +38,7 @@ onMounted( async () => {
 });
 
 watch(posts, (newVal) => {
-   console.log('ran', newVal);
+  //  console.log('ran', newVal);
 });
 
 const getValue = (val) => {
@@ -47,10 +47,11 @@ const getValue = (val) => {
 
 const askForRefresh = async (value) => {
   store.$state.post = "";
-  ableToPost.value = true;
   isReset.value++;
   await store.getPosts();
-    posts.value = store.$state.posts;
+  posts.value = store.$state.posts;
+  ableToPost.value = true;
+    
 }
 </script>
 
