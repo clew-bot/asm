@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-const UserPostSchema = new mongoose.Schema({
-    author: {
+const PostComment = new mongoose.Schema({
+    postRef: {
         type: String,
         required: true,
-        ref: "User",
+        ref: "UserPost",
     },
     content: {
         type: String,
@@ -13,7 +13,7 @@ const UserPostSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     }, 
-    comments: {
+    replies: {
         type: Array,
         default: [],
         ref: "PostComment",
@@ -26,4 +26,4 @@ const UserPostSchema = new mongoose.Schema({
     { timestamps: true }
     );
 
-export default mongoose.model("UserPost", UserPostSchema);
+export default mongoose.model("PostComment", PostComment);

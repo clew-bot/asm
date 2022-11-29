@@ -8,7 +8,7 @@
                     <slot name="header"></slot>
                 </div>
             </div>
-            <div class="h-fit border-b-[.2px] border-slate-700 z-10 bg-[#121212]">
+            <div class="transition-all h-fit border-b-[.2px] border-slate-700 z-10 bg-[#121212]">
                 <div class="text-2xl font-bold uppercase text-slate-300 ">
                     <slot name="postStatus"></slot>
                 </div>

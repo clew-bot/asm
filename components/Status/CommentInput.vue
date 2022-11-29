@@ -61,6 +61,7 @@
         <div class="comment-container grow">
             <v-container fluid>
                 <v-textarea
+                v-model="theText"
                 elevation="0"
                 variant="solo"
                 label=""
@@ -76,13 +77,20 @@
         class="pb-5 px-4 "
         >
             <v-icon
+            @click="sendComment"
             color="#67e8f9"
             class="-rotate-[30deg] cursor-pointer hover:text-[#22d3ee]">mdi-send</v-icon>
         </div>
-
+<!-- <button @click="clickMe">CLick</button> -->
     </div>
 </template>
 
 <script setup>
+const theText = ref('');
+
+const sendComment = () => {
+  console.log(theText.value);
+}
+
 
 </script>

@@ -2,6 +2,7 @@
 @import url("@/assets/css/vuetifyOverrides.css");
 </style>
 <template>
+  <span>
       <span
         class="text-base font-bold text-yellow-400 cursor-pointer underline "
         @click="dialog = true"
@@ -27,6 +28,18 @@
             @submit.prevent="handleCreateAccount"
             id="signup-form"
             >
+            <v-radio-group v-model="radios" inline>
+              <v-radio value="Google">
+                <template v-slot:label>
+                  <div><strong class="text-success">Girl</strong></div>
+                </template>
+              </v-radio>
+              <v-radio value="Duckduckgo">
+                <template v-slot:label>
+                  <div><strong class="text-primary">Boy</strong></div>
+                </template>
+              </v-radio>
+            </v-radio-group>
         <label class="font-semibold text-slate-300 italic p-3 mt-10">Choose a username</label>
         <v-text-field
           autocomplete="off"
@@ -38,6 +51,8 @@
           label="Username"
           required
         ></v-text-field>
+        
+       
         <label class="font-semibold text-slate-300 italic p-3 mt-10">Choose a password</label>
         <v-text-field
         autocomplete="off"
@@ -103,6 +118,7 @@
       </v-dialog>
     </div>
     </ClientOnly>
+  </span>
   </template>
   <script setup>
     import { ref } from "vue";
@@ -110,7 +126,7 @@
     import { useUserStore } from "@/store/userStore";
 
     const store = useUserStore();
-
+    const radios = ref("Google");
     const dialog = ref(false);
     const show1 = ref(false);
     const valid = ref(false);
