@@ -38,6 +38,12 @@
     :props="{name: 'mdi-heart-outline', size: 'x-small', color: '#a3a3a3'}"/>
 </div>
 </div>
+<div v-else>
+    <v-progress-linear
+      indeterminate
+      color="cyan"
+    ></v-progress-linear>
+</div>
 
 </template>
 

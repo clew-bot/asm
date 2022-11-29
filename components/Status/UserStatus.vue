@@ -88,7 +88,9 @@
 </style>
 <template>
     <TransitionGroup name="list">
-    <div v-for="status, i in props.modelValue" :key="status._id">
+    <div v-for="status, i in props.modelValue" :key="status._id" 
+ 
+    class="overflow-auto transition-all">
         <!-- {{status}} -->
         <v-card 
         elevation="4"
@@ -172,6 +174,7 @@
 
     </div>
 </TransitionGroup>
+<button @click="changeHeight">click</button>
 </template>
 
 <script setup>
@@ -180,11 +183,17 @@ const props = defineProps(['modelValue'])
 const isCommentOpened = ref(false)
 let selected = ref(null);
 let openObj = ref({});
+let height = ref("280px !important");
 
 watch(selected, (val) => {
     console.log('watch',val)
     console.log('watch',selected.value)
 })
+
+const changeHeight = () => {
+    console.log('changeHeight')
+    height.value = 'fit-content';
+}
 
 const openComments = (i) => {
    openObj.value[i] === undefined ? openObj.value[i] = true 

@@ -12,6 +12,7 @@
           You have no new posts. Check back later.
         </div>
     </div>
+    <div class="h-56 w-full"></div>
     
     <!-- <button @click="getThePosts">dfdfdfd</button> -->
 

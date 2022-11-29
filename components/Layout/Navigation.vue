@@ -1,6 +1,6 @@
 <template>
        <div class="hidden relative w-28 xl:w-1/3 sm:block border-r-[.2px] border-slate-700">
-            <div class="sticky top-0 h-screen pt-8 overflow-auto">
+            <div class="sticky top-0 pt-8 overflow-auto">
                 <ul class="text-lg lg:text-lg font-semibold flex flex-col justify-center items-start">
                     <li>  
                         <v-avatar 
