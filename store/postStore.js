@@ -17,6 +17,15 @@ export const usePostStore = defineStore('post', {
         })
         return response;
       },
+      postComment: async (payload) => {
+        const response = await $fetch("/api/dashboard/post-comment", {
+          method: "POST",
+          body: payload
+        })
+        console.log("yoooo", response)
+        return response;
+      }
+    ,
       check: async (payload)  => {
         console.log(usePostStore().post)
       },
@@ -25,6 +34,13 @@ export const usePostStore = defineStore('post', {
           method: "GET",
         });
         usePostStore().posts = response;
+        return response
+      },
+      getCommentsForPost: async (payload) => {
+        const response = await $fetch("/api/dashboard/get-comments-for-post", {
+          method: "POST",
+          body: payload
+        });
         return response
       }
     },

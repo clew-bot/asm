@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 const PostComment = new mongoose.Schema({
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
     postRef: {
         type: String,
         required: true,

@@ -4,7 +4,7 @@
 <template>
   <NuxtLayout name="dash">
     <template #header>Messages</template>
-    <template #rightSide><RightBarSuggested/></template>
+    <template #rightSide><LayoutRightBarSuggested/></template>
     <div>
         Messages
     </div>
@@ -14,7 +14,8 @@
 
 <script setup>
 definePageMeta({
-  layout: false,
+layout: false,
+middleware: ["auth"],
 });
 </script>
 

@@ -159,8 +159,8 @@
                 <Transition>
                 <div v-if="openObj[i]">
                 
-                    <StatusCommentPost />
-                    <StatusCommentInput/>
+                    <StatusCommentPost :props="{id: status._id}"/>
+                    <StatusCommentInput :props="{id: status._id}"/>
               
                 </div>
                     

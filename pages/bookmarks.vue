@@ -4,7 +4,7 @@
 <template>
     <NuxtLayout name="dash">
       <template #header>Bookmarks</template>
-      <template #rightSide><RightBarSuggested/></template>
+      <template #rightSide><LayoutRightBarSuggested/></template>
 
       <div>
           Bookmarks
@@ -16,6 +16,7 @@
 <script setup>
 definePageMeta({
 layout: false,
+middleware: ["auth"],
 });
 </script>
 

@@ -3,7 +3,7 @@
 <template>
     <NuxtLayout name="dash">
         <template #header>Notifications</template>
-        <template #rightSide><RightBarSuggested/></template>
+        <template #rightSide><LayoutRightBarSuggested/></template>
 
         <div>
           Hello World
@@ -13,7 +13,8 @@
 
 <script setup>
 definePageMeta({
-  layout: false,
+layout: false,
+middleware: ["auth"],
 });
 </script>
 

@@ -20,6 +20,7 @@ import { useUserStore } from '~~/store/userStore';
 const store = useUserStore();
 const dto = ref(null);
 
+
 onMounted(async () => {
   const data = await store.getProfileInfo();
   dto.value = data;
@@ -28,6 +29,7 @@ onMounted(async () => {
 
 definePageMeta({
 layout: false,
+middleware: ["auth"],
 });
 
 

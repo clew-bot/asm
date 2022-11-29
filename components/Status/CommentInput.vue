@@ -86,10 +86,19 @@
 </template>
 
 <script setup>
+import { usePostStore } from '@/store/postStore'
+const store = usePostStore();
+const { props } = defineProps(['props'])
 const theText = ref('');
 
-const sendComment = () => {
+console.log(props.id)
+const sendComment = async () => {
+  const data = {
+    comment: theText.value,
+    postRefId: props.id
+  }
   console.log(theText.value);
+  await store.postComment(data);
 }
 
 
