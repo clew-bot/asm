@@ -4,18 +4,24 @@
     <template #rightSide><LayoutRightBarSuggested/></template>
     <template #postStatus><ComposeDashPost :reset="isReset" @updatePost="getValue"/></template>
     <template #postMedia><ComposePostMediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
-    <div v-if="posts.length > 0">
+    <div v-if="!loading && posts.length > 0">
       <StatusUserStatus v-model="posts"/>
     </div>
-    <div v-else-if="posts.length === 0">
-        <div class="text-center text-xl font-bold pt-10">
+    <div v-else-if="loading">
+        <!-- <div class="text-center text-xl font-bold pt-10">
           You have no new posts. Check back later.
-        </div>
+        </div> -->
+        <v-progress-linear indeterminate color="cyan"></v-progress-linear>
     </div>
-    <div class="h-56 w-full"></div>
-    
-    <!-- <button @click="getThePosts">dfdfdfd</button> -->
-
+    <div v-else-if="posts.length === 0">
+        <!-- <div class="text-center text-xl font-bold pt-10">
+          You have no new posts. Check back later.
+        </div> -->
+        <v-progress-linear indeterminate color="cyan"></v-progress-linear>
+    </div>
+    <div class="h-screen w-full flex justify-center font-semibold text-orange-500 relative"><div class="absolute bottom-0">
+      Looks like you've reached the end 😂
+    </div></div>
   </NuxtLayout>
 </template>
 
@@ -25,21 +31,23 @@ import { usePostStore } from '~~/store/postStore';
 const store = usePostStore();
 const ableToPost = ref(true);
 const isReset = ref(false);
-const posts = ref(store.$state.posts);
-let interval = ref(null);
+const posts = ref([]);
+const loading = ref(true);
+const noMorePosts = ref(false);
 definePageMeta({
   layout: false,
   middleware: ["auth"],
 });
 
 onMounted( async () => {
-  await store.getPosts();
-  await nextTick();
-  posts.value = store.$state.posts;
-});
-
-watch(posts, (newVal) => {
-  //  console.log('ran', newVal);
+  const allPosts = await store.getPosts();
+  // await nextTick();
+  posts.value = allPosts;
+  if(allPosts.length === 0) {
+    noMorePosts.value = true;
+  } else {
+    loading.value = false;
+  }
 });
 
 const getValue = (val) => {

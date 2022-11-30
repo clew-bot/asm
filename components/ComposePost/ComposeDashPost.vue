@@ -3,10 +3,21 @@
 
 </style>
 <template>
-    <div>
+    <div class="relative">
         <div class="text-container">
             <v-container fluid>
-                <v-textarea
+                <!-- <v-textarea
+                persistent-counter
+                v-model="userPost"
+                variant="filled"
+                label="Compose new post..."
+                auto-grow
+                rows="2"
+                class="hover:bg-transparent"
+                hide-details="true"
+                @click="focusDiv"
+                ></v-textarea> -->
+                 <v-textarea
                 v-model="userPost"
                 variant="filled"
                 label="Compose new post..."
@@ -17,6 +28,7 @@
                 ></v-textarea>
             </v-container>
         </div>
+        <!-- <div contenteditable="true" ref="cloneUserPost" @input="handleInput" class="absolute top-0 w-full h-full border-2 z-99 text-base font-normal pt-[24px] px-[15.9px] pb-[6px]"></div> -->
    
     </div>
     <!-- <button @click="checkValue">check</button> -->
@@ -26,12 +38,35 @@
 import { usePostStore } from '~~/store/postStore';
 const store = usePostStore();
 const userPost = ref("");
+const cloneUserPost = ref(null);
+const clonedText = ref("");
 
 const emit = defineEmits(["updatePost"]);
 const props = defineProps(['reset']);
 
+const focusDiv = async () => {
+    console.log("focus");
+    await nextTick();
+    setTimeout(() => {
+        cloneUserPost.value.focus();
+    }, 0);
+
+}
+
+const getShit = (e) => {
+    console.log(e)
+
+    // userPost.value = e.target.value;
+}
+
 
 const checkReset = computed(() =>  props.reset )
+
+const handleInput = (e) => {
+    console.log(e.target.innerHTML);
+    // userPost.value = e.target.innerText;
+    clonedText.value = e.target.innerHTML;
+}
 
 watch(checkReset, (newVal) => {
     if (newVal) {
@@ -40,12 +75,9 @@ watch(checkReset, (newVal) => {
 })
 
 watch(userPost ,(newVal) => {
-    console.log(checkReset.value)
     if(!checkReset.value) {
     emit("updatePost", userPost.value);
     store.$state.post = userPost.value;
-    } else {
-     
     }
 })
 

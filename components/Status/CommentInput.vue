@@ -89,16 +89,21 @@
 import { usePostStore } from '@/store/postStore'
 const store = usePostStore();
 const { props } = defineProps(['props'])
+const emit = defineEmits(['checkCommented'])
 const theText = ref('');
 
 console.log(props.id)
+
 const sendComment = async () => {
+  theText.value = theText.value.trim();
   const data = {
     comment: theText.value,
     postRefId: props.id
   }
   console.log(theText.value);
   await store.postComment(data);
+  emit('checkCommented', true);
+  theText.value = '';
 }
 
 

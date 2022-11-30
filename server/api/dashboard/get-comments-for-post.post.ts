@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     console.log(body)
     // const findPost = await UserPost.find({ _id: new toId(body) });
     // console.log('post found: ', findPost)
-    const findComments = await PostComment.find({ postRef: body }).populate('author', ['username', 'profilePicture', 'handleName']);
+    const findComments = await PostComment.find({ postRef: body }).populate('author', ['username', 'profilePicture', 'handleName']).sort({ createdAt: -1 });
     console.log('comments found: ', findComments)
 
     return findComments;

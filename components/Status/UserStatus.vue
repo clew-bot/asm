@@ -117,7 +117,7 @@
                     </v-avatar>
                 </v-badge>
                     <div class="absolute left-16 top-4 ml-2 w-fit">
-                        <div class="text-base font-semibold text-gray-300 cursor-pointer">
+                        <div class="text-lg font-semibold text-gray-300 cursor-pointer">
                             {{status.author.username}}
                         </div>
                         <div class="text-xs text-gray-400 cursor-pointer">
@@ -126,15 +126,19 @@
                     </div>
 
                     <div class="text-slate-300 absolute top-5 right-6 text-xs cursor-default">
-                        {{regularDate(status.createdAt)}}</div>
+                        {{regularDate(status.createdAt)}}
+
+                    </div>
                     <div class="text-slate-500 absolute top-9 right-6 text-xs cursor-default">
                  
                         {{createdAtLog(status.createdAt)}}</div>
                 </div>
 
             </v-card-title>
-            <v-card-text class="text-base text-gray-200 pt-2">
-                    {{status.content}}
+            <v-card-text
+            class="text-base text-gray-200 pt-2" 
+            v-html="status.content">
+
                  
             </v-card-text>
             <div class="p-3">
@@ -160,39 +164,32 @@
                 </div>
                 <Transition>
                 <div v-if="openObj[i]">
-                
-                    <StatusCommentPost :props="{id: status._id}"/>
-                    <StatusCommentInput :props="{id: status._id}"/>
-              
-                </div>
-                    
+                    <StatusCommentInput 
+                    @check-commented="checkCommented"
+                    :props="{id: status._id}"/>
+                    <StatusCommentPost
+                    :key="refreshMe" 
+                    v-on:need-more-comments="getVal" :props="{id: status._id}"/>
+                </div>               
             </Transition>
-            
-
-                
         </v-card>
-
     </div>
 </TransitionGroup>
-<button @click="changeHeight">click</button>
 </template>
 
 <script setup>
 import {createdAtLog, regularDate}  from "@/utils/timeConvert";
 const props = defineProps(['modelValue'])
-const isCommentOpened = ref(false)
-let selected = ref(null);
 let openObj = ref({});
-let height = ref("280px !important");
+const showMoreCommentLabel = ref(false)
+let passLoadMoreComments = ref(false)
+const refreshMe = ref(0)
 
-watch(selected, (val) => {
-    console.log('watch',val)
-    console.log('watch',selected.value)
-})
-
-const changeHeight = () => {
-    console.log('changeHeight')
-    height.value = 'fit-content';
+const checkCommented = (val) => {
+    console.log(val)
+    if(val) {
+        refreshMe.value = refreshMe.value + 1
+    }
 }
 
 const openComments = (i) => {
@@ -200,6 +197,15 @@ const openComments = (i) => {
    : openObj.value[i] === true ? openObj.value[i] = false : openObj.value[i] = true
 }
 console.log(props.modelValue)
+
+const getVal = (arg) => {
+    console.log('nice', arg)
+    showMoreCommentLabel.value = arg
+}
+
+const loadMoreComments = (arg) => {
+    passLoadMoreComments.value = arg
+}
 
 </script>
 
