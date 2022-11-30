@@ -23,7 +23,8 @@
                 label="Compose new post..."
                 auto-grow
                 rows="2"
-                class="hover:bg-transparent"
+                color="yellow"
+                class="bg-zinc-700"
                 hide-details="true"
                 ></v-textarea>
             </v-container>

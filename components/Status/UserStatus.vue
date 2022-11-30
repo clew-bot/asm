@@ -85,19 +85,23 @@
         transform: translateY(-100%);
     }
 }
+
+.first:first-child {
+    padding-top: 1.3rem !important
+}
 </style>
 <template>
     <TransitionGroup name="list">
     <div v-for="status, i in props.modelValue" :key="status._id" 
  
-    class="overflow-auto transition-all">
+    class="first overflow-auto transition-all bg-zinc-600 p-2 px-4">
         <!-- {{status}} -->
         <v-card 
         elevation="4"
         color="#18181b"
-        class=" mb-2">
+        class=" mb-2 bg-zinc-800 rounded-xl">
             <v-card-title>
-                <div class="flex justify-items-start pt-3">
+                <div class="flex justify-items-start pt-3 ">
                     <v-badge
                     color="green"
                     location="bottom right"
@@ -168,7 +172,7 @@
                     @check-commented="checkCommented"
                     :props="{id: status._id, key: i}"/>
                     <StatusCommentPost
-                    :key="refreshMe(i)" 
+                    :key="refreshMe" 
                     v-model="commentObj[i]"
                     v-on:need-more-comments="getVal" :props="{id: status._id}"/>
                 </div>               
@@ -186,7 +190,7 @@ let openObj = ref({});
 let countObj = ref({});
 const showMoreCommentLabel = ref(false)
 let passLoadMoreComments = ref(false)
-// const refreshMe = ref(null)
+const refreshMe = ref(0)
 
 // console.log(props.modelValue)
 
@@ -199,16 +203,12 @@ onMounted(() => {
     // console.log(countObj.value)
 })
 
-const refreshMe = (val) => {
-    console.log('yeah im running', val)
-    return val + 1
-}
 
 const checkCommented = (val, val2) => {
     countObj.value[val2] = countObj.value[val2] + 1
-    // if(val) {
-    //     refreshMe.value = refreshMe.value + 1
-    // }
+    if(val) {
+        refreshMe.value = refreshMe.value + 1
+    }
 }
 
 const checkVal = () => {

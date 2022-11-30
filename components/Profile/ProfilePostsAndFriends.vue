@@ -28,19 +28,21 @@
 </style>
 <template>
   <v-card class="mt-6 tabber min-w-screen">
-    <v-tabs v-model="currentItem" grow 
-    color="#ffedd5" bg-color="#27272a">
+    <v-tabs v-model="currentItem" grow color="#ffedd5" bg-color="#27272a">
       <v-tab v-for="item in items" :key="item" :value="'tab-' + item">
         {{ item }}
       </v-tab>
     </v-tabs>
-    <v-window 
-      direction="vertical"
-      v-model="currentItem">
+    <v-window direction="vertical" v-model="currentItem">
       <v-window-item v-for="item in items" :key="item" :value="'tab-' + item">
         <v-card flat>
           <div v-if="currentItem === 'tab-Your Posts'">
-            <ProfileYourPostsTab />
+            <div v-if="passProps.length > 0">
+              <ProfileYourPostsTab :props="passProps" />
+            </div>
+            <div v-else>
+              You have no new posts. Hell you don't even have any posts.
+            </div>
           </div>
           <div v-else>
             <ProfileYourFriendsTab />
@@ -49,46 +51,15 @@
       </v-window-item>
     </v-window>
   </v-card>
-  <v-card>
-    <!-- <v-tabs
-          v-model="currentItem"
-          fixed-tabs
-        >
-          <v-tab
-            v-for="item in items"
-            :key="item"
-            :value="'tab-' + item"
-          >
-            {{ item }}
-          </v-tab>
-        </v-tabs> -->
-    <!-- <v-window v-model="currentItem">
-      <v-window-item
-        v-for="item in items.concat(more)"
-        :key="item"
-        :value="'tab-' + item"
-      >
-        <v-card flat>
-          <v-card-text>
-            <h2>{{ item }}</h2>
-            {{ text }}
-          </v-card-text>
-        </v-card>
-      </v-window-item>
-    </v-window> -->
-  </v-card>
-  <v-btn color="orange" @click="checkValues">CLick</v-btn>
-  <div class="h-[50rem] border-2"></div>
+  <div class="h-[50rem]"></div>
 </template>
 
 <script setup>
 const currentItem = ref("tab-Web");
 const items = ref(["Your Posts", "Your Friends"]);
 const components = ref(["Your Posts", "Your Friends"]);
-const more = ref(["News", "Maps", "Books", "Flights", "Apps"]);
-const text = ref(
-  "'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.rem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.rem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.rem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.rem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.rem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.rem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.rem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor e magna aliqua. Ut enim ation ullamco laboris nisi ut aliquip ex ea commodo consequat.rem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.rem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.rem ipsum dolor sit amet, consecte'"
-);
+const props = defineProps(["props"]);
+const passProps = props.props;
 
 const checkValues = () => {
   console.log(currentItem.value);

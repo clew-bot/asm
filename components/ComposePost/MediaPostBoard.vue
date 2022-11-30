@@ -1,6 +1,6 @@
 <style scoped></style>
 <template>
-  <div class="flex items-center p-3 bg-[#1f1e1e] pb-5 relative">
+  <div class="flex items-center p-3 bg-zinc-800 pb-5 relative">
     <div></div>
     <IconComponent class="mt-1" :props="{ name: 'mdi-image', color: 'var(--blue)' }" />
     <IconComponent class="pl-2 mt-1" :props="{ name: 'mdi-video', color: 'var(--blue)' }" />

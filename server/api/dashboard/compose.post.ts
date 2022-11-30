@@ -1,4 +1,5 @@
 import UserPost from "~~/server/models/UserPost.model";
+import UserModel from "~~/server/models/User.model";
 import mongoose from "mongoose";
 const toId = mongoose.Types.ObjectId;
 
@@ -9,6 +10,9 @@ export default defineEventHandler(async (event) => {
         author: new toId(id),
         content: body.post,
     });
-    console.log(postStatus);
+    const addPost = await UserModel.updateOne(
+        { _id: new toId(id) },
+        { $push: { posts: postStatus._id } }
+    );
     return { error: false, message: "Post Created" };
 })

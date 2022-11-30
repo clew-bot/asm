@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 * {
     font-family: 'Quicksand', sans-serif !important;
-    
+   
   }
+
+body {
+  background: #27272a !important;
+}
 
 :root {
     --signUpInputBorder: rgb(99, 99, 114);

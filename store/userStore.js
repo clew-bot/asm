@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 
 
 export const useUserStore = defineStore('user', {
-    state: () => ({ name: '', email: '' }),
+    state: () => ({ name: '', email: '', posts: [] }),
     getters: {
       // doubleCount: (state) => state.name
     },
@@ -35,6 +35,15 @@ export const useUserStore = defineStore('user', {
       getProfileInfo: async () => {
         const response = await $fetch("/api/profile/get-profile", {
           method: "GET",
+        });
+        console.log('r',response.posts)
+        useUserStore().posts = response.posts;
+        return response;
+      },
+      getProfileInfoForUser: async (payload) => {
+        const response = await $fetch("/api/profile/get-user", {
+          method: "POST",
+          body: payload,
         });
         return response;
       }
