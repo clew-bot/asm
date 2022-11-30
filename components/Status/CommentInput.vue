@@ -47,9 +47,9 @@
 </style>
 <template>
     <div class="flex items-end justify-center border-t-[.2px] border-t-[var(--dashBorder)] ">
-        <div class="p-3 pt-[.65rem]">
+        <div class="px-2 mb-2">
             <v-avatar
-            size="33">
+            size="40">
                 <v-img
                     src="https://i.pinimg.com/originals/40/54/f1/4054f1b2083dc3f0bf3f8ef5f85a2dfd.jpg"
                     alt="John"
@@ -102,7 +102,7 @@ const sendComment = async () => {
   }
   console.log(theText.value);
   await store.postComment(data);
-  emit('checkCommented', true);
+  emit('checkCommented', props.id, props.key);
   theText.value = '';
 }
 

@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-
+const text= ref("");
 </script>
 
 <style lang="scss" scoped>

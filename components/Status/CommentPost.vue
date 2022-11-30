@@ -14,7 +14,7 @@
       class="lastItem flex items-center border-t-[.2px] border-t-[var(--dashBorder)] pb-3 relative"
     >
       <div class="flex items-startrelative pt-3 pl-2 whitespace-normal">
-        <v-avatar class="mt-2" size="35">
+        <v-avatar class="mt-2" size="40">
           <v-img
             src="https://cdn.jim-nielsen.com/ios/512/super-mario-run-2017-11-07.png"
             alt="John"
@@ -65,7 +65,7 @@
     <v-progress-linear indeterminate color="cyan"></v-progress-linear>
   </div>
   <div 
-  v-if="comments.length >= 5"
+  v-if="allComments.length > 5"
   class="flex p-3 font-bold border-t-[.2px] border-t-[var(--dashBorder)]">
     <IconComponent
       :class="{ '-rotate-90': !loadMore }"
@@ -101,10 +101,10 @@ const loadMore = ref(false);
 const globalSlice = ref(null)
 console.log(value);
 
+console.log('IM rAN')
+
 const helperLabel = computed((val) => {
-    if(allComments.value.length <= 5 && !loadMore.value) {
-        return "";
-    } else if (allComments.value.length > 0 && loadMore.value) {
+    if (allComments.value.length > 0 && loadMore.value) {
         return "Load more comments 💬";
     } else {
         return "That's the end!";

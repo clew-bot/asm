@@ -145,7 +145,7 @@
                 <div class="flex justify-between">
                     <div class="flex">
                         <IconComponent :props="{ name: 'mdi-heart', color: '#6b7280', size: 'default' }"/>
-                        <IconComponent @click="openComments(i)" class="ml-3" :props="{ name: 'mdi-message', color: '#6b7280', size: 'default' }"/>
+                        <IconComponent @click="openComments(i, status._id)" class="ml-3" :props="{ name: 'mdi-message', color: '#6b7280', size: 'default' }"/>
                     </div>
                     <div class="flex">
                         <IconComponent class="mr-2" :props="{ name: 'mdi-bookmark', color: '#6b7280' }"/>
@@ -154,11 +154,11 @@
                     </div>
                 </div>
                 <div class="p-3">
-                <div class="flex pb-2">
+                <div class="flex pb-2 ">
                     <span class="font-bold">{{status.likeCount}}&nbsp;</span>
                      Likes •&nbsp; 
-                    <span class="font-bold">{{status.comments.length}}&nbsp;</span>
-                    Comments   
+                    <span @click="openComments(i)" class="cursor-pointer font-bold">{{countObj[i]}}&nbsp;</span>
+                    <span class="cursor-pointer " @click="openComments(i)">Comments</span>   
                 </div>
           
                 </div>
@@ -166,37 +166,74 @@
                 <div v-if="openObj[i]">
                     <StatusCommentInput 
                     @check-commented="checkCommented"
-                    :props="{id: status._id}"/>
+                    :props="{id: status._id, key: i}"/>
                     <StatusCommentPost
-                    :key="refreshMe" 
+                    :key="refreshMe(i)" 
+                    v-model="commentObj[i]"
                     v-on:need-more-comments="getVal" :props="{id: status._id}"/>
                 </div>               
             </Transition>
         </v-card>
     </div>
 </TransitionGroup>
+<button @click="checkVal">check</button>
 </template>
 
 <script setup>
 import {createdAtLog, regularDate}  from "@/utils/timeConvert";
 const props = defineProps(['modelValue'])
 let openObj = ref({});
+let countObj = ref({});
 const showMoreCommentLabel = ref(false)
 let passLoadMoreComments = ref(false)
-const refreshMe = ref(0)
+// const refreshMe = ref(null)
 
-const checkCommented = (val) => {
-    console.log(val)
-    if(val) {
-        refreshMe.value = refreshMe.value + 1
-    }
+// console.log(props.modelValue)
+
+const commentObj = ref({})
+
+onMounted(() => {
+    props.modelValue.forEach((status, i) => {
+        countObj.value[i] = status.comments.length
+    })
+    // console.log(countObj.value)
+})
+
+const refreshMe = (val) => {
+    console.log('yeah im running', val)
+    return val + 1
 }
 
-const openComments = (i) => {
-   openObj.value[i] === undefined ? openObj.value[i] = true 
-   : openObj.value[i] === true ? openObj.value[i] = false : openObj.value[i] = true
+const checkCommented = (val, val2) => {
+    countObj.value[val2] = countObj.value[val2] + 1
+    // if(val) {
+    //     refreshMe.value = refreshMe.value + 1
+    // }
 }
-console.log(props.modelValue)
+
+const checkVal = () => {
+    console.log('fdsfds', commentObj.value)
+}
+
+const commentLength = (i) => {
+    // console.log('i', i)
+    return i.length
+}
+
+const openComments = (i, id) => {
+    // console.log(id)
+
+   if(openObj.value[i] === undefined) {
+    // console.log(id)
+    openObj.value[i] = true 
+    openObj.value['id-'+ i] =id
+   } else if (openObj.value[i] === true) {
+    openObj.value[i] = false
+   } else {
+    openObj.value[i] = true
+   }
+}
+
 
 const getVal = (arg) => {
     console.log('nice', arg)

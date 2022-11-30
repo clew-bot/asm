@@ -3,7 +3,6 @@
 </style>
 <template>
     <div class="">
-        <StatusUserStatus/>
 
     </div>
 </template>
