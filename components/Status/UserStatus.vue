@@ -137,6 +137,7 @@
                     </div>
 
                     <div class="text-slate-300 absolute top-5 right-6 text-xs cursor-default">
+                        
                         {{regularDate(status.createdAt)}}
 
                     </div>
@@ -154,7 +155,6 @@
                 <div v-if="(status.photos.length > 0)"
                     class="">
                     <div class="flex flex-wrap gap-2 justify-center">
-
                         <div v-for="photo in status.photos" :key="photo._id" class="w-full">
 
                             <v-img

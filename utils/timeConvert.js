@@ -48,6 +48,7 @@ export const createdAtLog = (times) => {
     const date = new Date(times).toLocaleDateString();
     let month = "";
     let array = [...date]
+    console.log(array)
     
     if(array.length === 9) {
       month += monthHash[array[0]]
@@ -84,20 +85,29 @@ export const createdAtLog = (times) => {
     const date = new Date(times).toLocaleDateString();
     let month = "";
     let array = [...date]
-    
-    if(array.length === 9) {
+    // Jan - Sep
+    if(array[1] === "/") {
       month += monthHash[array[0]]
-    } else if (array.length === 10) {
+    } else if (array[2] === "/") {
       month += monthHash[array[0] + array[1]]
     }
     if (month === "January" || month === "February" || month === "March" || month === "April" || month === "May" || month === "June" || month === "July" || month === "August" || month === "September") {
-        array[1] = "";
-        array[0] = month
-    }
-    if (array[2] !== "/") {
-      array[4] = "";
-       return `${array[0]}, ${array[2]}${array[3]} ${array[5]}${array[6]}${array[7]}${array[8]}`
+      //Single Digit Numbers for DAY
+        if(array[3] === "/") {
+          return `${month} ${array[2]}, ${array[4]}${array[5]}${array[6]}${array[7]}`
+        } 
+        // Double Digit Numbers for DAY
+        else if (array[4] === "/") {
+          return `${month} ${array[2]}${array[3]}, ${array[5]}${array[6]}${array[7]}${array[8]}`
+        }
     } else if (month === "October" || month === 'November' || month === 'December') {
-       return `${month} ${array[3]}${array[4]}, ${array[6]}${array[7]}${array[8]}${array[9]}`
+      //Single Digit Numbers for DAY
+      if(array[2] === "/") {
+        return `${month} ${array[3]}, ${array[5]}${array[6]}${array[7]}${array[8]}`
+      } 
+      // Double Digit Numbers for DAY
+      else if (array[5] === "/") {
+        return `${month} ${array[3]}${array[4]}, ${array[6]}${array[7]}${array[8]}${array[9]}`
+      }
     }
   };
