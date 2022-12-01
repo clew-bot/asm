@@ -155,9 +155,9 @@
                 <div class="flex justify-between">
                     <Transition>
                     <div
-                    v-if="showLikeOptions"
-                    @mouseenter="openTooltip"
-                    @mouseleave="closeTooltip"
+                    v-if="toolTipObj[status._id]"
+                    @mouseenter="openTooltip(status._id)"
+                    @mouseleave="closeTooltip(status._id)"
                     class="border-2 absolute bottom-24 left-2 z-99 bg-white h-[3rem] w-[12rem] rounded-xl flex justify-evenly items-center">
                         <v-icon 
                         color="blue"
@@ -189,8 +189,8 @@
                 </Transition>
                     <div class="flex pt-10">
                         <IconComponent 
-                        @mouseleave="closeTooltip"
-                        @mouseenter="openTooltip"
+                        @mouseleave="closeTooltip(status._id)"
+                        @mouseenter="openTooltip(status._id)"
                         :props="{ name: 'mdi-heart', color: 'var(--postIcon)', size: 'default' }"/>
                         <IconComponent @click="openComments(i, status._id)" class="ml-3" :props="{ name: 'mdi-message', color: 'var(--postIcon)', size: 'default' }"/>
                     </div>
@@ -235,30 +235,30 @@ import {createdAtLog, regularDate}  from "@/utils/timeConvert";
 import { usePostStore } from "@/store/postStore";
 const store = usePostStore();
 const props = defineProps(['modelValue'])
+const showMoreCommentLabel = ref(false)
+const allComments = ref([])
 let openObj = ref({});
 let countObj = ref({});
-const showMoreCommentLabel = ref(false)
-const refreshMe = ref(0)
-const showLikeOptions = ref(false)
-const allComments = ref([])
-
+let toolTipObj = ref({});
+let timeout;
 
 onMounted(() => {
     props.modelValue.forEach((status) => {
         countObj.value[status._id] = status.comments.length
+        toolTipObj.value[status._id] = false
     })
 })
 
-
-
-let timeout;
-const openTooltip = (e) => {
+const openTooltip = (id) => {
+    Object.keys(toolTipObj.value).forEach((key) => {
+        toolTipObj.value[key] = false
+    })
+    toolTipObj.value[id] = true
     clearTimeout(timeout)
-    showLikeOptions.value = true
 }
-const closeTooltip = (e) => {
+const closeTooltip = (id) => {
     timeout = setTimeout(() => {
-        showLikeOptions.value = false
+        toolTipObj.value[id] = false
     }, 1000)
 }
 
@@ -269,9 +269,6 @@ const checkCommented = async (id, key, createdComment) => {
         countObj.value[id] = 1
     } else {
         countObj.value[id] += 1
-    }
-    if(id) {
-        refreshMe.value = refreshMe.value + 1
     }
 }
 
@@ -294,11 +291,8 @@ const openComments = async (i, id) => {
    }
 }
 
-
 const getVal = (arg) => {
     showMoreCommentLabel.value = arg
 }
-
-
 </script>
 
