@@ -11,16 +11,23 @@
   transform: translateY(-40px);
 }
 
-
+/* 
 .v-enter-active {
     animation: slideFromUp 1s;
 }
 
 .v-leave-to {
     display: none;
-    /* animation: slideFromDown .38s; */
+} */
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
 }
 
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 @keyframes shake {
     0% {
         transform: translate(1px, 1px) rotate(0deg);
@@ -146,18 +153,55 @@
                  
             </v-card-text>
                 <div class="flex justify-between">
-                    <div class="flex">
-                        <IconComponent :props="{ name: 'mdi-heart', color: 'var(--postIcon)', size: 'default' }"/>
+                    <Transition>
+                    <div
+                    v-if="showLikeOptions"
+                    @mouseenter="openTooltip"
+                    @mouseleave="closeTooltip"
+                    class="border-2 absolute bottom-24 left-2 z-99 bg-white h-[3rem] w-[12rem] rounded-xl flex justify-evenly items-center">
+                        <v-icon 
+                        color="blue"
+                        size="large"
+                        class="cursor-pointer"
+                        >mdi-emoticon-happy-outline</v-icon>
+                        <v-icon
+                        class="cursor-pointer"
+                        color="blue"
+                        size="large"
+                        >
+                            mdi-thumb-up-outline
+                        </v-icon>
+                        <v-icon
+                        class="cursor-pointer"
+                        color="blue"
+                        size="large"
+                        >
+                            mdi-hand-heart-outline
+                        </v-icon>
+                        <v-icon
+                        class="cursor-pointer"
+                        color="blue"
+                        size="large"
+                        >
+                            mdi-lightbulb-on-20
+                        </v-icon>
+                    </div>
+                </Transition>
+                    <div class="flex pt-10">
+                        <IconComponent 
+                        @mouseleave="closeTooltip"
+                        @mouseenter="openTooltip"
+                        :props="{ name: 'mdi-heart', color: 'var(--postIcon)', size: 'default' }"/>
                         <IconComponent @click="openComments(i, status._id)" class="ml-3" :props="{ name: 'mdi-message', color: 'var(--postIcon)', size: 'default' }"/>
                     </div>
-                    <div class="flex">
+                    <div class="flex pt-10">
                         <IconComponent class="mr-2" :props="{ name: 'mdi-bookmark', color: 'var(--postIcon)' }"/>
                         <IconComponent class="mr-2" :props="{ name: 'mdi-dots-horizontal', color: 'var(--postIcon)' }"/>
                     </div> 
                     </div>
                 <div class="flex">
                     <span class="font-bold">{{status.likeCount}}&nbsp;</span>
-                     Likes •&nbsp; 
+                     Reactions •&nbsp; 
                     <span @click="openComments(i, status._id)" class="cursor-pointer font-bold">{{countObj[status._id] ? countObj[status._id] : '0'}}&nbsp;</span>
                     <span class="cursor-pointer " @click="openComments(i, status._id)">Comments</span>   
           
@@ -195,7 +239,7 @@ let openObj = ref({});
 let countObj = ref({});
 const showMoreCommentLabel = ref(false)
 const refreshMe = ref(0)
-
+const showLikeOptions = ref(false)
 const allComments = ref([])
 
 
@@ -204,6 +248,20 @@ onMounted(() => {
         countObj.value[status._id] = status.comments.length
     })
 })
+
+
+
+let timeout;
+const openTooltip = (e) => {
+    clearTimeout(timeout)
+    showLikeOptions.value = true
+}
+const closeTooltip = (e) => {
+    timeout = setTimeout(() => {
+        showLikeOptions.value = false
+    }, 1000)
+}
+
 const checkCommented = async (id, key, createdComment) => {
     const getComments = await store.getCommentsForPost(id);
     allComments.value[id] = getComments;

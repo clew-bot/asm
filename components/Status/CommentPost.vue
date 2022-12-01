@@ -41,7 +41,6 @@
           </div>
         </div>
       </div>
-
       <IconComponent
         class="absolute right-4 top-3 cursor-pointer z-10"
         :props="{
