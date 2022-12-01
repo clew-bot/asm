@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 export const usePostStore = defineStore("post", {
-  state: () => ({ post: "", posts: [] }),
+  state: () => ({ post: "", posts: [], images: [] }),
   getters: {
     thePost: (state) => state.post,
   },
