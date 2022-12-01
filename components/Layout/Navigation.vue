@@ -1,48 +1,50 @@
 <template>
-       <div class="hidden relative w-28 xl:w-1/3 sm:block border-r-[.2px] border-[var(--dashBorder)] bg-zinc-800">
+       <div class="hidden relative xl:w-1/3 sm:block border-r-[.2px] border-[var(--dashBorder)] bg-zinc-800 w-1/6">
             <div class="sticky top-0 pt-8 overflow-auto">
-                <ul class="text-lg lg:text-lg font-semibold flex flex-col justify-center items-start">
+                <ul class="text-lg lg:text-lg font-semibold flex flex-col justify-center xl:items-start items-center">
                     <li>  
-                        <v-avatar 
+                        <!-- <v-avatar 
                         class="ml-4"
                         color="blue">
-                            <v-icon dark>
+                            <v-icon dark
+                            
+                            >
                                 mdi-account-circle
                             </v-icon>
-                            </v-avatar>
+                            </v-avatar> -->
                     </li>
                     <NuxtLink to="/dashboard">
-                        <li class="p-4 flex justify-center items-center">
+                        <li class="xl:p-4 sm:p-3 flex justify-center items-center">
                             <img :src="home" alt="" class="pl-1 icon-hover">
-                            <p class="ml-5 hidden xl:block">Home</p></li>
+                            <p class="ml-5 hidden xl:block animate-pulse">Home</p></li>
                     </NuxtLink>
                     <NuxtLink to="/notifications">
-                        <li class="p-4 flex justify-center items-center  cursor-pointer">
+                        <li class="xl:p-4 sm:p-3 flex justify-center items-center  cursor-pointer">
                             <img :src="bell" alt="" class="pl-1 icon-hover">
                             <p class="ml-5 hidden xl:block">Notifications</p></li>
                     </NuxtLink>
                     <NuxtLink to="/messages">
-                        <li class="p-4 flex justify-center items-center">
+                        <li class="xl:p-4 sm:p-3 flex justify-center items-center">
                             <img :src="message" alt="" class="pl-1 icon-hover">
                             <p class="ml-5 hidden xl:block">Messages</p></li>
                     </NuxtLink>
                     <NuxtLink to="/bookmarks">
-                    <li class="p-4 flex justify-center items-center"> <img
+                    <li class="xl:p-4 sm:p-3 flex justify-center items-center"> <img
                         :src="bookmark" alt="" class="pl-1 icon-hover">
                         <p class="ml-5 hidden xl:block">Bookmarks</p></li>
                     </NuxtLink>
                     <NuxtLink to="/profile">
-                    <li class="p-4 flex justify-center items-center"> <img
-                        :src="profile" alt="" class="pl-1 icon-hover">
+                    <li class="xl:p-4 sm:p-3 flex justify-center items-center"> <img
+                        :src="message" alt="" class="pl-1 icon-hover">
                         <p class="ml-5 hidden xl:block">My Profile</p></li>
                     </NuxtLink>
-                    <li class="p-4 flex justify-center items-center"> <img
-                        :src="more" alt="" class="pl-1 icon-hover">
+                    <li class="xl:p-4 sm:p-3 flex justify-center items-center"> <img
+                        :src="message" alt="" class="pl-1 icon-hover">
                         <p class="ml-5 hidden xl:block">More</p></li>
     
-                    <li  @click="logout" class="p-4 flex justify-center items-center cursor-pointer
+                    <li  @click="logout" class="xl:p-4 sm:p-3 flex justify-center items-center cursor-pointer
                     transition-all"> <img
-                        :src="more" alt="" class="pl-1 icon-hover">
+                        :src="message" alt="" class="pl-1 icon-hover">
                         <p class= "transition-all
                         ml-5 hidden xl:block">Logout</p></li>
                 </ul>

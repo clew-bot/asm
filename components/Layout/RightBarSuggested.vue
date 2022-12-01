@@ -8,7 +8,7 @@
 }
 </style>
 <template>
-    <div class="relative hidden lg:block  w-1/2 xl:w-2/3 border-1 z-10
+    <div class="relative hidden md:block  w-1/2 xl:w-2/3 border-1 z-10
        border-l-[.2px] border-slate-700">
            <div class="sticky top-0 h-screen overflow-auto no-scroll">
                <div class="p-5 overflow-hidden">

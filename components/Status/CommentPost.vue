@@ -111,7 +111,7 @@ const helperLabel = computed((val) => {
     }
 })
 
-console.log(props);
+console.log(modelValue);
 onMounted(async () => {
   const getComments = await store.getCommentsForPost(props.id);
   allComments.value = getComments;
@@ -124,7 +124,6 @@ onMounted(async () => {
 });
 
 const loadMoreComments = (val) => {
-//   globalSlice.value = allComments.value.length
   comments.value = allComments.value.slice();
     loadMore.value = false;
 };

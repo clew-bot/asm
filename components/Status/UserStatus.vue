@@ -1,6 +1,6 @@
 <style scoped>
 .list-enter-active {
-    animation: slideFromUp .5s;
+    animation: slideFromUp 5s;
 }
 .list-leave-active {
   transition: all 1s ease;
@@ -8,13 +8,12 @@
 }
 .list-enter-from,
 .list-leave-to {
-  opacity: 0;
   transform: translateY(-40px);
 }
 
 
 .v-enter-active {
-    animation: slideFromUp .5s;
+    animation: slideFromUp 1s;
 }
 
 .v-leave-to {
@@ -93,13 +92,13 @@
 <template>
     <TransitionGroup name="list">
     <div v-for="status, i in props.modelValue" :key="status._id" 
- 
-    class="first overflow-auto transition-all bg-zinc-600 p-2 px-4">
+    class="flex justify-center"
+    >
         <!-- {{status}} -->
         <v-card 
-        elevation="4"
+        elevation="0"
         color="#18181b"
-        class=" mb-2 bg-zinc-800 rounded-xl">
+        class=" mb-10 bg-zinc-500 rounded w-full">
             <v-card-title>
                 <div class="flex justify-items-start pt-3 ">
                     <v-badge
@@ -110,6 +109,7 @@
                     bordered
                     >
                     <v-avatar
+                    class="border-2"
                     size="48">
                         <!-- <v-img
                             src=""
@@ -117,13 +117,15 @@
                             class="cursor-pointer"
                         >
                         </v-img> -->
-                        <span class="text-h5">JD</span>
+                        <span class="text-4xl">🐶</span>
                     </v-avatar>
                 </v-badge>
                     <div class="absolute left-16 top-4 ml-2 w-fit">
-                        <div class="text-lg font-semibold text-gray-300 cursor-pointer">
+                        <NuxtLink :to='`/profile/${status.author.handleName}`'>
+                        <div class="text-lg font-semibold text-white hover:text-blue-300 cursor-pointer">
                             {{status.author.username}}
                         </div>
+                    </NuxtLink>
                         <div class="text-xs text-gray-400 cursor-pointer">
                             @{{status.author.handleName}}
                         </div>
@@ -139,44 +141,47 @@
                 </div>
 
             </v-card-title>
+        <div class="p-4 flex flex-col gap-5">
             <v-card-text
-            class="text-base text-gray-200 pt-2" 
+            class="text-base text-white p-0 font-semibold" 
             v-html="status.content">
 
                  
             </v-card-text>
-            <div class="p-3">
                 <div class="flex justify-between">
                     <div class="flex">
-                        <IconComponent :props="{ name: 'mdi-heart', color: '#6b7280', size: 'default' }"/>
-                        <IconComponent @click="openComments(i, status._id)" class="ml-3" :props="{ name: 'mdi-message', color: '#6b7280', size: 'default' }"/>
+                        <IconComponent :props="{ name: 'mdi-heart', color: 'white', size: 'default' }"/>
+                        <IconComponent @click="openComments(i, status._id)" class="ml-3" :props="{ name: 'mdi-message', color: 'white', size: 'default' }"/>
                     </div>
                     <div class="flex">
-                        <IconComponent class="mr-2" :props="{ name: 'mdi-bookmark', color: '#6b7280' }"/>
-                        <IconComponent class="mr-2" :props="{ name: 'mdi-dots-horizontal', color: '#6b7280' }"/>
+                        <IconComponent class="mr-2" :props="{ name: 'mdi-bookmark', color: 'white' }"/>
+                        <IconComponent class="mr-2" :props="{ name: 'mdi-dots-horizontal', color: 'white' }"/>
                     </div> 
                     </div>
-                </div>
-                <div class="p-3">
-                <div class="flex pb-2 ">
+                <div class="flex">
                     <span class="font-bold">{{status.likeCount}}&nbsp;</span>
                      Likes •&nbsp; 
-                    <span @click="openComments(i)" class="cursor-pointer font-bold">{{countObj[i]}}&nbsp;</span>
-                    <span class="cursor-pointer " @click="openComments(i)">Comments</span>   
-                </div>
+                    <span @click="openComments(i, status._id)" class="cursor-pointer font-bold">{{countObj[status._id] ? countObj[status._id] : '0'}}&nbsp;</span>
+                    <span class="cursor-pointer " @click="openComments(i, status._id)">Comments</span>   
           
                 </div>
-                <Transition>
-                <div v-if="openObj[i]">
+            </div>
+               
+                <div 
+                v-if="openObj[status._id]"
+                >
                     <StatusCommentInput 
                     @check-commented="checkCommented"
-                    :props="{id: status._id, key: i}"/>
+                    :props="{id: status._id, key: i}"
+                    />
                     <StatusCommentPost
                     :key="refreshMe" 
                     v-model="commentObj[i]"
-                    v-on:need-more-comments="getVal" :props="{id: status._id}"/>
+                    v-on:need-more-comments="getVal" 
+                    :props="{id: status._id}"
+                    />
                 </div>               
-            </Transition>
+
         </v-card>
     </div>
 </TransitionGroup>
@@ -191,22 +196,20 @@ let countObj = ref({});
 const showMoreCommentLabel = ref(false)
 let passLoadMoreComments = ref(false)
 const refreshMe = ref(0)
-
-// console.log(props.modelValue)
-
 const commentObj = ref({})
 
 onMounted(() => {
-    props.modelValue.forEach((status, i) => {
-        countObj.value[i] = status.comments.length
+    props.modelValue.forEach((status) => {
+        countObj.value[status._id] = status.comments.length
     })
-    // console.log(countObj.value)
 })
-
-
-const checkCommented = (val, val2) => {
-    countObj.value[val2] = countObj.value[val2] + 1
-    if(val) {
+const checkCommented = (id, index) => {
+    if (!countObj.value[id]) {
+        countObj.value[id] = 1
+    } else {
+        countObj.value[id] += 1
+    }
+    if(id) {
         refreshMe.value = refreshMe.value + 1
     }
 }
@@ -215,22 +218,17 @@ const checkVal = () => {
     console.log('fdsfds', commentObj.value)
 }
 
-const commentLength = (i) => {
-    // console.log('i', i)
-    return i.length
-}
-
 const openComments = (i, id) => {
-    // console.log(id)
+    console.log(id)
 
-   if(openObj.value[i] === undefined) {
+   if(openObj.value[id] === undefined) {
     // console.log(id)
-    openObj.value[i] = true 
-    openObj.value['id-'+ i] =id
-   } else if (openObj.value[i] === true) {
-    openObj.value[i] = false
+    openObj.value[id] = true 
+    openObj.value['id-'+ i] = id
+   } else if (openObj.value[id] === true) {
+    openObj.value[id] = false
    } else {
-    openObj.value[i] = true
+    openObj.value[id] = true
    }
 }
 

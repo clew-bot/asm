@@ -4,7 +4,7 @@
     <template #rightSide><LayoutRightBarSuggested/></template>
     <template #postStatus><ComposeDashPost :reset="isReset" @updatePost="getValue"/></template>
     <template #postMedia><ComposePostMediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
-    <div v-if="!loading && posts.length > 0">
+    <div v-if="!loading && posts.length > 0" class="first overflow-auto transition-all bg-zinc-600">
       <StatusUserStatus v-model="posts"/>
     </div>
     <div v-else-if="loading">
@@ -13,11 +13,13 @@
         </div> -->
         <v-progress-linear indeterminate color="cyan"></v-progress-linear>
     </div>
-    <div v-else-if="posts.length === 0">
+    <div v-else-if="posts.length === 0 && !loading"
+    class="text-center text-3xl font-semibold text-orange-400
+    pt-10">
         <!-- <div class="text-center text-xl font-bold pt-10">
           You have no new posts. Check back later.
         </div> -->
-        <v-progress-linear indeterminate color="cyan"></v-progress-linear>
+        There doesn't seem to be any posts here.
     </div>
     <div class="h-screen w-full flex justify-center font-semibold text-orange-500 relative"><div class="absolute bottom-0">
       Looks like you've reached the end 😂
@@ -33,7 +35,6 @@ const ableToPost = ref(true);
 const isReset = ref(false);
 const posts = ref([]);
 const loading = ref(true);
-const noMorePosts = ref(false);
 definePageMeta({
   layout: false,
   middleware: ["auth"],
@@ -41,13 +42,17 @@ definePageMeta({
 
 onMounted( async () => {
   const allPosts = await store.getPosts();
-  // await nextTick();
-  posts.value = allPosts;
-  if(allPosts.length === 0) {
-    noMorePosts.value = true;
+  console.log(allPosts);
+  await nextTick(()=> {
+    if(allPosts.length === 0) {
+      console.log("hi")
+    loading.value = false;
   } else {
     loading.value = false;
   }
+  });
+  posts.value = allPosts;
+
 });
 
 const getValue = (val) => {
