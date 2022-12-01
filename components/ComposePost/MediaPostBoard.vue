@@ -1,8 +1,25 @@
-<style scoped></style>
-<template>
-  <!-- <button @click="checkVal">chccccc</button>
-  <button @click="getBase64">9999999</button> -->
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
 
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}</style>
+<template>
+  <!-- <button @click="checkVal">chccccc</button> -->
+  <Transition>
+  <v-progress-linear
+     v-if="loading"
+      v-model="progress"
+      height="25"
+      color="red"
+    >
+      <strong>{{ progress }}%</strong>
+    </v-progress-linear>
+  </Transition>
   <div v-if="source" class="flex flex-wrap">
     <div
       v-for="(src, i) in source"
@@ -58,13 +75,16 @@ const emit = defineEmits(["userPosted"]);
 const photoData = ref([]);
 const allImages = ref([]);
 const uploadImageLoading = ref(false);
+const loading = ref(false);
 let interval = ref(null);
 let thumbsnap_api_key = "000025e537b9452d8255b4fab140f7f7";
 let countDown = ref("Post");
 let source = ref([]);
+let progress = ref(0);
 
 const compose = async () => {
   if (allImages.value.length > 0) {
+    loading.value = true;
     getBase64();
   } else {
     await store.composePost();
@@ -83,9 +103,13 @@ const compose = async () => {
 watch(uploadImageLoading, async (val) => {
   console.log("second");
   if (val) {
+    source.value = [];
     store.$state.images = photoData.value;
     console.log(store.$state.images);
     await store.composePost();
+    progress.value = 100;
+    loading.value = false
+    progress.value = 0;
     emit("userPosted", true);
     countDown = ref(5);
     interval = setInterval(() => {
@@ -95,7 +119,7 @@ watch(uploadImageLoading, async (val) => {
       clearInterval(interval);
       countDown.value = "Post";
     }, 5000);
-    
+    uploadImageLoading.value = false;
   }
 });
 
@@ -111,8 +135,7 @@ const checkFile = (e) => {
 };
 
 const checkVal = () => {
-  console.log(allImages.value);
-  console.log(photoData.value);
+  console.log(loading.value);
 };
 
 async function getBase64() {
@@ -134,7 +157,8 @@ const saveImage = async (formData) => {
     method: "POST",
     body: formData,
   });
-  console.log(data.data.value.data);
-  photoData.value.push(data.data.value.data);
+  progress.value += 100 / allImages.value.length;
+  // console.log(data.data.value.data);
+  // photoData.value.push(data.data.value.data);
 };
 </script>
