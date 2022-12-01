@@ -1,17 +1,12 @@
 <style scoped>
-/* .lastItem:last-child {
-    border: solid 2px hotpink !important;
-    background: red !important;
-    z-index: 99 !important;
-} */
 </style>
 
 <template>
   <div v-if="!loading">
     <div
-      v-for="(comment, i) in comments"
+      v-for="(comment, i) in allComments"
       :key="comment.id"
-      class="lastItem flex items-center border-t-[.2px] border-t-[var(--dashBorder)] pb-3 relative"
+      class="flex items-center border-t-[.2px] border-t-[var(--dashBorder)] pb-3 relative"
     >
       <div class="flex items-startrelative pt-3 pl-2 whitespace-normal">
         <v-avatar class="mt-2" size="40">
@@ -64,8 +59,8 @@
   <div v-else>
     <v-progress-linear indeterminate color="cyan"></v-progress-linear>
   </div>
-  <div 
-  v-if="allComments.length > 5"
+  <div
+  v-if="modelValue.length > 5"
   class="flex p-3 font-bold border-t-[.2px] border-t-[var(--dashBorder)]">
     <IconComponent
       :class="{ '-rotate-90': !loadMore }"
@@ -99,32 +94,38 @@ const emit = defineEmits(["needMoreComments"]);
 const allComments = ref([]);
 const loadMore = ref(false);
 const globalSlice = ref(null)
+const watchMe = ref(modelValue)
 console.log(value);
 
-console.log('IM rAN')
+console.log('IM rAN', modelValue)
+console.log('IM rffddfdAN')
+
+
+watch(watchMe , (val) => {
+  console.log('dfdfdfd', val)
+})
 
 const helperLabel = computed((val) => {
-    if (allComments.value.length > 0 && loadMore.value) {
+    if (modelValue.length > 0 && loadMore.value) {
         return "Load more comments 💬";
     } else {
         return "That's the end!";
     }
 })
 
-console.log(modelValue);
+// console.log(modelValue);
 onMounted(async () => {
-  const getComments = await store.getCommentsForPost(props.id);
-  allComments.value = getComments;
-  const sliceValue = getComments.length > 5 ? 5 : getComments.length;
+  const sliceValue = modelValue.length > 5 ? 5 : modelValue.length;
   globalSlice.value = sliceValue
-  comments.value = getComments.slice(0, sliceValue);
+  allComments.value = modelValue.slice(0, sliceValue);
+  console.log(comments.value)
   await nextTick();
-  getComments.length > 5 ? loadMore.value = true : loadMore.value = false
+  modelValue.length > 5 ? loadMore.value = true : loadMore.value = false
   loading.value = false;
 });
 
 const loadMoreComments = (val) => {
-  comments.value = allComments.value.slice();
+  allComments.value = modelValue.slice();
     loadMore.value = false;
 };
 

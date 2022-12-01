@@ -9,7 +9,7 @@
 </style>
 <template>
     <div class="relative hidden md:block  w-1/2 xl:w-2/3 border-1 z-10
-       border-l-[.2px] border-slate-700">
+       border-l-[.2px] border-l-[var(--dashBorder)]">
            <div class="sticky top-0 h-screen overflow-auto no-scroll">
                <div class="p-5 overflow-hidden">
          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto corrupti illo eaque provident sit excepturi doloremque veritatis, quam sunt soluta. Vel repellat reprehenderit necessitatibus vero ea? Molestiae animi distinctio magnam.

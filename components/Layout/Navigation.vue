@@ -1,5 +1,5 @@
 <template>
-       <div class="hidden relative xl:w-1/3 sm:block border-r-[.2px] border-[var(--dashBorder)] bg-zinc-800 w-1/6">
+       <div class="hidden relative xl:w-1/3 sm:block border-r-[.2px] border-[var(--dashBorder)] bg-[#343438] w-1/6">
             <div class="sticky top-0 pt-8 overflow-auto">
                 <ul class="text-lg lg:text-lg font-semibold flex flex-col justify-center xl:items-start items-center">
                     <li>  

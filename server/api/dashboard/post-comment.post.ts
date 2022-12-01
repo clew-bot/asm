@@ -22,5 +22,5 @@ export default defineEventHandler(async (event) => {
     await post?.save();
     console.log("post", post);
 
-    return { error: false, message: "Comment Created" };
+    return { error: false, message: "Comment Created", createdComment: newComment };
 })

@@ -45,29 +45,7 @@ const clonedText = ref("");
 const emit = defineEmits(["updatePost"]);
 const props = defineProps(['reset']);
 
-const focusDiv = async () => {
-    console.log("focus");
-    await nextTick();
-    setTimeout(() => {
-        cloneUserPost.value.focus();
-    }, 0);
-
-}
-
-const getShit = (e) => {
-    console.log(e)
-
-    // userPost.value = e.target.value;
-}
-
-
 const checkReset = computed(() =>  props.reset )
-
-const handleInput = (e) => {
-    console.log(e.target.innerHTML);
-    // userPost.value = e.target.innerText;
-    clonedText.value = e.target.innerHTML;
-}
 
 watch(checkReset, (newVal) => {
     if (newVal) {

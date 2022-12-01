@@ -28,7 +28,7 @@
 
 .comment-container >>> .v-field__overlay {
   /* border: solid 2px red !important; */
-  background: #5d615d !important;
+  background: #2b312b !important;
   border-radius: 0px !important;
  
 }
@@ -65,10 +65,11 @@
                 elevation="0"
                 variant="solo"
                 label=""
+                bg-color="#565661"
                 auto-grow
+                color="white"
                 placeholder="Comment.."
                 rows="1"
-                class=""
                 hide-details="true"
                 ></v-textarea>
             </v-container>
@@ -101,8 +102,9 @@ const sendComment = async () => {
     postRefId: props.id
   }
   console.log(theText.value);
-  await store.postComment(data);
-  emit('checkCommented', props.id, props.key);
+  const newComment = await store.postComment(data);
+  emit('checkCommented', props.id, props.key, newComment.createdComment);
+
   theText.value = '';
 }
 

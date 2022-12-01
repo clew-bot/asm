@@ -66,8 +66,11 @@ const askForRefresh = async (value) => {
   isReset.value = false;
   }, 5000);
   await store.getPosts();
-  posts.value = store.$state.posts;
-  ableToPost.value = true;
+  await nextTick(() => {
+    posts.value = store.$state.posts;
+    ableToPost.value = true;
+  });
+
     
 }
 </script>

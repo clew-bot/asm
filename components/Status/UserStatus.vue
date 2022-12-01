@@ -1,6 +1,6 @@
 <style scoped>
 .list-enter-active {
-    animation: slideFromUp 5s;
+    animation: slideFromUp .7s;
 }
 .list-leave-active {
   transition: all 1s ease;
@@ -85,9 +85,6 @@
     }
 }
 
-.first:first-child {
-    padding-top: 1.3rem !important
-}
 </style>
 <template>
     <TransitionGroup name="list">
@@ -98,7 +95,7 @@
         <v-card 
         elevation="0"
         color="#18181b"
-        class=" mb-10 bg-zinc-500 rounded w-full">
+        class="border-t-[.2px] rounded-none border-t-[var(--dashBorder)] bg-zinc-700 w-full">
             <v-card-title>
                 <div class="flex justify-items-start pt-3 ">
                     <v-badge
@@ -150,12 +147,12 @@
             </v-card-text>
                 <div class="flex justify-between">
                     <div class="flex">
-                        <IconComponent :props="{ name: 'mdi-heart', color: 'white', size: 'default' }"/>
-                        <IconComponent @click="openComments(i, status._id)" class="ml-3" :props="{ name: 'mdi-message', color: 'white', size: 'default' }"/>
+                        <IconComponent :props="{ name: 'mdi-heart', color: 'var(--postIcon)', size: 'default' }"/>
+                        <IconComponent @click="openComments(i, status._id)" class="ml-3" :props="{ name: 'mdi-message', color: 'var(--postIcon)', size: 'default' }"/>
                     </div>
                     <div class="flex">
-                        <IconComponent class="mr-2" :props="{ name: 'mdi-bookmark', color: 'white' }"/>
-                        <IconComponent class="mr-2" :props="{ name: 'mdi-dots-horizontal', color: 'white' }"/>
+                        <IconComponent class="mr-2" :props="{ name: 'mdi-bookmark', color: 'var(--postIcon)' }"/>
+                        <IconComponent class="mr-2" :props="{ name: 'mdi-dots-horizontal', color: 'var(--postIcon)' }"/>
                     </div> 
                     </div>
                 <div class="flex">
@@ -166,7 +163,6 @@
           
                 </div>
             </div>
-               
                 <div 
                 v-if="openObj[status._id]"
                 >
@@ -174,36 +170,43 @@
                     @check-commented="checkCommented"
                     :props="{id: status._id, key: i}"
                     />
-                    <StatusCommentPost
-                    :key="refreshMe" 
-                    v-model="commentObj[i]"
-                    v-on:need-more-comments="getVal" 
-                    :props="{id: status._id}"
-                    />
+                    <div v-if="allComments[status._id]">
+                        <StatusCommentPost
+                        v-model="allComments[status._id]"
+                        :key="allComments[status._id]"
+                        v-on:need-more-comments="getVal" 
+                        :props="{id: status._id}"
+                        />
+                    </div>
                 </div>               
 
         </v-card>
+        <!-- <button @click="checkVal(status._id)">check</button> -->
     </div>
 </TransitionGroup>
-<button @click="checkVal">check</button>
 </template>
 
 <script setup>
 import {createdAtLog, regularDate}  from "@/utils/timeConvert";
+import { usePostStore } from "@/store/postStore";
+const store = usePostStore();
 const props = defineProps(['modelValue'])
 let openObj = ref({});
 let countObj = ref({});
 const showMoreCommentLabel = ref(false)
-let passLoadMoreComments = ref(false)
 const refreshMe = ref(0)
-const commentObj = ref({})
+
+const allComments = ref([])
+
 
 onMounted(() => {
     props.modelValue.forEach((status) => {
         countObj.value[status._id] = status.comments.length
     })
 })
-const checkCommented = (id, index) => {
+const checkCommented = async (id, key, createdComment) => {
+    const getComments = await store.getCommentsForPost(id);
+    allComments.value[id] = getComments;
     if (!countObj.value[id]) {
         countObj.value[id] = 1
     } else {
@@ -214,17 +217,18 @@ const checkCommented = (id, index) => {
     }
 }
 
-const checkVal = () => {
-    console.log('fdsfds', commentObj.value)
+const checkVal = (id) => {
+    console.log(id)
+    console.log(allComments.value[id])
 }
 
-const openComments = (i, id) => {
-    console.log(id)
-
+const openComments = async (i, id) => {
    if(openObj.value[id] === undefined) {
-    // console.log(id)
     openObj.value[id] = true 
     openObj.value['id-'+ i] = id
+    const getComments = await store.getCommentsForPost(id);
+    allComments.value[id] = getComments;
+    console.log('ran')
    } else if (openObj.value[id] === true) {
     openObj.value[id] = false
    } else {
@@ -234,13 +238,9 @@ const openComments = (i, id) => {
 
 
 const getVal = (arg) => {
-    console.log('nice', arg)
     showMoreCommentLabel.value = arg
 }
 
-const loadMoreComments = (arg) => {
-    passLoadMoreComments.value = arg
-}
 
 </script>
 
