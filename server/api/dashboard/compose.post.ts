@@ -6,9 +6,10 @@ const toId = mongoose.Types.ObjectId;
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const id:any = await useStorage().getItem("user");
-     const postStatus = await UserPost.create({
+    const postStatus = await UserPost.create({
         author: new toId(id),
         content: body.post,
+        photos: body?.postImages ?? [],
     });
     const addPost = await UserModel.updateOne(
         { _id: new toId(id) },

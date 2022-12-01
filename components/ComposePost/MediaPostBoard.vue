@@ -103,13 +103,11 @@ const compose = async () => {
 watch(uploadImageLoading, async (val) => {
   console.log("second");
   if (val) {
-    source.value = [];
-    store.$state.images = photoData.value;
-    console.log(store.$state.images);
-    await store.composePost();
+    // store.$state.images = photoData.value;
+    console.log(photoData.value);
+    await store.composePost(photoData.value);
     progress.value = 100;
-    loading.value = false
-    progress.value = 0;
+    resetVals();
     emit("userPosted", true);
     countDown = ref(5);
     interval = setInterval(() => {
@@ -122,6 +120,14 @@ watch(uploadImageLoading, async (val) => {
     uploadImageLoading.value = false;
   }
 });
+
+const resetVals = () => {
+  source.value = [];
+  loading.value = false
+  allImages.value = [];
+  progress.value = 0;
+  photoData.value = [];
+}
 
 const deletePicture = (index) => {
   source.value.splice(index, 1);
@@ -140,7 +146,7 @@ const checkVal = () => {
 
 async function getBase64() {
   let count;
-  for (count = 0; count < allImages.value.length; count++) {
+  for (count = 0; count <= allImages.value.length - 1; count++) {
     let formData = new FormData();
     formData.append("key", thumbsnap_api_key);
     formData.append("media", allImages.value[count]);
@@ -157,8 +163,12 @@ const saveImage = async (formData) => {
     method: "POST",
     body: formData,
   });
-  progress.value += 100 / allImages.value.length;
-  // console.log(data.data.value.data);
-  // photoData.value.push(data.data.value.data);
+  if (data) {
+    progress.value += 100 / allImages.value.length;
+    photoData.value.push(data.data.value.data);
+  } else {
+    console.log("error");
+  }
+
 };
 </script>
