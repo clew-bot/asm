@@ -92,6 +92,7 @@
     }
 }
 
+
 </style>
 <template>
     <TransitionGroup name="list">
@@ -145,13 +146,27 @@
                 </div>
 
             </v-card-title>
-        <div class="p-4 flex flex-col gap-5">
+        <div class="flex flex-col gap-5">
             <v-card-text
-            class="text-base text-white p-0 font-semibold" 
+            class="px-4 text-base text-white p-0 font-semibold" 
             v-html="status.content">
-
-                 
             </v-card-text>
+                <div v-if="(status.photos.length > 0)"
+                    class="">
+                    <div class="flex flex-wrap gap-2 justify-center">
+
+                        <div v-for="photo in status.photos" :key="photo._id" class="w-full">
+
+                            <v-img
+                            :src="photo.media"
+                            class="m-auto"
+                            :style="photo.width > 700 ? 'width: 100%' : `width: ${photo.width}px`"
+                            >
+
+                            </v-img>
+                        </div>
+                    </div>
+                </div>
                 <div class="flex justify-between">
                     <Transition>
                     <div
@@ -187,7 +202,7 @@
                         </v-icon>
                     </div>
                 </Transition>
-                    <div class="flex pt-10">
+                    <div class="px-4 flex pt-10">
                         <IconComponent 
                         @mouseleave="closeTooltip(status._id)"
                         @mouseenter="openTooltip(status._id)"
@@ -199,7 +214,7 @@
                         <IconComponent class="mr-2" :props="{ name: 'mdi-dots-horizontal', color: 'var(--postIcon)' }"/>
                     </div> 
                     </div>
-                <div class="flex">
+                <div class="flex px-4 pb-4">
                     <span class="font-bold">{{status.likeCount}}&nbsp;</span>
                      Reactions •&nbsp; 
                     <span @click="openComments(i, status._id)" class="cursor-pointer font-bold">{{countObj[status._id] ? countObj[status._id] : '0'}}&nbsp;</span>
