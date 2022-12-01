@@ -1,9 +1,19 @@
 <style scoped></style>
 <template>
-  <div v-if="source" class="w-1/2"><img height="50px" :src="source" alt=""></div>
+  <button @click="checkVal">chccccc</button>
+  <button @click="getBase64">9999999</button>
+
+
+  <div v-if="source" class="flex flex-wrap">
+    <div v-for="(src, i) in source" :key="src" class="min-h-[50px] w-fit relative drop-shadow-md">
+      <v-icon @click="deletePicture(i)" color="black" class="absolute right-0 ">mdi-close</v-icon>
+    <img class="h-[150px]" height="50px" :src="src" alt="">
+    </div>
+  </div>
   <div class="flex items-center p-3 bg-zinc-600 pb-5 relative">
     <div class="imageUpload">
       <label for="file-input">
+        
       <IconComponent class="mt-1" :props="{ name: 'mdi-image', color: 'var(--postIcon)' }" />
     </label>
       <input @input="checkFile" id="file-input" class="hidden" type="file">
@@ -23,7 +33,6 @@
     :elevation="disable ? '0' : '5'"
     >{{countDown}}</v-btn>
   </div>
-  <!-- <button @click="checkProp">chccccc</button> -->
 </template>
 
 <script setup>
@@ -31,10 +40,13 @@ import { usePostStore } from '~~/store/postStore';
 const store = usePostStore();
 const disable = computed(() => props.post);
 let countDown = ref("Post");
-let source = ref("");
+let source = ref([]);
 const props = defineProps(['post'])
 const emit = defineEmits(['userPosted'])
+const photoData = ref([]);
+const allImages = ref([]);
 let interval = ref(null);
+
 const compose = () => {
   store.composePost();
   emit('userPosted', true)
@@ -48,6 +60,10 @@ const compose = () => {
   }, 5000);
 };
 
+const deletePicture = (index) => {
+  source.value.splice(index, 1);
+  allImages.value.splice(index, 1);
+}
 
 const checkFile = (e) => {
     console.log(e.target.files[0])
@@ -55,17 +71,29 @@ const checkFile = (e) => {
     let [foo] = e.target.files
     console.log(foo)
     // getBase64(file)
-    source.value = URL.createObjectURL(file)
+    source.value.push(URL.createObjectURL(file))
+    allImages.value.push(file)
     console.log(source.value)
 }
 
+const checkVal = () => {
+    console.log(allImages.value)
+    console.log(photoData.value)
+}
+
 let thumbsnap_api_key = '000025e537b9452d8255b4fab140f7f7';
-function getBase64(file) {
-    let formData = new FormData()
-    formData.append('key', thumbsnap_api_key);
-    formData.append('media', file);
-    console.log(formData)
-     saveImage(formData);
+function getBase64() {
+    for(let i = 0; i < allImages.value.length; i++) {
+      let formData = new FormData()
+      formData.append('key', thumbsnap_api_key);
+      formData.append('media', allImages.value[i]);
+      saveImage(formData);
+    }
+    // let formData = new FormData()
+    // formData.append('key', thumbsnap_api_key);
+    // formData.append('media', file);
+    // console.log(formData)
+    //  saveImage(formData);
 //    var reader = new FileReader();
 //    reader.readAsDataURL(file);
 //    reader.onload = function () {
@@ -83,6 +111,7 @@ const saveImage = async (formData) => {
         body: formData
     })
     console.log(data.data.value.data)
+    photoData.value.push(data.data.value.data);
 
 }
 
