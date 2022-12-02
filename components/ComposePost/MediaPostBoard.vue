@@ -32,6 +32,21 @@
       <img class="h-[150px]" height="50px" :src="src" alt="" />
     </div>
   </div>
+  <div v-if="videoSrc" class="flex flex-wrap">
+    <div
+      v-for="(vidSrc, i) in videoSrc"
+      :key="vidSrc"
+      class="min-h-[50px] w-fit relative drop-shadow-md"
+    >
+      <v-icon @click="deletePicture(i)" color="black" class="absolute right-0"
+        >mdi-close</v-icon
+      >
+      <video controls class="myvideo" style="height:100%">
+      <source :src="vidSrc" type="video/mp4" id="video_here">
+      Your browser does not support HTML5 video.
+      </video>
+    </div>
+  </div>
   <div class="flex items-center p-3 bg-zinc-600 pb-5 relative">
     <div class="imageUpload">
       <label for="file-input">
@@ -40,12 +55,21 @@
           :props="{ name: 'mdi-image', color: 'var(--postIcon)' }"
         />
       </label>
-      <input @input="checkFile" id="file-input" class="hidden" type="file" />
+      <input @input="checkFile" accept="image/*" id="file-input" class="hidden" type="file" />
     </div>
-    <IconComponent
+    <div class="imageUpload">
+      <label for="videoInput">
+        <IconComponent
+          class="pl-2 mt-1"
+          :props="{ name: 'mdi-video', color: 'var(--postIcon)' }"
+        />
+      </label>
+      <input @input="checkFileVideo" id="videoInput" class="hidden" type="file" />
+    </div>
+    <!-- <IconComponent
       class="pl-2 mt-1"
       :props="{ name: 'mdi-video', color: 'var(--postIcon)' }"
-    />
+    /> -->
     <IconComponent
       class="pl-2 rotate-90 ml-2"
       :props="{ name: 'mdi-poll', color: 'var(--postIcon)' }"
@@ -73,19 +97,24 @@ const disable = computed(() => props.post);
 const props = defineProps(["post"]);
 const emit = defineEmits(["userPosted"]);
 const photoData = ref([]);
-const allImages = ref([]);
+const vidData = ref([]);
+const allFiles = ref([]);
 const uploadImageLoading = ref(false);
 const loading = ref(false);
 let interval = ref(null);
-let thumbsnap_api_key = "000025e537b9452d8255b4fab140f7f7";
 let countDown = ref("Post");
 let source = ref([]);
+let videoSrc = ref([]);
 let progress = ref(0);
 
 const compose = async () => {
-  if (allImages.value.length > 0) {
+  if (allFiles.value.length > 0) {
     loading.value = true;
-    getBase64();
+    const {imageData, videoData, emit, progress} = await useImage(allFiles.value)
+    loading.value = progress;
+    photoData.value = imageData;
+    vidData.value = videoData;
+    uploadImageLoading.value = emit;
   } else {
     await store.composePost();
     emit("userPosted", true);
@@ -101,11 +130,15 @@ const compose = async () => {
 };
 
 watch(uploadImageLoading, async (val) => {
-  console.log("second");
+  // console.log("second");
   if (val) {
-    // store.$state.images = photoData.value;
-    console.log(photoData.value);
-    await store.composePost(photoData.value);
+    // console.log(photoData.value);
+    // console.log(vidData.value);
+    const data = {
+      images: photoData.value,
+      videos: vidData.value,
+    };
+    await store.composePost(data);
     progress.value = 100;
     resetVals();
     emit("userPosted", true);
@@ -124,51 +157,37 @@ watch(uploadImageLoading, async (val) => {
 const resetVals = () => {
   source.value = [];
   loading.value = false
-  allImages.value = [];
+  allFiles.value = [];
   progress.value = 0;
-  photoData.value = [];
+  videoSrc.value = [];
 }
 
 const deletePicture = (index) => {
   source.value.splice(index, 1);
-  allImages.value.splice(index, 1);
+  allFiles.value.splice(index, 1);
 };
 
 const checkFile = (e) => {
   const [file] = e.target.files;
   source.value.push(URL.createObjectURL(file));
-  allImages.value.push(file);
+  allFiles.value.push(file);
+  console.log(allFiles.value);
+};
+
+const checkFileVideo = (e) => {
+  const [file] = e.target.files;
+  if(file){
+    allFiles.value.push(file);
+    console.log('111',allFiles.value);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      videoSrc.value.push(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
 };
 
 const checkVal = () => {
   console.log(loading.value);
-};
-
-async function getBase64() {
-  let count;
-  for (count = 0; count <= allImages.value.length - 1; count++) {
-    let formData = new FormData();
-    formData.append("key", thumbsnap_api_key);
-    formData.append("media", allImages.value[count]);
-    await saveImage(formData);
-  }
-  if (count == allImages.value.length) {
-    console.log("first");
-    uploadImageLoading.value = true;
-  }
-}
-
-const saveImage = async (formData) => {
-  const data = await useFetch("https://thumbsnap.com/api/upload", {
-    method: "POST",
-    body: formData,
-  });
-  if (data) {
-    progress.value += 100 / allImages.value.length;
-    photoData.value.push(data.data.value.data);
-  } else {
-    console.log("error");
-  }
-
 };
 </script>

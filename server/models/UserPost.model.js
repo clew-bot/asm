@@ -21,7 +21,11 @@ const UserPostSchema = new mongoose.Schema({
     photos: {
         type: Array,
         default: [],
-    }
+    },
+    videos: {
+        type: Array,
+        default: [],
+    },
     },
     { timestamps: true }
     );

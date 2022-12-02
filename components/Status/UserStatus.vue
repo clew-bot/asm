@@ -21,7 +21,7 @@
 } */
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity 0.2s ease;
 }
 
 .v-enter-from,
@@ -93,6 +93,8 @@
 }
 
 
+
+
 </style>
 <template>
     <TransitionGroup name="list">
@@ -104,6 +106,7 @@
         elevation="0"
         color="#18181b"
         class="border-t-[.2px] rounded-none border-t-[var(--dashBorder)] bg-zinc-700 w-full">
+        
             <v-card-title>
                 <div class="flex justify-items-start pt-3 ">
                     <v-badge
@@ -152,57 +155,68 @@
             class="px-4 text-base text-white p-0 font-semibold" 
             v-html="status.content">
             </v-card-text>
-                <div v-if="(status.photos.length > 0)"
+                <div v-if="(status.photos.length === 1)"
                     class="">
+                    
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <div v-for="photo in status.photos" :key="photo._id" class="w-full">
-
-                            <v-img
+                        <div v-for="photo in status.photos" :key="photo._id" class="w-full bg-zinc-700">
+                            <div class=""
+                            :class="photo.width > 600 || photo.width < 250 ? '' : `border-t-[.2px] border-b-[.2px] border-[var(--dashBorder)]`">
+                                <v-img
                             :src="photo.media"
-                            class="m-auto"
-                            :style="photo.width > 700 ? 'width: 100%' : `width: ${photo.width}px`"
+                            class="m-auto cursor-pointer transition-all" 
+                            :style="photo.width > 600 ? 'width: 100%' : `width: ${photo.width}px`"
                             >
 
                             </v-img>
+                            </div>
+                          
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-between">
+            
+                <v-carousel
+                    v-else-if="status.photos.length > 1"
+                        height="500"
+                        hide-delimiter-background
+                        :show-arrows=false
+                        class="w-full"
+                        color="grey"
+                    >
+                        <v-carousel-item
+                        v-for="(slide, i) in status.photos"
+                        :key="i"
+                        class="w-full"
+                        >
+                        <v-sheet
+                            height="100%"
+                            class="w-full"
+                        >
+                            <div class="d-flex fill-height justify-center align-center">
+                                <v-img
+                                :src="slide.media"
+                                >
+
+                                </v-img>
+                            </div>
+                        </v-sheet>
+                        </v-carousel-item>
+                    </v-carousel>
                     <Transition>
-                    <div
-                    v-if="toolTipObj[status._id]"
-                    @mouseenter="openTooltip(status._id)"
-                    @mouseleave="closeTooltip(status._id)"
-                    class="border-2 absolute bottom-24 left-2 z-99 bg-white h-[3rem] w-[12rem] rounded-xl flex justify-evenly items-center">
-                        <v-icon 
-                        color="blue"
-                        size="large"
-                        class="cursor-pointer"
-                        >mdi-emoticon-happy-outline</v-icon>
-                        <v-icon
-                        class="cursor-pointer"
-                        color="blue"
-                        size="large"
-                        >
-                            mdi-thumb-up-outline
-                        </v-icon>
-                        <v-icon
-                        class="cursor-pointer"
-                        color="blue"
-                        size="large"
-                        >
-                            mdi-hand-heart-outline
-                        </v-icon>
-                        <v-icon
-                        class="cursor-pointer"
-                        color="blue"
-                        size="large"
-                        >
-                            mdi-lightbulb-on-20
-                        </v-icon>
-                    </div>
+                   
                 </Transition>
+                <div class="flex justify-between">
                     <div class="px-4 flex pt-10">
+                        <Transition>
+                        <div
+                            v-if="toolTipObj[status._id]" class="relative">
+                            <StatusTooltipStatus
+                            @mouseenter="openTooltip(status._id)"
+                            @mouseleave="closeTooltip(status._id)"
+                            class="absolute -top-14 -left-3"
+                            />
+                        </div>
+                        </Transition>
                         <IconComponent 
                         @mouseleave="closeTooltip(status._id)"
                         @mouseenter="openTooltip(status._id)"
@@ -263,6 +277,10 @@ onMounted(() => {
         toolTipObj.value[status._id] = false
     })
 })
+
+const test = (e) => {
+    console.log('lol', e)
+}
 
 const openTooltip = (id) => {
     Object.keys(toolTipObj.value).forEach((key) => {

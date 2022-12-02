@@ -10,6 +10,7 @@ export default defineEventHandler(async (event) => {
         author: new toId(id),
         content: body.post,
         photos: body?.postImages ?? [],
+        videos: body?.postVideos ?? [],
     });
     const addPost = await UserModel.updateOne(
         { _id: new toId(id) },
