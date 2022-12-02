@@ -7,13 +7,11 @@ export const usePostStore = defineStore("post", {
   },
   actions: {
     composePost: async (payload) => {
-      console.log("payload", payload);
       const data = {
         post: usePostStore().post,
-        postImages: payload.images,
-        postVideos: payload.videos
+        postImages: payload?.images,
+        postVideos: payload?.videos
       };
-      console.log('data', data)
       const response = await $fetch("/api/dashboard/compose", {
         method: "POST",
         body: data,
@@ -26,7 +24,6 @@ export const usePostStore = defineStore("post", {
         method: "POST",
         body: payload,
       });
-      console.log("yoooo", response);
       return response;
     },
     check: async (payload) => {

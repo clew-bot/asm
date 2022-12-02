@@ -16,7 +16,6 @@ export const useUserStore = defineStore('user', {
           useUserStore().name = response.name;
           useUserStore().email = response.email;
         }
-        console.log(response)
         return response;
       },
       signUp: async (payload)  => {
@@ -36,7 +35,6 @@ export const useUserStore = defineStore('user', {
         const response = await $fetch("/api/profile/get-profile", {
           method: "GET",
         });
-        console.log('r',response.posts)
         useUserStore().posts = response.posts;
         return response;
       },

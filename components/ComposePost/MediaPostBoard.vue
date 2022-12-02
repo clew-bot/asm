@@ -41,7 +41,7 @@
       <v-icon @click="deletePicture(i)" color="black" class="absolute right-0"
         >mdi-close</v-icon
       >
-      <video controls class="myvideo" style="height:100%">
+      <video autoplay controls class="myvideo" style="height:100%">
       <source :src="vidSrc" type="video/mp4" id="video_here">
       Your browser does not support HTML5 video.
       </video>
@@ -130,10 +130,7 @@ const compose = async () => {
 };
 
 watch(uploadImageLoading, async (val) => {
-  // console.log("second");
   if (val) {
-    // console.log(photoData.value);
-    // console.log(vidData.value);
     const data = {
       images: photoData.value,
       videos: vidData.value,
@@ -171,14 +168,12 @@ const checkFile = (e) => {
   const [file] = e.target.files;
   source.value.push(URL.createObjectURL(file));
   allFiles.value.push(file);
-  console.log(allFiles.value);
 };
 
 const checkFileVideo = (e) => {
   const [file] = e.target.files;
   if(file){
     allFiles.value.push(file);
-    console.log('111',allFiles.value);
     const reader = new FileReader();
     reader.onload = (e) => {
       videoSrc.value.push(e.target.result);

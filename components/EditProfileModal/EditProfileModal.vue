@@ -91,7 +91,6 @@ const tabs = ref(["PROFILE", "ABOUT", "SETTINGS"]);
 const theTab = ref("PROFILE");
 
 const openTab = (tab) => {
-  console.log(tab);
   theTab.value = tab;
 };
 

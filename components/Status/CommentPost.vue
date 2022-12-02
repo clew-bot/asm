@@ -80,9 +80,7 @@
 </template>
 
 <script setup>
-import { usePostStore } from "@/store/postStore";
-const store = usePostStore();
-const { props, value, modelValue } = defineProps([
+const { modelValue } = defineProps([
   "props",
   "value",
   "modelValue",
@@ -93,16 +91,7 @@ const emit = defineEmits(["needMoreComments"]);
 const allComments = ref([]);
 const loadMore = ref(false);
 const globalSlice = ref(null)
-const watchMe = ref(modelValue)
-console.log(value);
 
-console.log('IM rAN', modelValue)
-console.log('IM rffddfdAN')
-
-
-watch(watchMe , (val) => {
-  console.log('dfdfdfd', val)
-})
 
 const helperLabel = computed((val) => {
     if (modelValue.length > 0 && loadMore.value) {
@@ -112,12 +101,10 @@ const helperLabel = computed((val) => {
     }
 })
 
-// console.log(modelValue);
 onMounted(async () => {
   const sliceValue = modelValue.length > 5 ? 5 : modelValue.length;
   globalSlice.value = sliceValue
   allComments.value = modelValue.slice(0, sliceValue);
-  console.log(comments.value)
   await nextTick();
   modelValue.length > 5 ? loadMore.value = true : loadMore.value = false
   loading.value = false;

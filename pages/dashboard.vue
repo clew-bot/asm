@@ -42,10 +42,9 @@ definePageMeta({
 
 onMounted( async () => {
   const allPosts = await store.getPosts();
-  console.log(allPosts);
+  console.log("allPosts: ", allPosts);
   await nextTick(()=> {
     if(allPosts.length === 0) {
-      console.log("hi")
     loading.value = false;
   } else {
     loading.value = false;

@@ -7,8 +7,6 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const id:any = await useStorage().getItem("user");
     const { postRefId, comment } = body;
-    console.log(postRefId, comment);
-    console.log(new toId(postRefId))
     const newComment = await PostComment.create({
         postRef: new toId(postRefId),
         content: comment,
@@ -20,7 +18,6 @@ export default defineEventHandler(async (event) => {
     })
     post?.comments.push(newComment._id);
     await post?.save();
-    console.log("post", post);
 
     return { error: false, message: "Comment Created", createdComment: newComment };
 })

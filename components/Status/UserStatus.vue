@@ -159,9 +159,10 @@
                     class="">
                     
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <div v-for="photo in status.photos" :key="photo._id" class="w-full bg-zinc-700">
+                        <div v-for="photo in status.photos" :key="photo._id" 
+                        class="w-full flex justify-center bg-[#212121]">
                             <div class=""
-                            :class="photo.width > 600 || photo.width < 250 ? '' : `border-t-[.2px] border-b-[.2px] border-[var(--dashBorder)]`">
+                            :class="photo.height > 900 ? 'sm:w-2/3 w-5/6' : `border-t-[.2px] border-b-[.2px] border-[var(--dashBorder)] w-full`">
                                 <v-img
                             :src="photo.media"
                             class="m-auto cursor-pointer transition-all" 
@@ -202,9 +203,45 @@
                         </v-sheet>
                         </v-carousel-item>
                     </v-carousel>
-                    <Transition>
-                   
-                </Transition>
+                   <div v-if="(status?.videos?.length === 1)">
+                    <div v-for="video in status.videos" :key="video" class="w-full">
+                        <div class="bg-[#212121] flex justify-center">
+                    <video controls 
+                    :class="video.height > 700 ? 'w-2/3' : `w-full`"
+                    class="">
+                        <source :src="video.media" type="video/mp4" id="video_here">
+                        Your browser does not support HTML5 video.
+                    </video>
+                    </div>
+                </div>
+                </div>
+                    <v-carousel
+                    v-else-if="(status?.videos?.length > 1)"
+                        height="500"
+                        hide-delimiter-background
+                        :show-arrows=false
+                        class="w-full"
+                        color="grey"
+                        vertical-delimiters="right"
+
+                    >
+                        <v-carousel-item
+                        v-for="(slide, i) in status.videos"
+                        :key="i"
+                        class="w-full"
+                        >
+
+                            <div class="d-flex  justify-center align-center  h-full bg-[#212121]">
+                            <video controls class="myvideo h-full
+                        ">
+                                <source :src="slide.media" type="video/mp4" id="video_here">
+                                Your browser does not support HTML5 video.
+                            </video>
+                            </div>
+                        </v-carousel-item>
+                    </v-carousel>
+
+
                 <div class="flex justify-between">
                     <div class="px-4 flex pt-10">
                         <Transition>
@@ -278,9 +315,6 @@ onMounted(() => {
     })
 })
 
-const test = (e) => {
-    console.log('lol', e)
-}
 
 const openTooltip = (id) => {
     Object.keys(toolTipObj.value).forEach((key) => {
@@ -316,7 +350,6 @@ const openComments = async (i, id) => {
     openObj.value['id-'+ i] = id
     const getComments = await store.getCommentsForPost(id);
     allComments.value[id] = getComments;
-    console.log('ran')
    } else if (openObj.value[id] === true) {
     openObj.value[id] = false
    } else {

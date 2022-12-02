@@ -7,9 +7,7 @@ import jwt from 'jsonwebtoken';
 
 
 export default defineEventHandler(async (event) => {
-    console.log("hello")
     const body = await readBody(event);
-    console.log(body)
     // const findPost = await UserPost.find({ _id: new toId(body) });
     // console.log('post found: ', findPost)
     const findComments = await PostComment.find({ postRef: body }).populate('author', ['username', 'profilePicture', 'handleName']).sort({ createdAt: -1 });

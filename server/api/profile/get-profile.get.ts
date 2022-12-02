@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken';
 export default defineEventHandler(async (event) => {
     const id:any = await useStorage().getItem("user");
     const user = await UserModel.findById({ _id: new toId(id) }).populate("posts");
-    console.log(user)
 
     return user
 })
