@@ -49,14 +49,13 @@
                   {{ tab }}
                 </v-tab>
               </v-tabs>
-              <!-- <div class="border-2 absolute -top-4 left-32 h-[10.3rem]"></div> -->
             </div>
             <div class="p-2"></div>
           </div>
           <v-window v-model="theTab" direction="vertical">
             <v-window-item v-for="n in tabs" :key="`card-${n}`">
                 <div class="w-full"  v-if="theTab === 0">
-                    <EditProfileTab />
+                  <EditProfileTab />
                 </div>
                 <div v-if="theTab === 1">
                     <EditProfileModalAboutTab />
@@ -85,6 +84,8 @@
 </template>
 
 <script setup>
+import ProfileTab from './ProfileComponents/ProfileTab.vue'
+
 const dialog = ref(false);
 const currentItem = ref("tab-Profile");
 const tabs = ref(["PROFILE", "ABOUT", "SETTINGS"]);
