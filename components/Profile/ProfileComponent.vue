@@ -47,44 +47,8 @@
 
 <script setup>
 import { memberSinceLog } from '@/utils/timeConvert'
-const image = ref(null)
 const { props } = defineProps(['props'])
 
-console.log(props)
-
-
-const checkFile = (e) => {
-    console.log(e.target.files[0])
-    const file = e.target.files[0]
-    getBase64(file)
-}
-
-let thumbsnap_api_key = '000025e537b9452d8255b4fab140f7f7';
-function getBase64(file) {
-    let formData = new FormData()
-    formData.append('key', thumbsnap_api_key);
-    formData.append('media', file);
-    console.log(formData)
-     saveImage(formData);
-//    var reader = new FileReader();
-//    reader.readAsDataURL(file);
-//    reader.onload = function () {
-//     //  console.log(reader.result);
-//     //  saveImage(formData);
-//    };
-//    reader.onerror = function (error) {
-//      console.log('Error: ', error);
-//    };
-}
-
-const saveImage = async (formData) => {
-    const data = await useFetch('https://thumbsnap.com/api/upload', {
-        method: 'POST',
-        body: formData
-    })
-    console.log(data.data.value.data)
-
-}
 
 
 </script>

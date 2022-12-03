@@ -86,7 +86,6 @@
 
 <script setup>
 const { modelValue } = defineProps(["modelValue"]);
-console.log('mvvvv', modelValue)
 const mediaCount = Object.keys(modelValue).length
 </script>
 

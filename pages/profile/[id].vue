@@ -10,8 +10,8 @@
       <div v-if="dto">
      <ProfileComponent :props="dto"/>
     </div>
-    <div v-if="dtoPosts">
-     <ProfilePostsAndFriends :props="dtoPosts"/>
+    <div v-if="dto">
+     <ProfilePostsAndFriends :props="dto"/>
     </div>
     </div>
   </NuxtLayout>
@@ -30,7 +30,6 @@ const handleName = router.currentRoute.value.params.id;
 onMounted(async () => {
   const data = await store.getProfileInfoForUser(handleName);
   dto.value = data;
-  dtoPosts.value = data.posts;
   // Add friends to store
 });
 definePageMeta({

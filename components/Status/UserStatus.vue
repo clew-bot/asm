@@ -245,6 +245,7 @@ let timeout;
 console.log('223',props.modelValue);
 
 onMounted(() => {
+  props.modelValue.reverse();
   props.modelValue.forEach((status) => {
     utilityObj.value[status._id] = {
       showMoreCommentLabel: false,

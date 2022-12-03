@@ -11,8 +11,6 @@
 import { useUserStore } from '~~/store/userStore';
 const store = useUserStore();
 const props = defineProps(['props'])
-
-console.log('hiiiiii', props)
-const posts = ref(props.props.reverse())
+const posts = ref(props.props)
 
 </script>

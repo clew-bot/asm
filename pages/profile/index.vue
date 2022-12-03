@@ -10,8 +10,8 @@
       <div v-if="dto">
      <ProfileComponent :props="dto"/>
     </div>
-    <div v-if="dtoPosts">
-     <ProfilePostsAndFriends :props="dtoPosts"/>
+    <div v-if="dto">
+     <ProfilePostsAndFriends :props="dto"/>
     </div>
     </div>
   </NuxtLayout>
@@ -21,13 +21,11 @@
 import { useUserStore } from '~~/store/userStore';
 const store = useUserStore();
 const dto = ref(null);
-const dtoPosts = ref(null);
 
 
 onMounted(async () => {
   const data = await store.getProfileInfo();
   dto.value = data;
-  dtoPosts.value = data.posts;
   // Add friends to store
 });
 

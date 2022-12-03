@@ -48,7 +48,7 @@ export const createdAtLog = (times) => {
     const date = new Date(times).toLocaleDateString();
     let month = "";
     let array = [...date]
-    console.log(array)
+    // console.log(array)
     
     if(array.length === 9) {
       month += monthHash[array[0]]
