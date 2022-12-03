@@ -114,6 +114,7 @@ let allMedia = ref([]);
 const config = useRuntimeConfig();
 
 const compose = async () => {
+  console.log(allMedia.value);
   if (allFiles.value.length > 0) {
     loading.value = true;
     const {imageData, videoData, media, emit, progress} = await useFile(allFiles.value)
@@ -146,6 +147,7 @@ watch(uploadImageLoading, async (val) => {
     await store.composePost(data);
     progress.value = 100;
     resetVals();
+    console.log("after reset", allMedia.value);
     emit("userPosted", true);
     countDown = ref(5);
     interval = setInterval(() => {
@@ -163,6 +165,7 @@ const resetVals = () => {
   source.value = [];
   loading.value = false
   allFiles.value = [];
+  allMedia.value = [];
   progress.value = 0;
   videoSrc.value = [];
 }

@@ -10,6 +10,7 @@ export const usePostStore = defineStore("post", {
       // const images = payload?.images;
       // const videos = payload?.videos;
       // const media = payload?.media;
+      console.log('The payload for compose post: ', payload)
       const data = {
         post: usePostStore().post,
         postImages: payload?.images,

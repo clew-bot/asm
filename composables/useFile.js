@@ -10,6 +10,7 @@ const backUpUploader = 'https://yourimageshare.com/api/upload?key=9uGuBilq1V7HHk
 export default async function (allFiles) {
   const config = useRuntimeConfig().public;
   const token = config.IMAGE_TOKEN;
+  allMedia.value = [];
   photoData.value = [];
   vidData.value = [];
   scopedFiles.value = allFiles;

@@ -1,66 +1,64 @@
-<style lang="scss" scoped>
+<style scoped>
+
+.child {
+    position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
+
+}
 </style>
 <template>
     <div>
         <div v-if="mediaCount === 1">
-            <div class="flex justify-center">
               <div
                 v-for="media in modelValue"
                 :key="media"
-                class="w-full flex justify-center bg-[#212121]"
               >
-              <!-- {{media}} -->
                 <div
-                class="w-full"
+                class="relative overflow-hidden min-h-[30em]"
                 v-if="(media.includes('.jpg') || media.includes('.png'))">
                   <v-img
+                  class="child"
                     :src="media"
-                    class="min-h-96 max-h-[37rem] sm:max-h-[40rem] min-w-full"
                   >
                   </v-img>
                 </div>
                 <div 
-                class="w-full"
+                class=""
                 v-if="media.includes('.mp4')">
-                <div class="">
-                    <video
-                        :src="media"
-                        controls
-                        class="min-h-96 max-h-[37rem] sm:max-h-[40rem] min-w-full"
-                    >
-                    </video>
+                  <status-video-player :media="media" />
                 </div>
-            </div>
-              </div>
             </div>
           </div>
             <v-carousel
             v-else-if="(mediaCount > 1)"
-            height="500"
             hide-delimiter-background
             :show-arrows="false"
-            class="w-full"
-            color="grey"
+            color="yellow"
+            class="bg-[#343439]"
             vertical-delimiters="right"
+            height="500"
+
           >
             <v-carousel-item
-              v-for="(slide, i) in modelValue"
+              v-for="media, i in modelValue"
               :key="i"
-              class="w-f"
+              class="flex justify-center items-center"
             >
               <div
-                v-if="slide.includes('.mp4')"
-                class="d-flex justify-center align-center h-full bg-[#212121]"
+                v-if="media.includes('.mp4')"
               >
-                <video controls class="h-full">
-                  <source :src="slide" type="video/mp4"/>
-                  Your browser does not support HTML5 video.
-                </video>
+              <status-video-player :media="media" />
               </div>
               <v-sheet
-              v-else-if="slide.includes('.jpg') || slide.includes('.png')"
-              height="100%">
-                  <v-img :src="slide"> </v-img>
+              v-else-if="media.includes('.jpg') || media.includes('.png')"
+              >
+                  <v-img
+                    class="child"
+                   :src="media"> </v-img>
               </v-sheet>
             </v-carousel-item>
           </v-carousel>
