@@ -110,16 +110,18 @@ let countDown = ref("Post");
 let source = ref([]);
 let videoSrc = ref([]);
 let progress = ref(0);
+let allMedia = ref([]);
 const config = useRuntimeConfig();
 
 const compose = async () => {
   if (allFiles.value.length > 0) {
     loading.value = true;
-    const {imageData, videoData, emit, progress} = await useFile(allFiles.value)
+    const {imageData, videoData, media, emit, progress} = await useFile(allFiles.value)
     loading.value = progress;
     photoData.value = imageData;
     vidData.value = videoData;
     uploadImageLoading.value = emit;
+    allMedia.value = media;
   } else {
     await store.composePost();
     emit("userPosted", true);
@@ -139,6 +141,7 @@ watch(uploadImageLoading, async (val) => {
     const data = {
       images: photoData.value,
       videos: vidData.value,
+      media: allMedia.value,
     };
     await store.composePost(data);
     progress.value = 100;

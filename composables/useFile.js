@@ -4,6 +4,7 @@ const vidData = ref([]);
 const progress = ref(0);
 const scopedFiles = ref([]);
 const backUpKey = "9uGuBilq1V7HHkeu";
+const allMedia = ref([]);
 const backUpUploader = 'https://yourimageshare.com/api/upload?key=9uGuBilq1V7HHkeu'
 
 export default async function (allFiles) {
@@ -27,7 +28,7 @@ export default async function (allFiles) {
     await saveImage(formData, backUpFormData);
   }
   if (count == allFiles.length) {
-    return { progress, imageData: photoData.value, videoData: vidData.value, emit: true };
+    return { progress, imageData: photoData.value, videoData: vidData.value, media: allMedia.value,  emit: true };
   }
 }
 
@@ -50,10 +51,12 @@ const saveImage = async (formData, backUpFormData) => {
   if (data) {
     console.log('working...', data)
     const fileType = data.data.value.data.media.slice(-4);
-    console.log('fff2222', fileType)
+    // console.log('fff2222', fileType)
     if (fileType in possibleImageTypes) {
+      allMedia.value.push(data.data.value.data.media);
       photoData.value.push(data.data.value.data);
     } else if (fileType in possibleVideoTypes) {
+      allMedia.value.push(data.data.value.data.media);
       vidData.value.push(data.data.value.data);
     }
     progress.value += 100 / scopedFiles.value.length;

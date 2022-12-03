@@ -26,6 +26,10 @@ const UserPostSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
+    media: {
+        type: Array,
+        default: [],
+    }
     },
     { timestamps: true }
     );

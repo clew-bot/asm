@@ -7,11 +7,16 @@ export const usePostStore = defineStore("post", {
   },
   actions: {
     composePost: async (payload) => {
+      // const images = payload?.images;
+      // const videos = payload?.videos;
+      // const media = payload?.media;
       const data = {
         post: usePostStore().post,
         postImages: payload?.images,
-        postVideos: payload?.videos
+        postVideos: payload?.videos,
+        postMedia: payload?.media,
       };
+   
       const response = await $fetch("/api/dashboard/compose", {
         method: "POST",
         body: data,
