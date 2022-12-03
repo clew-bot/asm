@@ -21,7 +21,7 @@
                 class="relative overflow-hidden min-h-[30em]"
                 v-if="(media.includes('.jpg') || media.includes('.png'))">
                   <v-img
-                  class="child"
+                  class="child cursor-pointer"
                     :src="media"
                   >
                   </v-img>
@@ -29,7 +29,9 @@
                 <div 
                 class=""
                 v-if="media.includes('.mp4')">
-                  <status-video-player :media="media" />
+                  <status-video-player
+                  class="cursor-pointer"
+                  :media="media" />
                 </div>
             </div>
           </div>
@@ -51,13 +53,15 @@
               <div
                 v-if="media.includes('.mp4')"
               >
-              <status-video-player :media="media" />
+              <status-video-player
+              class="cursor-pointer"
+              :media="media" />
               </div>
               <v-sheet
               v-else-if="media.includes('.jpg') || media.includes('.png')"
               >
                   <v-img
-                    class="child"
+                    class="child cursor-pointer"
                    :src="media"> </v-img>
               </v-sheet>
             </v-carousel-item>
