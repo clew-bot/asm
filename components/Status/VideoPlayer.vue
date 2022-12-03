@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-console.log("woring?");
+
 import { defineComponent } from "vue";
 import { VideoPlayer } from "@videojs-player/vue";
 import "video.js/dist/video-js.css";
@@ -51,7 +51,7 @@ export default defineComponent({
 <style scoped>
 
 @media screen and (max-width: 768px) {
-    .video-js {
+    /* .video-js {
         position: absolute !important;
         width: 100% !important;
         display: flex;
@@ -63,13 +63,11 @@ export default defineComponent({
         position: absolute !important;
         width: 100% !important;
    
-    }
+    } */
 }
 .video-js {
-
     position: relative !important;
-    max-height: 525px;
-    min-height: 492px;
+
     background: #343439 !important;
     /* border-top: .2px solid var(--dashBorder) !important;
     border-bottom: .2px solid var(--dashBorder) !important; */

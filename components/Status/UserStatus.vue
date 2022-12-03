@@ -242,6 +242,8 @@ const showMoreCommentLabel = ref(false);
 let utilityObj = ref({});
 let timeout;
 
+console.log('223',props.modelValue);
+
 onMounted(() => {
   props.modelValue.forEach((status) => {
     utilityObj.value[status._id] = {

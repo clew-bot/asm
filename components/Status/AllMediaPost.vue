@@ -15,23 +15,38 @@
         <div v-if="mediaCount === 1">
               <div
                 v-for="media in modelValue"
-                :key="media"
+                :key="media.media"
+                class=""
               >
                 <div
-                class="relative overflow-hidden min-h-[30em]"
-                v-if="(media.includes('.jpg') || media.includes('.png'))">
+                class=""
+                :class="media.width > 900
+                ? '' 
+                : `relative overflow-hidden min-h-[30em]`"
+                v-if="(media.media.includes('.jpg') || media.media.includes('.png'))">
                   <v-img
-                  class="child cursor-pointer"
-                    :src="media"
+                  class=" cursor-pointer"
+                  :class="media.width > 900
+                ? '' 
+                : `child`"
+                    :src="media.media"
                   >
                   </v-img>
                 </div>
                 <div 
-                class=""
-                v-if="media.includes('.mp4')">
-                  <status-video-player
+                v-if="media.media.includes('.mp4')">
+                <div class="bg-[#212121] flex justify-center">
+                    <video controls 
+                    :class="media.height > 700 ? 'w-2/4 sm:w-1/2' : `w-full`"
+                    class="">
+                        <source :src="media.media" type="video/mp4" id="video_here">
+                        Your browser does not support HTML5 video.
+                    </video>
+                    </div>
+                  <!-- <status-video-player
                   class="cursor-pointer"
-                  :media="media" />
+                  :media="media.media"
+                  :width="media.width" /> -->
                 </div>
             </div>
           </div>
@@ -51,18 +66,18 @@
               class="flex justify-center items-center"
             >
               <div
-                v-if="media.includes('.mp4')"
+                v-if="media.media.includes('.mp4')"
               >
               <status-video-player
               class="cursor-pointer"
-              :media="media" />
+              :media="media.media" />
               </div>
               <v-sheet
-              v-else-if="media.includes('.jpg') || media.includes('.png')"
+              v-else-if="(media.media.includes('.jpg') || media.media.includes('.png') || media.media.includes('.gif'))"
               >
                   <v-img
                     class="child cursor-pointer"
-                   :src="media"> </v-img>
+                   :src="media.media"> </v-img>
               </v-sheet>
             </v-carousel-item>
           </v-carousel>
@@ -71,6 +86,7 @@
 
 <script setup>
 const { modelValue } = defineProps(["modelValue"]);
+console.log('mvvvv', modelValue)
 const mediaCount = Object.keys(modelValue).length
 </script>
 
