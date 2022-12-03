@@ -20,7 +20,13 @@
       <strong>{{ progress }}%</strong>
     </v-progress-linear>
   </Transition>
-  <div v-if="source" class="flex flex-wrap">
+  <ComposePostPreviewFiles
+    v-if="source.length > 0 || videoSrc.length > 0"
+    :source="source"
+    :videoSrc="videoSrc"
+    @deletePicture="deletePicture"
+  />
+  <!-- <div v-if="source" class="flex flex-wrap">
     <div
       v-for="(src, i) in source"
       :key="src"
@@ -46,7 +52,7 @@
       Your browser does not support HTML5 video.
       </video>
     </div>
-  </div>
+  </div> -->
   <div class="flex items-center p-3 bg-zinc-600 pb-5 relative">
     <div class="imageUpload">
       <label for="file-input">
@@ -64,12 +70,10 @@
           :props="{ name: 'mdi-video', color: 'var(--postIcon)' }"
         />
       </label>
-      <input @input="checkFileVideo" id="videoInput" class="hidden" type="file" />
+      <input @input="checkFileVideo" 
+      accept="video/*"
+      id="videoInput" class="hidden" type="file" />
     </div>
-    <!-- <IconComponent
-      class="pl-2 mt-1"
-      :props="{ name: 'mdi-video', color: 'var(--postIcon)' }"
-    /> -->
     <IconComponent
       class="pl-2 rotate-90 ml-2"
       :props="{ name: 'mdi-poll', color: 'var(--postIcon)' }"
@@ -106,11 +110,12 @@ let countDown = ref("Post");
 let source = ref([]);
 let videoSrc = ref([]);
 let progress = ref(0);
+const config = useRuntimeConfig();
 
 const compose = async () => {
   if (allFiles.value.length > 0) {
     loading.value = true;
-    const {imageData, videoData, emit, progress} = await useImage(allFiles.value)
+    const {imageData, videoData, emit, progress} = await useFile(allFiles.value)
     loading.value = progress;
     photoData.value = imageData;
     vidData.value = videoData;
@@ -162,7 +167,9 @@ const resetVals = () => {
 const deletePicture = (index) => {
   source.value.splice(index, 1);
   allFiles.value.splice(index, 1);
+  console.log('aaa', allFiles.value)
 };
+
 
 const checkFile = (e) => {
   const [file] = e.target.files;

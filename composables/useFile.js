@@ -1,20 +1,30 @@
 import { ref } from "vue";
 const photoData = ref([]);
 const vidData = ref([]);
-
 const progress = ref(0);
 const scopedFiles = ref([]);
-const thumbsnap_api_key = "000025e537b9452d8255b4fab140f7f7";
+const backUpKey = "9uGuBilq1V7HHkeu";
+const backUpUploader = 'https://yourimageshare.com/api/upload?key=9uGuBilq1V7HHkeu'
+
 export default async function (allFiles) {
+  const config = useRuntimeConfig().public;
+  const token = config.IMAGE_TOKEN;
   photoData.value = [];
   vidData.value = [];
   scopedFiles.value = allFiles;
+  console.log('af', allFiles)
   let count;
   for (count = 0; count <= allFiles.length - 1; count++) {
     let formData = new FormData();
-    formData.append("key", thumbsnap_api_key);
+    formData.append("key", token);
     formData.append("media", allFiles[count]);
-    await saveImage(formData);
+
+    let backUpFormData = new FormData();
+    formData.append("upload", allFiles[count]);
+
+    console.log('fffff ', allFiles[count])
+
+    await saveImage(formData, backUpFormData);
   }
   if (count == allFiles.length) {
     return { progress, imageData: photoData.value, videoData: vidData.value, emit: true };
@@ -22,21 +32,25 @@ export default async function (allFiles) {
 }
 
 const possibleImageTypes = {
-  '.jpg': ".jpg",
+  '.jpg': '.jpg',
+  '.png': '.png',
+  '.gif': '.gif',
 };
 
 const possibleVideoTypes = {
   '.mp4': ".mp4",
 };
 
-const saveImage = async (formData) => {
+const saveImage = async (formData, backUpFormData) => {
   const data = await useFetch("https://thumbsnap.com/api/upload", {
     method: "POST",
     body: formData,
   });
+  console.log(data)
   if (data) {
     console.log('working...', data)
     const fileType = data.data.value.data.media.slice(-4);
+    console.log('fff2222', fileType)
     if (fileType in possibleImageTypes) {
       photoData.value.push(data.data.value.data);
     } else if (fileType in possibleVideoTypes) {
@@ -45,6 +59,13 @@ const saveImage = async (formData) => {
     progress.value += 100 / scopedFiles.value.length;
     
   } else {
-    console.log("error");
+  //   console.log('loool',backUpFormData)
+  //   console.log("Running backup!");
+  //   console.log(backUpFormData);
+  //   const data = await useFetch(backUpUploader, {
+  //   method: "POST",
+  //   body: backUpFormData,
+  // });
+    console.log('lol')
   }
 };
