@@ -31,7 +31,7 @@
                 @{{props.handleName}} • <span class="italic font-semibold">Online</span>
             </div>
             <div class="flex text-sm font-semibold pt-4">
-                <IconComponent class="pr-2" :props="{name: 'mdi-calendar-text', size: 'x-small'}"/><span>Joined <span class="font-base text-yellow-400">{{memberSinceLog(props.createdAt)}}</span></span>
+                <IconComponent class="pr-2" :props="{name: 'mdi-calendar-text', size: 'x-small'}"/><span>Joined <span class="font-base text-yellow-400">{{regularDate(props.createdAt)}}</span></span>
             </div>
             <div class="flex text-sm font-semibold pt-1">
                 <IconComponent class="pr-2" :props="{name: 'mdi-map-marker', size: 'x-small'}"/><span>{{props.location}}</span>
@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { memberSinceLog } from '@/utils/timeConvert'
+import { regularDate } from '@/utils/timeConvert'
 const { props } = defineProps(['props'])
 </script>
 

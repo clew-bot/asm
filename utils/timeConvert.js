@@ -68,6 +68,7 @@ export const createdAtLog = (times) => {
   };
 
   export const regularDate = (times) => {
+    console.log(times)
     let monthHash = {
       1: "January",
       2: "February",
@@ -85,12 +86,14 @@ export const createdAtLog = (times) => {
     const date = new Date(times).toLocaleDateString();
     let month = "";
     let array = [...date]
+    console.log(array)
     // Jan - Sep
     if(array[1] === "/") {
       month += monthHash[array[0]]
     } else if (array[2] === "/") {
       month += monthHash[array[0] + array[1]]
     }
+    console.log(month)
     if (month === "January" || month === "February" || month === "March" || month === "April" || month === "May" || month === "June" || month === "July" || month === "August" || month === "September") {
       //Single Digit Numbers for DAY
         if(array[3] === "/") {
@@ -102,7 +105,7 @@ export const createdAtLog = (times) => {
         }
     } else if (month === "October" || month === 'November' || month === 'December') {
       //Single Digit Numbers for DAY
-      if(array[2] === "/") {
+      if(array[4] === "/") {
         return `${month} ${array[3]}, ${array[5]}${array[6]}${array[7]}${array[8]}`
       } 
       // Double Digit Numbers for DAY
