@@ -37,7 +37,6 @@ watch(refresh, async (val) => {
 onMounted(async () => {
   const data = await userStore.getProfileInfo();
   dto.value = data;
-  console.log('mounted', dto.value);
   // Add friends to store
 });
 

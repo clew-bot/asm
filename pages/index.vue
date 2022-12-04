@@ -11,7 +11,5 @@
 
 import Test from "@/components/Test.vue";
 import TestTwo from "@/components/TestTwo.vue";
-
-console.log("hiiii")
 </script>
 

@@ -15,8 +15,7 @@
         src="https://thumbsnap.com/t/wEuYWvW3.jpg" alt=""></v-avatar>
 
         </div>
-        <div class="absolute top-5 right-6">
-          
+        <div v-if="props._id === userId" class="absolute top-5 right-6">
             <ClientOnly>
             <EditProfileModal/>
             </ClientOnly>
@@ -47,6 +46,9 @@
 
 <script setup>
 import { regularDate } from '@/utils/timeConvert'
+import { useUserStore } from '~~/store/userStore';
+const userStore = useUserStore();
 const { props } = defineProps(['props'])
+const userId = ref(userStore.$state.userId);
 </script>
 

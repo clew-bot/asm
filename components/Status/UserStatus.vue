@@ -1,13 +1,12 @@
 <style scoped>
 @import url('@/assets/css/animations.css');
-
 </style>
 <template>
   <TransitionGroup name="list">
     <div
       v-for="(status, i) in props.modelValue"
       :key="status._id"
-      class="flex justify-center"
+      class="cont flex justify-center"
     >
       <!-- {{status}} -->
       <v-card
@@ -15,25 +14,11 @@
         color="#18181b"
         class="border-t-[.2px] rounded-none border-t-[var(--dashBorder)] bg-zinc-700 w-full"
       >
+      <!-- {{status}} -->
         <v-card-title>
           <div class="flex justify-items-start pt-3">
-            <v-badge
-              color="green"
-              location="bottom right"
-              offset-x="5"
-              dot
-              bordered
-            >
-              <v-avatar class="border-2" size="48">
-                <!-- <v-img
-                            src=""
-                            alt="John"
-                            class="cursor-pointer"
-                        >
-                        </v-img> -->
-                <span class="text-4xl">🐶</span>
-              </v-avatar>
-            </v-badge>
+        
+            <StatusUserAvatar :props="status.profilePicture"/>
             <div class="absolute left-16 top-4 ml-2 w-fit">
               <NuxtLink :to="`/profile/${status.author.handleName}`">
                 <div
