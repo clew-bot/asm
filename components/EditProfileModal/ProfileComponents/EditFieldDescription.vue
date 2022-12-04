@@ -1,22 +1,38 @@
 <style scoped></style>
 <template>
-  <div class=" absolute top-4 ml-2">
-    <div class="text-base font-semibold">
+  <div class=" absolute top-4 ml-2 p-3 sm:p-1 flex flex-col">
+    <div class="text-sm sm:text-base font-semibold">
       {{props.props.description}}
     </div>
     <div class="pt-32 pb-4 font-bold">{{props.props.changeDescription}}</div>
     <v-text-field
+      :name="props.props.name"
       density="compact"
       bg-color="#4b5563"
       variant="solo"
-      :append-inner-icon="props.props.icon"
+      :prepend-inner-icon="props.props.icon"
       :label="props.props.placeholder"
       type="email"
+      v-model="editInput"
+      @input="updateInput"
     ></v-text-field>
   </div>
 </template>
 
 <script setup>
+import { useEditStore } from '~~/store/EditStore';
+const store = useEditStore();
 const props = defineProps(['props']);
 console.log(props.props)
+let editInput = ref(store.$state[props.props.name]);
+
+const updateInput = () => {
+  store.$state[props.props.name] = editInput.value;
+  console.log('store val', store.$state[props.props.name]);
+};
+
+
+
+
+
 </script>

@@ -16,6 +16,9 @@ const UserSchema = new mongoose.Schema({
     handleName: {
         type: String,
     },
+    bio: {
+        type: String,
+    },
     birthday: {
         type: Date, 
     },

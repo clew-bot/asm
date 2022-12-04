@@ -31,6 +31,7 @@
           EDIT PROFILE
           <IconComponent
             class="mb-1"
+            @click="dialog = false"
             :props="{ name: 'mdi-close', size: 'medium' }"
           />
         </v-card-title>
@@ -69,11 +70,11 @@
         <div class="border"></div>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="checkMe">hi</v-btn>
+          <v-btn @click="checkMe"></v-btn>
           <v-btn color="green-darken-1" variant="text" @click="dialog = false">
             Cancel
           </v-btn>
-          <v-btn color="green-darken-1" variant="text" @click="dialog = false">
+          <v-btn color="green-darken-1" variant="text" @click="saveEditInputs">
             Save
           </v-btn>
         </v-card-actions>
@@ -84,13 +85,18 @@
 </template>
 
 <script setup>
-import ProfileTab from './ProfileComponents/ProfileTab.vue'
-
+import { useEditStore } from '~~/store/EditStore';
+const store = useEditStore();
 const dialog = ref(false);
 const currentItem = ref("tab-Profile");
 const tabs = ref(["PROFILE", "ABOUT", "SETTINGS"]);
 const theTab = ref("PROFILE");
 
+const saveEditInputs = async () => {
+  console.log('saveEditInputs');
+  await store.editDetails();
+  dialog.value = false;
+};
 const openTab = (tab) => {
   theTab.value = tab;
 };

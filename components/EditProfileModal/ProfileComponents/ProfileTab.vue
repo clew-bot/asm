@@ -23,10 +23,6 @@ class="flex justify-start">
 </template>
 
 <script setup>
-const wantsEdit = ref(false);
-const showEditValues = () => {
-  wantsEdit.value = !wantsEdit.value;
-};
 const rules = [
   (value) => !!value || "Required.",
   (value) => (value && value.length >= 3) || "Min 3 characters",
@@ -49,8 +45,8 @@ const showEditField = (label) => {
       case "Birthday":
         editValues.value[0].birthday.show = true;
         break;
-      case "Profile Photo":
-        editValues.value[0].profilePhoto.show = true;
+      case "Bio":
+        editValues.value[0].bio.show = true;
         break;
     }
   });
@@ -60,44 +56,49 @@ const editValues = ref([
   {
     name: {
       value: "Name",
+      name: "name",
       icon: "mdi-account",
-      show: false,
+      show: true,
       description:
-        "This is the name displayed everywhere you comment, message, or post a status.",
-      changeDescription: "Change your name here.",
+        "This is the name displayed on your posts, comments, and profile.",
+      changeDescription: "Update your name here.",
       placeholder: "Mark Twain",
     },
     handle: {
       value: "Handle",
       icon: "mdi-at",
+      name: "handle",
       show: false,
       description: "This is the handle people use to tag or reach you at",
-      changeDescription: "Change your handle here.",
-      placeholder: "@MarkTwain69",
+      changeDescription: "Update your handle here.",
+      placeholder: "MarkTwain69",
     },
     location: {
       value: "Location",
       icon: "mdi-map-marker",
+      name: "location",
       show: false,
       description: "This is the location people can see you at on your profile",
-      changeDescription: "Change your Location here.",
+      changeDescription: "Update your Location here.",
       placeholder: "San Fransisco, CA",
     },
     birthday: {
       value: "Birthday",
       icon: "mdi-calendar",
+      name: "birthday",
       show: false,
       description: "This is the birthday people can see you at on your profile",
       changeDescription: "Change your Birthday here.",
-      placeholder: "July 21, 1995",
+      placeholder: "August 8, 1995",
     },
-    profilePhoto: {
-      value: "Profile Photo",
-      icon: "mdi-image",
+    bio: {
+      value: "Bio",
+      icon: "mdi-fountain-pen-tip",
+      name: "bio",
       show: false,
       description:
-        "This is the profile photo people can see you at on your profile",
-      changeDescription: "Change your Profile Photo here.",
+        "This is the bio people can see you at on your profile. It can be anything you want.",
+      changeDescription: "Update your bio here.",
     },
   },
 ]);
@@ -107,7 +108,7 @@ const reset = () => {
   editValues.value[0].handle.show = false;
   editValues.value[0].location.show = false;
   editValues.value[0].birthday.show = false;
-  editValues.value[0].profilePhoto.show = false;
+  editValues.value[0].bio.show = false;
 };
 </script>
 

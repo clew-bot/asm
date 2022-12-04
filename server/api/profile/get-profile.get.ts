@@ -9,6 +9,5 @@ export default defineEventHandler(async (event) => {
     const id:any = await useStorage().getItem("user");
     const user = await UserModel.findById({ _id: new toId(id) })
     .populate({ path: "posts", populate: { path: "author" } })
-    console.log('user', user)
     return user
 })

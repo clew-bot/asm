@@ -39,7 +39,7 @@
             <div class="flex text-sm font-semibold pt-1">
                 <IconComponent class="pr-2" :props="{name: 'mdi-cake-variant', size: 'x-small'}"/><span>{{memberSinceLog(props.createdAt)}}</span>
             </div>
-            <div class="pt-5 italic">If it ain't broke don't fix it</div>
+            <div class="pt-5 italic">{{props.bio || 'If it ain\'t broke don\'t fix it'}}</div>
         </div>
     </div>
 </div>
@@ -48,8 +48,5 @@
 <script setup>
 import { memberSinceLog } from '@/utils/timeConvert'
 const { props } = defineProps(['props'])
-
-
-
 </script>
 
