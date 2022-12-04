@@ -53,13 +53,16 @@
             </div>
             <div class="p-2"></div>
           </div>
-          <v-window v-model="theTab" direction="vertical">
+          <v-window 
+          v-model="theTab"
+          direction="vertical"
+          class="min-h-[20rem]">
             <v-window-item v-for="n in tabs" :key="`card-${n}`">
                 <div class="w-full"  v-if="theTab === 0">
                   <EditProfileTab />
                 </div>
                 <div v-if="theTab === 1">
-                    <EditProfileModalAboutTab />
+                  <EditProfileModalModalTabsAboutTab/>
                 </div>
                 <div v-if="theTab === 2">
                     <EditProfileModalSettingsTab />

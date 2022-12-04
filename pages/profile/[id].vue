@@ -25,8 +25,13 @@ const router = useRouter();
 const handleName = router.currentRoute.value.params.id;
 
 onMounted(async () => {
+
   const data = await store.getProfileInfoForUser(handleName);
-  dto.value = data;
+    if(store.$state.userId === data._id){
+    router.push('/profile')
+  } else {
+    dto.value = data;
+  }
   // Add friends to store
 });
 definePageMeta({

@@ -4,7 +4,7 @@
 <template>
     <div>
     <div class="relative">
-        <div >
+        <div class="">
         <v-avatar
         class="h-[130px] w-[130px] border-2 absolute
         left-3 -top-12 rounded-full z-9"
@@ -12,7 +12,8 @@
             size="128"
             >
             <img 
-        src="https://thumbsnap.com/t/wEuYWvW3.jpg" alt=""></v-avatar>
+            class="h-[130px] w-[130px] border-2 absolute"
+        :src="props.profilePicture" alt=""></v-avatar>
 
         </div>
         <div v-if="props._id === userId" class="absolute top-5 right-6">
@@ -24,7 +25,7 @@
     <div class="pt-24 -mb-6 pb-5 bg-zinc-700">
         <div class="px-5">
             <div class="font-bold text-2xl text-amber-200">
-                {{props.username}} 
+                <!-- {{props.username}}  -->
             </div>
             <div>
                 @{{props.handleName}} • <span class="italic font-semibold">Online</span>

@@ -8,17 +8,17 @@
       :key="status._id"
       class="cont flex justify-center"
     >
-      <!-- {{status}} -->
+      <!-- {{status.author}} -->
       <v-card
         elevation="0"
         color="#18181b"
         class="border-t-[.2px] rounded-none border-t-[var(--dashBorder)] bg-zinc-700 w-full"
       >
-      <!-- {{status}} -->
+      <!-- {{status.author}} -->
         <v-card-title>
           <div class="flex justify-items-start pt-3">
-        
-            <StatusUserAvatar :props="status.profilePicture"/>
+
+            <StatusUserAvatar :props="status.author.profilePicture"/>
             <div class="absolute left-16 top-4 ml-2 w-fit">
               <NuxtLink :to="`/profile/${status.author.handleName}`">
                 <div

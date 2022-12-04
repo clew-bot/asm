@@ -14,7 +14,7 @@
             >
               <v-avatar class="border-2" size="48">
                 <v-img
-                  src=""
+                  :src="props.props"
                   alt="John"
                   class="cursor-pointer object-cover"
                   >
@@ -26,6 +26,7 @@
 
 <script setup>
 const props = defineProps(['props'])
+console.log('111', props.props)
 
 </script>
 

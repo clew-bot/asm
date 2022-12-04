@@ -14,6 +14,8 @@ export default async function (allFiles) {
   vidData.value = [];
   scopedFiles.value = allFiles;
   console.log('af', allFiles)
+  console.log('af', allFiles.length)
+
   for (count = 0; count <= allFiles.length - 1; count++) {
     if(allFiles[count].size / 1048576 > 50 ) {
       console.log('too big')
