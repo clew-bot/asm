@@ -73,6 +73,7 @@
     filter: blur(5px);
     opacity: 0;
   }
+  
   .v-enter-active,
   .v-leave-active {
     transition: opacity 0.2s ease;

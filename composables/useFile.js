@@ -1,7 +1,6 @@
 import { ref } from "vue";
 const photoData = ref([]);
 const vidData = ref([]);
-const progress = ref(0);
 const scopedFiles = ref([]);
 const backUpKey = "9uGuBilq1V7HHkeu";
 const allMedia = ref([]);
@@ -16,19 +15,20 @@ export default async function (allFiles) {
   scopedFiles.value = allFiles;
   console.log('af', allFiles)
   for (count = 0; count <= allFiles.length - 1; count++) {
+    if(allFiles[count].size / 1048576 > 50 ) {
+      console.log('too big')
+      return {error: `File ${allFiles[count].name} is too big! We support files up to 47MB`}
+    }
     let formData = new FormData();
     formData.append("key", token);
     formData.append("media", allFiles[count]);
 
     let backUpFormData = new FormData();
     formData.append("upload", allFiles[count]);
-
-    console.log('fffff ', allFiles[count])
-
     await saveImage(formData, backUpFormData);
   }
   if (count == allFiles.length) {
-    return { progress, imageData: photoData.value, videoData: vidData.value, media: allMedia.value,  emit: true };
+    return {imageData: photoData.value, videoData: vidData.value, media: allMedia.value,  emit: true, error: false };
   }
 }
 
@@ -59,7 +59,6 @@ const saveImage = async (formData, backUpFormData) => {
         width: data.data.value.data.width,
       }
       allMedia.value.push(mediaObj);
-      console.log('allmedia', allMedia.value)
       photoData.value.push(data.data.value.data);
     } else if (fileType in possibleVideoTypes) {
       // allMedia.value.push(data.data.value.data.media);
@@ -71,7 +70,7 @@ const saveImage = async (formData, backUpFormData) => {
       allMedia.value.push(mediaObj);
       vidData.value.push(data.data.value.data);
     }
-    progress.value += 100 / scopedFiles.value.length;
+    // progress.value += 100 / scopedFiles.value.length;
     
   } else {
   //   console.log('loool',backUpFormData)

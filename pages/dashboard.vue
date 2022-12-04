@@ -44,7 +44,6 @@ watch(refresh, async (val) => {
 
 onMounted( async () => {
   const allPosts = await store.getPosts();
-  console.log("allPosts: ", allPosts);
   await nextTick(()=> {
     if(allPosts.length === 0) {
     loading.value = false;

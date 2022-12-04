@@ -26,33 +26,7 @@
     :videoSrc="videoSrc"
     @deletePicture="deletePicture"
   />
-  <!-- <div v-if="source" class="flex flex-wrap">
-    <div
-      v-for="(src, i) in source"
-      :key="src"
-      class="min-h-[50px] w-fit relative drop-shadow-md"
-    >
-      <v-icon @click="deletePicture(i)" color="black" class="absolute right-0"
-        >mdi-close</v-icon
-      >
-      <img class="h-[150px]" height="50px" :src="src" alt="" />
-    </div>
-  </div>
-  <div v-if="videoSrc" class="flex flex-wrap">
-    <div
-      v-for="(vidSrc, i) in videoSrc"
-      :key="vidSrc"
-      class="min-h-[50px] w-fit relative drop-shadow-md"
-    >
-      <v-icon @click="deletePicture(i)" color="black" class="absolute right-0"
-        >mdi-close</v-icon
-      >
-      <video autoplay controls class="myvideo" style="height:100%">
-      <source :src="vidSrc" type="video/mp4" id="video_here">
-      Your browser does not support HTML5 video.
-      </video>
-    </div>
-  </div> -->
+  {{errorValue}}
   <div class="flex items-center p-3 bg-zinc-600 pb-5 relative">
     <div class="imageUpload">
       <label for="file-input">
@@ -105,24 +79,31 @@ const vidData = ref([]);
 const allFiles = ref([]);
 const uploadImageLoading = ref(false);
 const loading = ref(false);
+const errorValue = ref("");
 let interval = ref(null);
 let countDown = ref("Post");
 let source = ref([]);
 let videoSrc = ref([]);
 let progress = ref(0);
 let allMedia = ref([]);
-const config = useRuntimeConfig();
+
+
 
 const compose = async () => {
-  console.log(allMedia.value);
   if (allFiles.value.length > 0) {
     loading.value = true;
-    const {imageData, videoData, media, emit, progress} = await useFile(allFiles.value)
-    loading.value = progress;
-    photoData.value = imageData;
-    vidData.value = videoData;
-    uploadImageLoading.value = emit;
-    allMedia.value = media;
+    
+    const {imageData, videoData, media, emit, progress, error} = await useFile(allFiles.value)
+    if(error) {
+      resetVals();
+      console.log('There was an error')
+      errorValue.value = error;
+    } else {
+      photoData.value = imageData;
+      vidData.value = videoData;
+      uploadImageLoading.value = emit;
+      allMedia.value = media;
+    }
   } else {
     await store.composePost();
     emit("userPosted", true);
@@ -145,9 +126,8 @@ watch(uploadImageLoading, async (val) => {
       media: allMedia.value,
     };
     await store.composePost(data);
-    progress.value = 100;
     resetVals();
-    console.log("after reset", allMedia.value);
+    progress.value = 100;
     emit("userPosted", true);
     countDown = ref(5);
     interval = setInterval(() => {
