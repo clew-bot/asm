@@ -2,9 +2,9 @@ import { defineStore } from "pinia"
 
 
 export const useUserStore = defineStore('user', {
-    state: () => ({ name: '', email: '', posts: [] }),
+    state: () => ({ name: '', email: '', posts: [], userId: '' }),
     getters: {
-      // doubleCount: (state) => state.name
+       mId: (state) => state.id
     },
     actions: {
       login: async (payload) => {
@@ -15,7 +15,9 @@ export const useUserStore = defineStore('user', {
         if (response.name) {
           useUserStore().name = response.name;
           useUserStore().email = response.email;
+          useUserStore().userId = response._id;
         }
+        
         return response;
       },
       signUp: async (payload)  => {
@@ -35,7 +37,7 @@ export const useUserStore = defineStore('user', {
         const response = await $fetch("/api/profile/get-profile", {
           method: "GET",
         });
-        useUserStore().posts = response.posts;
+        useUserStore().posts = response
         return response;
       },
       getProfileInfoForUser: async (payload) => {
@@ -44,6 +46,12 @@ export const useUserStore = defineStore('user', {
           body: payload,
         });
         return response;
+      },
+      getUser: async () => {
+        const response = await $fetch("/api/user/user-id", {
+          method: "GET",
+        });
+        return useUserStore().userId = response;
       }
     },
   })

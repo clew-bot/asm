@@ -3,22 +3,17 @@
     <template #header>HOME</template>
     <template #rightSide><LayoutRightBarSuggested/></template>
     <template #postStatus><ComposeDashPost :reset="isReset" @updatePost="getValue"/></template>
+
     <template #postMedia><ComposePostMediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
     <div v-if="!loading && posts.length > 0" class="first overflow-auto transition-all bg-zinc-600">
-      <StatusUserStatus v-model="posts"/>
+      <StatusUserStatus :key="refresh" v-model="posts"/>
     </div>
     <div v-else-if="loading">
-        <!-- <div class="text-center text-xl font-bold pt-10">
-          You have no new posts. Check back later.
-        </div> -->
         <v-progress-linear indeterminate color="cyan"></v-progress-linear>
     </div>
     <div v-else-if="posts.length === 0 && !loading"
     class="text-center text-3xl font-semibold text-orange-400
     pt-10">
-        <!-- <div class="text-center text-xl font-bold pt-10">
-          You have no new posts. Check back later.
-        </div> -->
         There doesn't seem to be any posts here.
     </div>
     <div class="h-screen w-full flex justify-center font-semibold text-orange-500 relative"><div class="absolute bottom-0">
@@ -30,7 +25,9 @@
 
 <script setup>
 import { usePostStore } from '~~/store/postStore';
+import { storeToRefs } from 'pinia'
 const store = usePostStore();
+const { refresh } = storeToRefs(store);
 const ableToPost = ref(true);
 const isReset = ref(false);
 const posts = ref([]);
@@ -39,6 +36,11 @@ definePageMeta({
   layout: false,
   middleware: ["auth"],
 });
+
+watch(refresh, async (val) => {
+  const newPosts = await store.getPosts();
+  posts.value = newPosts;
+})
 
 onMounted( async () => {
   const allPosts = await store.getPosts();

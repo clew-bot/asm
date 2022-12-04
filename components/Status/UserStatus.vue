@@ -1,94 +1,6 @@
 <style scoped>
-.list-enter-active {
-  animation: slideFromUp 0.7s;
-}
-.list-leave-active {
-  transition: all 1s ease;
-}
-.list-enter-from,
-.list-leave-to {
-  transform: translateY(-40px);
-}
+@import url('@/assets/css/animations.css');
 
-/* 
-.v-enter-active {
-    animation: slideFromUp 1s;
-}
-
-.v-leave-to {
-    display: none;
-} */
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
-@keyframes shake {
-  0% {
-    transform: translate(1px, 1px) rotate(0deg);
-  }
-  10% {
-    transform: translate(-1px, -2px) rotate(-1deg);
-  }
-  20% {
-    transform: translate(-3px, 0px) rotate(1deg);
-  }
-  30% {
-    transform: translate(3px, 2px) rotate(0deg);
-  }
-  40% {
-    transform: translate(1px, -1px) rotate(1deg);
-  }
-  50% {
-    transform: translate(-1px, 2px) rotate(-1deg);
-  }
-  60% {
-    transform: translate(-3px, 1px) rotate(0deg);
-  }
-  70% {
-    transform: translate(3px, 1px) rotate(-1deg);
-  }
-  80% {
-    transform: translate(-1px, -1px) rotate(1deg);
-  }
-  90% {
-    transform: translate(1px, 2px) rotate(0deg);
-  }
-  100% {
-    transform: translate(1px, -2px) rotate(-1deg);
-  }
-}
-
-@keyframes slideFromUp {
-  0% {
-    transform: translateY(-20%);
-  }
-  25% {
-    transform: translateY(10px);
-  }
-  50% {
-    transform: translateY(-7px);
-  }
-  75% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideFromDown {
-  0% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
 </style>
 <template>
   <TransitionGroup name="list">
@@ -186,18 +98,13 @@
                 }"
               />
             </div>
-            <div class="flex pt-10">
+            <div class="flex pt-10" >
               <IconComponent
                 class="mr-2"
                 :props="{ name: 'mdi-bookmark', color: 'var(--postIcon)' }"
               />
-              <IconComponent
-                class="mr-2"
-                :props="{
-                  name: 'mdi-dots-horizontal',
-                  color: 'var(--postIcon)',
-                }"
-              />
+              <StatusPostMenu v-if="status.author._id === userId" :id="status._id"/>
+         
             </div>
           </div>
           <div class="flex px-4 pb-4">
@@ -236,16 +143,16 @@
 <script setup>
 import { createdAtLog, regularDate } from "@/utils/timeConvert";
 import { usePostStore } from "@/store/postStore";
+import { useUserStore } from '~~/store/userStore';
+const userStore = useUserStore();
 const store = usePostStore();
 const props = defineProps(["modelValue"]);
 const showMoreCommentLabel = ref(false);
 let utilityObj = ref({});
 let timeout;
-
-console.log('223',props.modelValue);
+const userId = ref(userStore.$state.userId);
 
 onMounted(() => {
-  props.modelValue.reverse();
   props.modelValue.forEach((status) => {
     utilityObj.value[status._id] = {
       showMoreCommentLabel: false,
@@ -285,10 +192,6 @@ const checkCommented = async (id, key, createdComment) => {
   utilityObj.value[id].count = getComments.length;
 };
 
-// const checkVal = (id) => {
-//     console.log(id)
-//     console.log(allComments.value[id])
-// }
 const openComments = async (i, id) => {
   if (utilityObj.value[id] === undefined) {
     console.log("hi");
@@ -310,4 +213,9 @@ const openComments = async (i, id) => {
 const getVal = (arg) => {
   showMoreCommentLabel.value = arg;
 };
+
+// const checkVal = (id) => {
+//     console.log(id)
+//     console.log(allComments.value[id])
+// }
 </script>
