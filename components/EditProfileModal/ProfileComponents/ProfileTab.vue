@@ -29,7 +29,6 @@ const rules = [
 ];
 
 const showEditField = (label) => {
-  console.log(label);
   reset();
   nextTick(() => {
     switch (label) {

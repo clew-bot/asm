@@ -23,12 +23,10 @@
 import { useEditStore } from '~~/store/EditStore';
 const store = useEditStore();
 const props = defineProps(['props']);
-console.log(props.props)
 let editInput = ref(store.$state[props.props.name]);
 
 const updateInput = () => {
   store.$state[props.props.name] = editInput.value;
-  console.log('store val', store.$state[props.props.name]);
 };
 
 

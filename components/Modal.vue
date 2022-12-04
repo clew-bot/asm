@@ -171,9 +171,7 @@
             password,
             email
         }
-        console.log(data)
         const clientSignUpToken = await store.signUp(data)
-        console.log(clientSignUpToken)
         
     }
 

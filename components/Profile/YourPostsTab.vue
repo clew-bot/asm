@@ -8,9 +8,10 @@
 </template>
 
 <script setup>
-import { useUserStore } from '~~/store/userStore';
-const store = useUserStore();
-const props = defineProps(['props'])
-const posts = ref(props.props)
+const props = defineProps(['modelValue'])
+const posts = ref(props.modelValue)
+console.log(posts.value)
+
+
 
 </script>

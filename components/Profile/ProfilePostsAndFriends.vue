@@ -38,7 +38,7 @@
         <v-card flat>
           <div v-if="currentItem === 'tab-Your Posts'">
             <div v-if="passProps.posts.length > 0">
-              <ProfileYourPostsTab :props="passProps.posts" />
+              <ProfileYourPostsTab v-model="passProps.posts" />
             </div>
             <div v-else>
               You have no new posts. Hell you don't even have any posts.
@@ -55,12 +55,12 @@
 </template>
 
 <script setup>
+
 const currentItem = ref("tab-Web");
 const items = ref(["Your Posts", "Your Friends"]);
 const components = ref(["Your Posts", "Your Friends"]);
-const props = defineProps(["props"]);
-const passProps = props.props;
-
+const props = defineProps(["modelValue"]);
+const passProps = ref(props.modelValue);
 
 const checkValues = () => {
   console.log(currentItem.value);

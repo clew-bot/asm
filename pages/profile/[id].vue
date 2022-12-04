@@ -11,19 +11,16 @@
      <ProfileComponent :props="dto"/>
     </div>
     <div v-if="dto">
-     <ProfilePostsAndFriends :props="dto"/>
+     <ProfilePostsAndFriends v-model="dto"/>
     </div>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup>
-import { routerKey } from 'vue-router';
 import { useUserStore } from '~~/store/userStore';
 const store = useUserStore();
 const dto = ref(null);
-const dtoPosts = ref(null);
-
 const router = useRouter();
 const handleName = router.currentRoute.value.params.id;
 

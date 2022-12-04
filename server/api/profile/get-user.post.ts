@@ -8,6 +8,6 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const id:any = await useStorage().getItem("user");
     const user = await UserSchema.findOne({ handleName: body })
-    .populate({ path: "posts", populate: { path: "author" } })
+    .populate({ path: "posts", populate: { path: "author" }, options: { sort: { createdAt: -1 } } })
     return user
 })

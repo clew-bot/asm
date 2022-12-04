@@ -55,6 +55,7 @@ export const usePostStore = defineStore("post", {
         method: "POST",
         body: payload,
       });
+      // usePostStore().getRefresh();
       return response;
     },
     getRefresh: (state) => {

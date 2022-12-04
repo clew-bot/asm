@@ -11,21 +11,33 @@
      <ProfileComponent :props="dto"/>
     </div>
     <div v-if="dto">
-     <ProfilePostsAndFriends :props="dto"/>
+     <ProfilePostsAndFriends :key="refresher" v-model="dto"/>
     </div>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
+import { usePostStore } from '~~/store/postStore';
 import { useUserStore } from '~~/store/userStore';
-const store = useUserStore();
 const dto = ref(null);
+const postStore = usePostStore();
+const userStore = useUserStore();
+const { refresh } = storeToRefs(postStore);
+const refresher = ref(0)
 
+
+watch(refresh, async (val) => {
+  const newPosts = await userStore.getProfileInfo();
+  dto.value = newPosts;
+  refresher.value++
+})
 
 onMounted(async () => {
-  const data = await store.getProfileInfo();
+  const data = await userStore.getProfileInfo();
   dto.value = data;
+  console.log('mounted', dto.value);
   // Add friends to store
 });
 
