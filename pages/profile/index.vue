@@ -1,20 +1,18 @@
-<style scoped>
-
-</style>
+<style scoped></style>
 <template>
   <NuxtLayout name="dash">
     <template #header>My Profile</template>
     <template #rightSide><LayoutRightBarSuggested/></template>
-    <div>
-     
       <div v-if="dto">
       <ProfileHeader :props="dto.coverPicture"/>
      <ProfileComponent :props="dto"/>
      <ProfilePostsAndFriends :key="refresher" v-model="dto"/>
-    </div>
-    <!-- <div v-if="dto">
-
-    </div> -->
+      </div>
+      <div v-else class="flex justify-center items-center h-screen">
+      <v-progress-linear
+      indeterminate
+      color="purple"
+    ></v-progress-linear>
     </div>
   </NuxtLayout>
 </template>

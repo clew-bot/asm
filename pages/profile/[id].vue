@@ -1,42 +1,53 @@
-<style scoped>
-
-</style>
+<style scoped></style>
 <template>
   <NuxtLayout name="dash">
-    <template #header>{{handleName}}'s Profile</template>
-    <template #rightSide><LayoutRightBarSuggested/></template>
-    <div>
-      <ProfileHeader/>
-      <div v-if="dto">
-     <ProfileComponent :props="dto"/>
-    </div>
+    <template #header>{{ handleName }}'s Profile</template>
+    <template #rightSide><LayoutRightBarSuggested /></template>
     <div v-if="dto">
-     <ProfilePostsAndFriends v-model="dto"/>
+      <ProfileHeader :props="dto.coverPicture" />
+      <ProfileComponent :props="dto" />
+      <ProfilePostsAndFriends :key="refresher" v-model="dto"/>
     </div>
+    <div v-else class="flex justify-center items-center h-screen">
+      <v-progress-linear
+      indeterminate
+      color="green"
+    ></v-progress-linear>
     </div>
   </NuxtLayout>
 </template>
 
 <script setup>
-import { useUserStore } from '~~/store/userStore';
+import { storeToRefs } from 'pinia'
+import { usePostStore } from '~~/store/postStore';
+import { useUserStore } from "~~/store/userStore";
 const store = useUserStore();
+const postStore = usePostStore();
 const dto = ref(null);
 const router = useRouter();
 const handleName = router.currentRoute.value.params.id;
+const userStore = useUserStore();
+const { refresh } = storeToRefs(postStore);
+const refresher = ref(0)
 
+
+watch(refresh, async (val) => {
+  const newPosts = await userStore.getProfileInfo(handleName);
+  dto.value = newPosts;
+  refresher.value++
+})
 onMounted(async () => {
-
   const data = await store.getProfileInfoForUser(handleName);
-    if(store.$state.userId === data._id){
-    router.push('/profile')
-  } else {
-    dto.value = data;
-  }
+  dto.value = data;
+  //   if(store.$state.userId === data._id){
+  //   router.push('/profile')
+  // } else {
+
+  // }
   // Add friends to store
 });
 definePageMeta({
-layout: false,
-middleware: ["auth"],
+  layout: false,
+  middleware: ["auth"],
 });
 </script>
-
