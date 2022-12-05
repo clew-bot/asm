@@ -3,8 +3,7 @@
 </style>
 <template>
  <v-parallax
-    height="300"
-    scale="10"
+    :scale=".7"
     :src="props ? props : 'https://d33wubrfki0l68.cloudfront.net/8d79b89491cf9ef958be1386776dc937d39266be/1a630/img/particle_background.jpg'"
   ></v-parallax>
 </template>

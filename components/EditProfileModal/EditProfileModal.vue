@@ -89,6 +89,7 @@
 
 <script setup>
 import { useEditStore } from '~~/store/EditStore';
+
 const store = useEditStore();
 const dialog = ref(false);
 const currentItem = ref("tab-Profile");
@@ -99,9 +100,11 @@ const saveEditInputs = async () => {
   console.log('saveEditInputs');
   await store.editDetails();
   dialog.value = false;
+
 };
 const openTab = (tab) => {
   theTab.value = tab;
+
 };
 
 const checkMe = () => {

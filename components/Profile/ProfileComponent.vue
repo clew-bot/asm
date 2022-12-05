@@ -21,6 +21,15 @@
             <EditProfileModal/>
             </ClientOnly>
         </div>
+        <div v-else>
+       
+            <div class="absolute top-5 right-5">
+                <ProfileAddFriendButton :props="props._id"/>
+            </div>
+            <div class="absolute top-16 right-5">
+                <ProfileMessageButton :props="props._id"/>
+            </div>
+        </div>
     </div>
     <div class="pt-24 -mb-6 pb-5 bg-zinc-700">
         <div class="px-5">

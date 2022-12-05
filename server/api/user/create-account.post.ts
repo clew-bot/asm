@@ -34,6 +34,6 @@ export default defineEventHandler(async (event) => {
         return token
     } else {
         console.log("User already exist");
-        return { error: true, message: "User Already Exists" };
+        return { error: true, message: `User Already Exists`, };
     }
 })

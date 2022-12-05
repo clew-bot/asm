@@ -46,6 +46,19 @@ const UserSchema = new mongoose.Schema({
         default: [],
         ref: "UserPost",
     },
+    friendRequests: {
+        type: Array,
+        default: [],
+    },
+    notifications: {
+        type: Array,
+        default: [],
+        ref: "NotificationModel",
+    },
+    messages: {
+        type: Array,
+        default: [],
+    },
     },
         { timestamps: true }
     );

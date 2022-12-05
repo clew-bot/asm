@@ -124,7 +124,8 @@
     import { ref } from "vue";
     import SmallIcon from "@/components/SmallIcon.vue";
     import { useUserStore } from "@/store/userStore";
-
+import { set } from "mongoose";
+    const errorFromServer = ref("");
     const store = useUserStore();
     const radios = ref("Google");
     const dialog = ref(false);
@@ -134,9 +135,13 @@
     const password = ref("");
     const securePassword = ref("");
     const email = ref("");
+    const serverError = ref(false);
+    const takenName = ref("");
     const nameRules = ref([
       (v) => !!v || "Username is required",
       (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      (v) => v.includes(" ") === false || "No spaces allowed",
+      (v) => v !== takenName.value || "Username already taken",
     ]);
     const emailRules = ref([
       (v) => !!v || "E-mail is required",
@@ -152,6 +157,7 @@
       (v) => !!v || "Passwords must match",
       (v) => v === password.value || "Passwords must match",
     ]);
+
     const loading = ref([false, false]);
     const load = (i) => {
       loading[i] = true;
@@ -172,7 +178,16 @@
             email
         }
         const clientSignUpToken = await store.signUp(data)
-        
+        console.log(clientSignUpToken.error)
+        if (clientSignUpToken.error) {
+          takenName.value = username;
+          setTimeout(() => {
+           takenName.value = "";
+          }, 1000);
+        } else {
+          navigateTo("/dashboard");
+        }
+
     }
 
 </script>
