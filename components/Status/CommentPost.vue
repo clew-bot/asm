@@ -8,15 +8,9 @@
       :key="comment.id"
       class="flex items-center border-t-[.2px] border-t-[var(--dashBorder)] pb-3 relative"
     >
+    <!-- {{comment}} -->
       <div class="flex items-startrelative pt-3 pl-2 whitespace-normal">
-        <v-avatar class="mt-2" size="40">
-          <v-img
-            src="https://cdn.jim-nielsen.com/ios/512/super-mario-run-2017-11-07.png"
-            alt="John"
-            class="cursor-pointer"
-          >
-          </v-img>
-        </v-avatar>
+       <StatusUserAvatar :props="comment.author.profilePicture"/>
         <div class="ml-2 z-10 w-full">
           <div>
             <div class="text-base font-bold text-stone-300 pr-8 pb-2 pt-1">

@@ -26,7 +26,6 @@
 
 <script setup>
 const props = defineProps(['props'])
-console.log('111', props.props)
 
 </script>
 

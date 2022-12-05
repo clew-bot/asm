@@ -35,7 +35,7 @@ const profilePicture = ref([]);
 const coverPhoto = ref([]);
 
 const handleProfilePicture = (e) => {
-    resetVals();
+    resetProfileVals();
     const [file] = e.target.files;
     profilePicture.value.push(URL.createObjectURL(file));
     store.$state.profilePicturePreview.file.push(file);
@@ -54,14 +54,27 @@ const deletePicture = (index) => {
 }
 
 const handleCoverPhoto = (e) => {
+    resetCoverVals();
     const [file] = e.target.files;
     coverPhoto.value.push(URL.createObjectURL(file));
-    store.$state.coverPicturePreview = coverPhoto.value;
+    store.$state.coverPicturePreview.file.push(file);
+    store.$state.coverPicturePreview['preview'] = coverPhoto.value;
+
+    // coverPhoto.value.push(URL.createObjectURL(file));
+    // store.$state.coverPicturePreview = coverPhoto.value;
 }
 
-const resetVals = () => {
+const resetProfileVals = () => {
     profilePicture.value = [];
     return store.$state.profilePicturePreview = {
+        file: [],
+        preview: [],
+    };
+}
+
+const resetCoverVals = () => {
+    coverPhoto.value = [];
+    return store.$state.coverPicturePreview = {
         file: [],
         preview: [],
     };

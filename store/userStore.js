@@ -1,10 +1,14 @@
 import { defineStore } from "pinia"
-
-
 export const useUserStore = defineStore('user', {
-    state: () => ({ name: '', email: '', posts: [], userId: '' }),
+    state: () => (
+      { name: '', 
+        email: '', 
+        posts: [],
+        userId: '',
+        profilePicture: ''
+       }),
     getters: {
-       mId: (state) => state.id
+       mId: (state) => state.id,
     },
     actions: {
       login: async (payload) => {
@@ -51,7 +55,11 @@ export const useUserStore = defineStore('user', {
         const response = await $fetch("/api/user/user-id", {
           method: "GET",
         });
-        return useUserStore().userId = response;
+        useUserStore().userId = response.id;
+        useUserStore().profilePicture = response.profilePicture;
+        console.log(response)
+        console.log('222', useUserStore().profilePicture)
+
       }
     },
   })

@@ -25,7 +25,7 @@
     <div class="pt-24 -mb-6 pb-5 bg-zinc-700">
         <div class="px-5">
             <div class="font-bold text-2xl text-amber-200">
-                <!-- {{props.username}}  -->
+                {{props.username}} 
             </div>
             <div>
                 @{{props.handleName}} • <span class="italic font-semibold">Online</span>

@@ -1,11 +1,11 @@
 import { useUserStore } from "~~/store/userStore";
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
     const cookie = useCookie("altine");
     const store = useUserStore();
+    await store.getUser();
+    console.log(store.$state.profilePicture)
     if(!store.$state.userId && cookie) {
-    console.log('ra', store)
-    store.getUser();
-    console.log('after',store.$state.userId)
+    await store.getUser();
     }
     console.log("Client Middleware Ran");  
     if (!cookie.value) {

@@ -6,13 +6,15 @@
     <template #header>My Profile</template>
     <template #rightSide><LayoutRightBarSuggested/></template>
     <div>
-     <ProfileHeader/>
+     
       <div v-if="dto">
+      <ProfileHeader :props="dto.coverPicture"/>
      <ProfileComponent :props="dto"/>
-    </div>
-    <div v-if="dto">
      <ProfilePostsAndFriends :key="refresher" v-model="dto"/>
     </div>
+    <!-- <div v-if="dto">
+
+    </div> -->
     </div>
   </NuxtLayout>
 </template>
@@ -37,6 +39,7 @@ watch(refresh, async (val) => {
 onMounted(async () => {
   const data = await userStore.getProfileInfo();
   dto.value = data;
+  console.log('the dto', dto.value);
   // Add friends to store
 });
 

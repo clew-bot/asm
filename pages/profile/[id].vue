@@ -3,7 +3,7 @@
 </style>
 <template>
   <NuxtLayout name="dash">
-    <template #header>My Profile</template>
+    <template #header>{{handleName}}'s Profile</template>
     <template #rightSide><LayoutRightBarSuggested/></template>
     <div>
       <ProfileHeader/>

@@ -47,16 +47,8 @@
 </style>
 <template>
     <div class="flex items-end justify-center border-t-[.2px] border-t-[var(--dashBorder)] ">
-        <div class="px-2 mb-2">
-            <v-avatar
-            size="40">
-                <v-img
-                    src="https://i.pinimg.com/originals/40/54/f1/4054f1b2083dc3f0bf3f8ef5f85a2dfd.jpg"
-                    alt="John"
-                    class="cursor-pointer"
-                >
-                </v-img>
-            </v-avatar>
+        <div class="px-2 mb-0">
+          <StatusUserAvatar :props="userStore.$state.profilePicture"/>
         </div>
         <div class="comment-container grow">
             <v-container fluid>
@@ -88,12 +80,17 @@
 
 <script setup>
 import { usePostStore } from '@/store/postStore'
+import { useUserStore } from '@/store/userStore'
+const userStore = useUserStore()
 const store = usePostStore();
 const { props } = defineProps(['props'])
 const emit = defineEmits(['checkCommented'])
 const theText = ref('');
 
-console.log(props.id)
+const profilePic = ref(userStore.$state.profilePicture)
+
+console.log(profilePic.value)
+console.log(userStore.$state.profilePicture)
 
 const sendComment = async () => {
   theText.value = theText.value.trim();
@@ -101,7 +98,6 @@ const sendComment = async () => {
     comment: theText.value,
     postRefId: props.id
   }
-  console.log(theText.value);
   const newComment = await store.postComment(data);
   emit('checkCommented', props.id, props.key, newComment.createdComment);
 

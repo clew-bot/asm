@@ -45,8 +45,7 @@ const trashPost = async () => {
   await store.deletePost(props.id);
   store.getRefresh();
   dialog.value = false;
-
-
+  //refresh page
 };
 
 onMounted(() => {

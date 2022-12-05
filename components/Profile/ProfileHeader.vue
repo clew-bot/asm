@@ -4,11 +4,12 @@
 <template>
  <v-parallax
     height="300"
-    scale="4"
-    src="https://assets-prd.ignimgs.com/2022/02/19/pokemon-tcg-live-preview-1645242791988.jpg"
+    scale="10"
+    :src="props ? props : 'https://d33wubrfki0l68.cloudfront.net/8d79b89491cf9ef958be1386776dc937d39266be/1a630/img/particle_background.jpg'"
   ></v-parallax>
 </template>
 
 <script setup>
-
+const {props} = defineProps(['props']);
+console.log(props)
 </script>

@@ -108,7 +108,7 @@
         <div v-if="utilityObj[status._id]?.open">
           <StatusCommentInput
             @check-commented="checkCommented"
-            :props="{ id: status._id, key: i }"
+            :props="{ id: status._id, key: i, profilePicture: status.author.profilePicture }"
           />
           <div v-if="utilityObj[status._id]?.allComments">
             <StatusCommentPost
@@ -179,7 +179,6 @@ const checkCommented = async (id, key, createdComment) => {
 
 const openComments = async (i, id) => {
   if (utilityObj.value[id] === undefined) {
-    console.log("hi");
     utilityObj.value[id] = {
       showMoreCommentLabel: false,
       allComments: [],
