@@ -22,7 +22,7 @@
 
 const {props} = defineProps(['props']);
 console.log(props)
-const heightChange = ref(false)
+const heightChange = ref(true)
 
 const test = () => {
   heightChange.value = !heightChange.value
