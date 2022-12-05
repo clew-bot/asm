@@ -48,10 +48,13 @@
             >
               {{ createdAtLog(notification.createdAt) }}
             </div>
+            <div v-if="!notification.read">
             <div
               class="text-slate-500 absolute bottom-2 right-10 text-xs cursor-default"
             >
-              <IconComponent :props="{name: 'mdi-check-bold', size: 'large', color: 'green'}" />
+              <IconComponent
+              @click="acceptFriendRequest(notification.from._id, notification._id)"
+              :props="{name: 'mdi-check-bold', size: 'large', color: 'green'}" />
             </div>
             <div
               class="text-slate-500 absolute bottom-2 right-4 text-xs cursor-default"
@@ -59,13 +62,27 @@
               <IconComponent :props="{name: 'mdi-close-thick', size: 'large', color: 'red'}" />
             </div>
           </div>
+          </div>
         </v-card-title>
       </v-list>
     </v-card>
   </template>
 <script setup>
 const { modelValue } = defineProps(['modelValue'])
-console.log(modelValue)
+import { useNotifStore } from "~~/store/notifStore";
+
+console.log('111', modelValue)
+const notifStore = useNotifStore();
+
+const acceptFriendRequest = (fromId, notifId) => {
+  console.log('accept friend request', fromId, notifId);
+  const dto = {
+      fromId,
+     notifId
+  }
+  console.log(dto)
+  notifStore.acceptFriendRequest(dto)
+}
 
 // const items = [
 //     {

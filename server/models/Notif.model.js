@@ -18,6 +18,11 @@ const NotificationModel = new mongoose.Schema({
         ref: "User",
         required: true,
     },
+    to: {
+        type: String,
+        default: "",
+        ref: "User",
+    },
     type: {
         type: String,
         default: "",

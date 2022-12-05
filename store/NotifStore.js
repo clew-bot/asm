@@ -21,6 +21,19 @@ export const useNotifStore = defineStore("notif", {
         });
         console.log('r', response)
         return response;
+      },
+      acceptFriendRequest: async (payload) => {
+
+        const data = {
+          fromId: payload.fromId,
+          notifId: payload.notifId,
+        }
+        console.log(data)
+        const response = await $fetch("/api/friends/accept-request", {
+          method: "POST",
+          body: data,
+        });
+        return response;
       }
   },
 });

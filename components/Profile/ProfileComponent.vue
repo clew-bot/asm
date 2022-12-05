@@ -24,7 +24,7 @@
         <div v-else>
        
             <div class="absolute top-5 right-5">
-                <ProfileAddFriendButton :props="props._id"/>
+                <ProfileAddFriendButton :props="{id: props._id, username: props.username}"/>
             </div>
             <div class="absolute top-16 right-5">
                 <ProfileMessageButton :props="props._id"/>

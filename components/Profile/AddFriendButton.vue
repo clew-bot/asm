@@ -13,13 +13,23 @@
 
 <script setup>
 import { useNotifStore } from "~~/store/notifStore";
+import { useUserStore } from "~~/store/userStore";
+
+const userStore = useUserStore();
 const notifStore = useNotifStore();
-const id = defineProps(['props']);
+const props = defineProps(['props']);
 
+const myId = userStore.$state.userId;
+console.log(myId);
 
+console.log(props.props)
 const sendFriendRequest = (e) => {
-  console.log('send friend request', id);
-  notifStore.sendFriendRequest(id.props);
+  console.log('send friend request', props.props.id);
+  const data = {
+    username: props.props.username,
+    id: props.props.id,
+  }
+  notifStore.sendFriendRequest(data);
 };
 </script>
 
