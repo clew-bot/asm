@@ -36,9 +36,9 @@
     <v-window direction="horizontal" v-model="currentItem">
       <v-window-item v-for="item in items" :key="item" :value="'tab-' + item">
         <v-card flat>
-          <div v-if="currentItem === `tab-${props.modelValue.username}'s Posts`">
-            <div v-if="passProps.posts.length > 0">
-              <ProfileYourPostsTab v-model="passProps.posts" />
+          <div v-if="currentItem === `tab-${username}'s Posts`">
+            <div v-if="passProps.length > 0">
+              <ProfileYourPostsTab v-model="passProps" />
             </div>
             <div v-else>
               You have no new posts. Hell you don't even have any posts.
@@ -55,13 +55,14 @@
 </template>
 
 <script setup>
-
-const currentItem = ref("tab-Web");
-const items = ref([`${props.modelValue.username}'s Posts`, `${props.modelValue.username}'s friends`]);
-const components = ref(["Your Posts", "Your Friends"]);
-const props = defineProps(["modelValue"]);
+const props = defineProps(["modelValue", "username"]);
 const passProps = ref(props.modelValue);
+const username = ref(props.username);
+const currentItem = ref("tab-Web");
+const items = ref([`${username.value}'s Posts`, `${username.value}'s friends`]);
+const components = ref(["Your Posts", "Your Friends"]);
 
+console.log('username', passProps.value)
 
 const checkValues = () => {
   console.log(currentItem.value);

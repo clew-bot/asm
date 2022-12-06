@@ -75,13 +75,13 @@ export const usePostStore = defineStore("post", {
         (post) => post._id === payload
       );
       usePostStore().posts.splice(findIndex, 1);
-      if(findIndex === -1) {
-        console.log('nope, checking other posts')
-        const findIndex = useUserStore().posts.findIndex(
+      console.log('findIndex', findIndex)
+        console.log('also, checking other posts')
+        const findIndex2 = useUserStore().posts.findIndex(
           (post) => post._id === payload
         );
-        useUserStore().posts.splice(findIndex, 1);
-      }
+        useUserStore().posts.splice(findIndex2, 1);
+
       return response;
     },
     getRefresh: (state) => {

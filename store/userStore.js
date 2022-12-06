@@ -7,10 +7,12 @@ export const useUserStore = defineStore('user', {
       { name: '', 
         email: '', 
         posts: [],
+        userPosts: [],
         userId: '',
         profilePicture: '',
         friends: [],
         myProfile: [],
+        friendRequestsSent: [],
        }),
     getters: {
        mId: (state) => state.id,
@@ -49,7 +51,6 @@ export const useUserStore = defineStore('user', {
         });
         useUserStore().posts = response.posts;
         console.log('rp', useUserStore().posts)
-
         return response;
       },
       getProfileInfoForUser: async (payload) => {
@@ -57,15 +58,19 @@ export const useUserStore = defineStore('user', {
           method: "POST",
           body: payload,
         });
+        useUserStore().userPosts = response.posts;
+        console.log('getprofileforuser', useUserStore().userPosts)
         return response;
       },
       getUser: async () => {
         const response = await $fetch("/api/user/user-id", {
           method: "GET",
         });
+        console.log('response', response)
         useUserStore().userId = response.id;
         useUserStore().profilePicture = response.profilePicture;
         useUserStore().friends = response.friends;
+        useUserStore().friendRequestsSent = response.friendRequestsSent;
       }
     },
   })

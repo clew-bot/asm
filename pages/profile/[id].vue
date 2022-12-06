@@ -6,7 +6,7 @@
     <div v-if="dto">
       <ProfileHeader :props="dto.coverPicture" />
       <ProfileComponent :props="dto" />
-      <ProfilePostsAndFriends :key="refresher" v-model="dto"/>
+      <ProfilePostsAndFriends :key="refresher" :username="name" v-model="userPosts"/>
     </div>
     <div v-else class="flex justify-center items-center h-screen">
       <v-progress-linear
@@ -28,7 +28,9 @@ const router = useRouter();
 const handleName = router.currentRoute.value.params.id;
 const userStore = useUserStore();
 const { refresh } = storeToRefs(postStore);
+const name = ref('');
 const refresher = ref(0)
+const userPosts = ref(null);
 
 
 watch(refresh, async (val) => {
@@ -39,6 +41,8 @@ watch(refresh, async (val) => {
 onMounted(async () => {
   const data = await store.getProfileInfoForUser(handleName);
   dto.value = data;
+  userPosts.value = data.posts;
+  name.value = data.username;
   //   if(store.$state.userId === data._id){
   //   router.push('/profile')
   // } else {

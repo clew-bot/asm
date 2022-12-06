@@ -50,6 +50,10 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
+    friendRequestsSent: {
+        type: Array,
+        default: [],
+    },
     notifications: {
         type: Array,
         default: [],

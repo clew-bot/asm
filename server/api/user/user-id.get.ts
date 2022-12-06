@@ -6,6 +6,6 @@ export default defineEventHandler(async (event) => {
     console.log('START')
     const id:any = await useStorage().getItem("user");
     const myPic = await UserModel.findOne({
-        _id: new toId(id)} , ['profilePicture', 'friends']);
-    return { id, profilePicture: myPic?.profilePicture, friends: myPic?.friends }
+        _id: new toId(id)} , ['profilePicture', 'friends', 'friendRequestsSent']);
+    return { id, profilePicture: myPic?.profilePicture, friends: myPic?.friends, friendRequestsSent: myPic?.friendRequestsSent }
 })

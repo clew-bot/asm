@@ -16,6 +16,12 @@ export default defineEventHandler(async (event) => {
         { _id: userId },
         { $push: { friendRequests: id, } },
     );
+
+    // add me to friend request sent list
+    const addMe = await UserModel.updateOne(
+        { _id: id },
+        { $push: { friendRequestsSent: userId } },
+    );
     const newNotificationForUser = await new NotificationModel({
         title: "Friend Request",
         content: "You have a new friend request",
@@ -36,7 +42,10 @@ export default defineEventHandler(async (event) => {
     const addNotif = await UserModel.updateOne({ _id: userId }, { $push: { notifications: newNotificationForUser._id } });
 
     // add notification to me
-    const addNotifMe = await UserModel.updateOne({ _id: id }, { $push: { notifications: newNotificationForMe._id } });
+    const addNotifMe = await UserModel.updateOne({
+         _id: id }, 
+         { $push: 
+            { notifications: newNotificationForMe._id }, });
 
     console.log(addNotif);
         

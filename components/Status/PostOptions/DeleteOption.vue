@@ -44,8 +44,9 @@ const dialog = ref(false);
 
 const trashPost = async () => {
   console.log("hi")
-  await store.deletePost(props.id);
-  store.getRefresh();
+  const hello = await store.deletePost(props.id);
+  console.log(hello)
+  // store.getRefresh();
   dialog.value = false;
   //refresh page
 };

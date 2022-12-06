@@ -74,12 +74,21 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn @click="checkMe"></v-btn>
-          <v-btn color="green-darken-1" variant="text" @click="dialog = false">
+          <v-btn
+          :disabled="disabled"
+          color="blue" variant="text" @click="dialog = false">
             Cancel
           </v-btn>
-          <v-btn color="green-darken-1" variant="text" @click="saveEditInputs">
+          <v-btn 
+          v-if="!disabled"
+          color="blue" 
+          variant="text" @click="saveEditInputs">
             Save
           </v-btn>
+          <v-progress-circular v-else
+      indeterminate
+      color="blue"
+    ></v-progress-circular>
         </v-card-actions>
       </v-card>
     </div>
@@ -89,17 +98,28 @@
 
 <script setup>
 import { useEditStore } from '~~/store/EditStore';
+const router = useRouter();
 
 const store = useEditStore();
 const dialog = ref(false);
 const currentItem = ref("tab-Profile");
 const tabs = ref(["PROFILE", "ABOUT", "SETTINGS"]);
 const theTab = ref("PROFILE");
+const disabled = ref(false);
 
+
+const refresh = async () => {
+  await refreshNuxtData();
+};
 const saveEditInputs = async () => {
+  disabled.value = true;
   console.log('saveEditInputs');
   await store.editDetails();
-  dialog.value = false;
+  setTimeout(() => {
+    dialog.value = false;
+    router.go();
+  }, 1000);
+
 
 };
 const openTab = (tab) => {
