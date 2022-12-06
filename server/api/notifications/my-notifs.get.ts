@@ -16,5 +16,9 @@ export default defineEventHandler(async (event) => {
         options: { sort: { createdAt: -1 },} })
         .select("username")
     console.log('ff', findNotifications)
-    return findNotifications?.notifications;
+    if(findNotifications) {
+        return findNotifications.notifications
+    } else {
+        return []
+    }
 });

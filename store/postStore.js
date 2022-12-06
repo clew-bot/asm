@@ -35,9 +35,10 @@ export const usePostStore = defineStore("post", {
     check: async (payload) => {
       console.log(usePostStore().post);
     },
-    getPosts: async () => {
+    getPosts: async (payload) => {
       const response = await $fetch("/api/dashboard/get-posts", {
-        method: "GET",
+        method: "POST",
+        body: payload,
       });
       console.log("The response from get posts: ", response);
       usePostStore().posts = response;

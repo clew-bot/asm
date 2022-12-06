@@ -33,21 +33,48 @@ export default defineEventHandler(async (event) => {
     })
 
     // update 
-    const updateNotif = await NotificationModel.findOneAndUpdate({
+    const newNotificationForMe = await new NotificationModel({
+        title: "Friend Request",
+        content: "You are now friends with " + theUser?.username,
+        type: "friendRequestAccepted",
+        from: userId,
+    }).save();
+    console.log(newNotificationForMe);
+
+    // add notification to me
+    const addNotifMe = await UserModel.updateOne({ _id: myId }, { $push: { notifications: newNotificationForMe._id } });
+
+    // update the other user
+    const newNotificationForUser = await new NotificationModel({
+        title: "Friend Request",
+        content: "You are now friends with " + updateMe?.username,
+        type: "friendRequestAccepted",
+        from: myId,
+    }).save();
+    console.log(newNotificationForUser);
+
+    // add notification to user
+    const addNotif = await UserModel.updateOne({ _id: userId }, { $push: { notifications: newNotificationForUser._id } });
+
+
+    const updateMyNotif = await NotificationModel.findOneAndUpdate({
         _id: notifId
     }, {
         $set: {
-            title: "New Friend!",
-            content: "You are now friends with " + theUser?.username,
-            read: true
+            read: true,
+            type: "friendRequestAccepted"
         }
     }, {
         new: true
     }, )
 
-    console.log('theUser', theUser)
-    console.log('updateMe', updateMe)
-    console.log('updateNotif', updateNotif)
+    const allNotifications = await UserModel.findOne({ _id: myId })
+    .populate({ 
+        path: "notifications", 
+        options: { sort: { createdAt: -1 },} })
+    console.log(allNotifications)
 
-    return "hi"
+
+    console.log(allNotifications)
+    return { allNotifications }
 });

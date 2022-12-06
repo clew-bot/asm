@@ -43,7 +43,7 @@ watch(refresh, async (val) => {
 })
 
 onMounted( async () => {
-  const allPosts = await store.getPosts();
+  const allPosts = await store.getPosts(0);
   await nextTick(()=> {
     if(allPosts.length === 0) {
     loading.value = false;

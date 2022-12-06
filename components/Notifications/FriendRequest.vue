@@ -1,12 +1,16 @@
+<style scoped>
+@import url('@/assets/css/animations.css');
+</style>
 <template>
     <v-card
       class="mx-auto bg-inherit"
       elevation="0"
     >
+    <TransitionGroup name="list">
       <v-list
         v-for="notification in modelValue"
         :key="notification"
-        class="h-[7rem] border-4 border-slate-600 rounded-2xl bg-slate-700
+        class="h-[8rem] border-4 border-slate-600 rounded-2xl bg-slate-700
         transition-all"
         
       >
@@ -14,7 +18,7 @@
           <div class="flex justify-items-start">
             <NuxtLink
                   clas="w-fit"
-                  :to="`/profile/${notification.from.handleName}`">
+                  :to="`/profile/${notification.from?.handleName}`">
             <StatusUserAvatar class="pb-10" :props="notification.from.profilePicture"/>
             </NuxtLink>
             <div class="absolute left-16 top-3 ml-2 w-fit">
@@ -34,7 +38,7 @@
                   </div>
                 </NuxtLink>
               <div class="text-xs text-gray-400 cursor-pointer">
-                @{{ notification.from.handleName }}
+                @{{ notification?.from?.handleName }}
               </div>
             </div>
 
@@ -48,7 +52,7 @@
             >
               {{ createdAtLog(notification.createdAt) }}
             </div>
-            <div v-if="!notification.read">
+            <div v-if="notification.type === 'friendRequestReceived'">
             <div
               class="text-slate-500 absolute bottom-2 right-10 text-xs cursor-default"
             >
@@ -62,53 +66,42 @@
               <IconComponent :props="{name: 'mdi-close-thick', size: 'large', color: 'red'}" />
             </div>
           </div>
+          <!-- <div>
+            <div
+              class="text-slate-500 absolute bottom-2 right-4 text-xs cursor-default"
+            >
+              <IconComponent
+              @click="deleteNotification(notification._id)"
+              :props="{name: 'mdi-check-bold', size: 'large', color: 'green'}" />
+            </div>
+          </div> -->
           </div>
         </v-card-title>
       </v-list>
+      </TransitionGroup>
     </v-card>
   </template>
 <script setup>
+import { useNotifStore } from "~~/store/NotifStore";
 const { modelValue } = defineProps(['modelValue'])
-import { useNotifStore } from "~~/store/notifStore";
-
+const emit = defineEmits(['accepted'])
 console.log('111', modelValue)
 const notifStore = useNotifStore();
 
-const acceptFriendRequest = (fromId, notifId) => {
+const acceptFriendRequest = async (fromId, notifId) => {
   console.log('accept friend request', fromId, notifId);
   const dto = {
       fromId,
      notifId
   }
   console.log(dto)
-  notifStore.acceptFriendRequest(dto)
+  const newNotifs = await notifStore.acceptFriendRequest(dto)
+  console.log('newNotifs', newNotifs)
+  emit('accepted', newNotifs)
 }
 
-// const items = [
-//     {
-
-//       subtitle: 'You have <strong>2</strong> new messages',
-//     },
-//     { type: 'divider', inset: false },
-//     {
-//       title: 'Starred',
-//       subtitle: 'You have <strong>1</strong> starred message',
-//     },
-//     {
-//       title: 'Sent Mail',
-//       subtitle: 'You have <strong>0</strong> sent messages',
-//     },
-//     {
-//       title: 'Drafts',
-//       subtitle: 'You have <strong>0</strong> draft messages',
-//     },
-//     {
-//       title: 'Trash',
-//       subtitle: 'You have <strong>0</strong> trashed messages',
-//     },
-//   ]
+const deleteNotification = (id) => {
+  console.log('delete notification', id);
+  notifStore.deleteNotification(id)
+}
 </script>
-
-<style lang="scss" scoped>
-
-</style>

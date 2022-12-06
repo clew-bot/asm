@@ -33,6 +33,7 @@ export const useNotifStore = defineStore("notif", {
           method: "POST",
           body: data,
         });
+        console.log('accept', response)
         return response;
       }
   },

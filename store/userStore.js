@@ -5,7 +5,8 @@ export const useUserStore = defineStore('user', {
         email: '', 
         posts: [],
         userId: '',
-        profilePicture: ''
+        profilePicture: '',
+        friends: [],
        }),
     getters: {
        mId: (state) => state.id,
@@ -57,6 +58,7 @@ export const useUserStore = defineStore('user', {
         });
         useUserStore().userId = response.id;
         useUserStore().profilePicture = response.profilePicture;
+        useUserStore().friends = response.friends;
         console.log(response)
         console.log('222', useUserStore().profilePicture)
 

@@ -1,5 +1,5 @@
 <style scoped>
-@import url('@/assets/css/animations.css');
+@import url("@/assets/css/animations.css");
 </style>
 <template>
   <TransitionGroup name="list">
@@ -14,11 +14,10 @@
         color="#18181b"
         class="border-t-[.2px] rounded-none border-t-[var(--dashBorder)] bg-zinc-700 w-full"
       >
-      <!-- {{status.author}} -->
+        <!-- {{status.author}} -->
         <v-card-title>
           <div class="flex justify-items-start pt-3">
-
-            <StatusUserAvatar :props="status.author.profilePicture"/>
+            <StatusUserAvatar :props="status.author.profilePicture" />
             <div class="absolute left-16 top-4 ml-2 w-fit">
               <NuxtLink :to="`/profile/${status.author.handleName}`">
                 <div
@@ -51,7 +50,7 @@
           >
           </v-card-text>
           <div v-if="status.media">
-          <StatusAllMediaPost v-model="status.media"/>
+            <StatusAllMediaPost v-model="status.media" />
           </div>
           <div class="flex justify-between">
             <div class="px-4 flex pt-10">
@@ -83,13 +82,15 @@
                 }"
               />
             </div>
-            <div class="flex pt-10" >
+            <div class="flex pt-10">
               <IconComponent
                 class="mr-2"
                 :props="{ name: 'mdi-bookmark', color: 'var(--postIcon)' }"
               />
-              <StatusPostMenu v-if="status.author._id === userId" :id="status._id"/>
-         
+              <StatusPostMenu
+                v-if="status.author._id === userId"
+                :id="status._id"
+              />
             </div>
           </div>
           <div class="flex px-4 pb-4">
@@ -105,10 +106,17 @@
             >
           </div>
         </div>
+        <div v-if="i === Object.keys(props.modelValue).length - 1">
+          <StatusObserver/>
+        </div>
         <div v-if="utilityObj[status._id]?.open">
           <StatusCommentInput
             @check-commented="checkCommented"
-            :props="{ id: status._id, key: i, profilePicture: status.author.profilePicture }"
+            :props="{
+              id: status._id,
+              key: i,
+              profilePicture: status.author.profilePicture,
+            }"
           />
           <div v-if="utilityObj[status._id]?.allComments">
             <StatusCommentPost
@@ -128,7 +136,7 @@
 <script setup>
 import { createdAtLog, regularDate } from "@/utils/timeConvert";
 import { usePostStore } from "@/store/postStore";
-import { useUserStore } from '~~/store/userStore';
+import { useUserStore } from "~~/store/userStore";
 const userStore = useUserStore();
 const store = usePostStore();
 const props = defineProps(["modelValue"]);

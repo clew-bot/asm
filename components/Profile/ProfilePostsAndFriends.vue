@@ -57,7 +57,7 @@
 <script setup>
 
 const currentItem = ref("tab-Web");
-const items = ref(["Your Posts", "Your Friends"]);
+const items = ref([`${props.modelValue.username}'s Posts`, `${props.modelValue.username}'s friends`]);
 const components = ref(["Your Posts", "Your Friends"]);
 const props = defineProps(["modelValue"]);
 const passProps = ref(props.modelValue);
