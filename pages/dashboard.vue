@@ -25,9 +25,7 @@
 
 <script setup>
 import { usePostStore } from '~~/store/postStore';
-import { storeToRefs } from 'pinia'
 const store = usePostStore();
-const { refresh } = storeToRefs(store);
 const ableToPost = ref(true);
 const isReset = ref(false);
 const posts = ref([]);
@@ -36,11 +34,6 @@ definePageMeta({
   layout: false,
   middleware: ["auth"],
 });
-
-watch(refresh, async (val) => {
-  // const newPosts = await store.getPosts();
-  // posts.value = newPosts;
-})
 
 onMounted( async () => {
   scrollTo(0,0);
@@ -61,18 +54,15 @@ const getValue = (val) => {
 };
 
 const askForRefresh = async (value) => {
-  store.$state.post = "";
   isReset.value = true;
   setTimeout(() => {
   isReset.value = false;
   }, 5000);
-  await store.getPosts();
+  // await store.getPosts();
   await nextTick(() => {
-    posts.value = store.$state.posts;
+    // posts.value = store.$state.posts;
     ableToPost.value = true;
-  });
-
-    
+  }); 
 }
 </script>
 
