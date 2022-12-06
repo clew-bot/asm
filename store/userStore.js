@@ -1,4 +1,7 @@
 import { defineStore } from "pinia"
+import { usePostStore } from "./postStore"
+
+
 export const useUserStore = defineStore('user', {
     state: () => (
       { name: '', 
@@ -7,6 +10,7 @@ export const useUserStore = defineStore('user', {
         userId: '',
         profilePicture: '',
         friends: [],
+        myProfile: [],
        }),
     getters: {
        mId: (state) => state.id,
@@ -38,11 +42,14 @@ export const useUserStore = defineStore('user', {
         });
         return response;
       },
-      getProfileInfo: async () => {
+      getProfileInfo: async (payload) => {
         const response = await $fetch("/api/profile/get-profile", {
-          method: "GET",
+          method: "POST",
+          body: payload
         });
-        useUserStore().posts = response
+        useUserStore().posts = response.posts;
+        console.log('rp', useUserStore().posts)
+
         return response;
       },
       getProfileInfoForUser: async (payload) => {

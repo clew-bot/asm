@@ -11,6 +11,7 @@
           color="primary"
           v-bind="props"
           class="font-semibold"
+          @click="dialog = true"
         >
           Delete
       </div>
@@ -42,8 +43,9 @@ const props = defineProps(['id']);
 const dialog = ref(false);
 
 const trashPost = async () => {
+  console.log("hi")
   await store.deletePost(props.id);
-  // store.getRefresh();
+  store.getRefresh();
   dialog.value = false;
   //refresh page
 };

@@ -33,10 +33,10 @@
         {{ item }}
       </v-tab>
     </v-tabs>
-    <v-window direction="vertical" v-model="currentItem">
+    <v-window direction="horizontal" v-model="currentItem">
       <v-window-item v-for="item in items" :key="item" :value="'tab-' + item">
         <v-card flat>
-          <div v-if="currentItem === 'tab-Your Posts'">
+          <div v-if="currentItem === `tab-${props.modelValue.username}'s Posts`">
             <div v-if="passProps.posts.length > 0">
               <ProfileYourPostsTab v-model="passProps.posts" />
             </div>
@@ -61,6 +61,7 @@ const items = ref([`${props.modelValue.username}'s Posts`, `${props.modelValue.u
 const components = ref(["Your Posts", "Your Friends"]);
 const props = defineProps(["modelValue"]);
 const passProps = ref(props.modelValue);
+
 
 const checkValues = () => {
   console.log(currentItem.value);

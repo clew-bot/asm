@@ -4,7 +4,7 @@
     <template #header>My Profile</template>
     <template #rightSide><LayoutRightBarSuggested/></template>
       <div v-if="dto">
-      <ProfileHeader :props="dto.coverPicture"/>
+     <ProfileHeader :props="dto.coverPicture"/>
      <ProfileComponent :props="dto"/>
      <ProfilePostsAndFriends :key="refresher" v-model="dto"/>
       </div>

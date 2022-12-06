@@ -17,9 +17,9 @@
 
         </div>
         <div v-if="props._id === userId" class="absolute top-5 right-6">
-            <ClientOnly>
+            
             <EditProfileModal/>
-            </ClientOnly>
+
         </div>
         <div v-else>
        

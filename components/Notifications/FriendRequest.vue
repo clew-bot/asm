@@ -57,6 +57,7 @@
               class="text-slate-500 absolute bottom-2 right-10 text-xs cursor-default"
             >
               <IconComponent
+              v-if="!clicked"
               @click="acceptFriendRequest(notification.from._id, notification._id)"
               :props="{name: 'mdi-check-bold', size: 'large', color: 'green'}" />
             </div>
@@ -85,10 +86,12 @@
 import { useNotifStore } from "~~/store/NotifStore";
 const { modelValue } = defineProps(['modelValue'])
 const emit = defineEmits(['accepted'])
+const clicked = ref(false)
 console.log('111', modelValue)
 const notifStore = useNotifStore();
 
 const acceptFriendRequest = async (fromId, notifId) => {
+  clicked.value = true
   console.log('accept friend request', fromId, notifId);
   const dto = {
       fromId,

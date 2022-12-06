@@ -87,10 +87,13 @@
                 class="mr-2"
                 :props="{ name: 'mdi-bookmark', color: 'var(--postIcon)' }"
               />
-              <StatusPostMenu
+              <ClientOnly>
+                <StatusPostMenu
                 v-if="status.author._id === userId"
                 :id="status._id"
               />
+              </ClientOnly>
+     
             </div>
           </div>
           <div class="flex px-4 pb-4">
@@ -107,7 +110,7 @@
           </div>
         </div>
         <div v-if="i === Object.keys(props.modelValue).length - 1">
-          <StatusObserver/>
+      
         </div>
         <div v-if="utilityObj[status._id]?.open">
           <StatusCommentInput
@@ -144,6 +147,18 @@ const showMoreCommentLabel = ref(false);
 let utilityObj = ref({});
 let timeout;
 const userId = ref(userStore.$state.userId);
+
+const checkMatching = (id) => {
+  if (utilityObj.value[id]) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+// console.log(checkMatching(userId))
+console.log('myid', userId)
+console.log('utilityObj', utilityObj.value)
 
 onMounted(() => {
   props.modelValue.forEach((status) => {

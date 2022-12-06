@@ -1,16 +1,19 @@
 <template>
   <div ref="element" class="observer">
-    Hi, I'm a bot! I'm here to help you with your code. I'm still in
-    development, so please let me know if I'm not working as expected. I'm
-    currently in beta, so I'm not always online. If you want to help me improve,
-    please check out my source code on GitHub. If you have any questions, please
-    contact my creator, @jakebathman.
   </div>
+  <div v-if="loading" class="flex justify-center p-7">  <v-progress-circular
+      :size="40"
+      :width="6"
+      color="black"
+      indeterminate
+    ></v-progress-circular></div>
 </template>
 
 <script setup>
+import { set } from "mongoose";
 import { usePostStore } from "~~/store/postStore";
 const store = usePostStore();
+const loading = ref(false);
 
 onMounted(() => {
   console.log("mounted");
@@ -21,12 +24,20 @@ onMounted(() => {
       entries.forEach(async (entry) => {
         if (entry.isIntersecting) {
           store.$state.pageCount++;
-          const posts = await store.getPosts();
+          loading.value = true;
+          setTimeout(async() => {
+            const posts = await store.getPosts();
           if (posts.length === 0) {
+            loading.value = false;
             console.log("yeah i'm done here");
             store.$state.postsFull = true;
             observer.unobserve(observedElement);
           }
+           
+            console.log('fdfdfdfd')
+          }, 500);
+
+    
         } else {
         }
       });

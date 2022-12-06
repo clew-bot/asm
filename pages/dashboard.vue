@@ -6,7 +6,10 @@
 
     <template #postMedia><ComposePostMediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
     <div v-if="!loading && posts.length > 0" class="first overflow-auto transition-all bg-zinc-600">
-      <StatusUserStatus v-model="posts"/>
+      <StatusUserStatus  v-model="posts"/>
+      <div class="bg-[#343438]">
+      <StatusObserver />
+    </div>
     </div>
     <div v-else-if="loading">
         <v-progress-linear indeterminate color="cyan"></v-progress-linear>
@@ -16,6 +19,7 @@
     pt-10">
         There doesn't seem to be any posts here.
     </div>
+
     <div class="h-screen w-full flex justify-center font-semibold text-orange-500 relative"><div class="absolute bottom-0">
       Looks like you've reached the end 😂
     </div></div>

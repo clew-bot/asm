@@ -71,6 +71,9 @@ export default defineEventHandler(async (event) => {
     const allNotifications = await UserModel.findOne({ _id: myId })
     .populate({ 
         path: "notifications", 
+        populate: {
+            path: "from"
+        },
         options: { sort: { createdAt: -1 },} })
     console.log(allNotifications)
 

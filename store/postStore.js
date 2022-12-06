@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./userStore";
-const userState = useUserStore();
+
 export const usePostStore = defineStore("post", {
   state: () => ({
     post: "",
@@ -23,13 +23,13 @@ export const usePostStore = defineStore("post", {
         postVideos: payload?.videos,
         postMedia: payload?.media,
       };
-
       const response = await $fetch("/api/dashboard/compose", {
         method: "POST",
         body: data,
       });
       usePostStore().images = [];
       usePostStore().posts.unshift(response.populatedPost);
+      // useUserStore().posts.unshift(response.populatedPost);
       return response;
     },
     postComment: async (payload) => {
@@ -48,9 +48,16 @@ export const usePostStore = defineStore("post", {
         method: "POST",
         body: usePostStore().pageCount,
       });
-      usePostStore().posts.push(...response);
-      console.log("The posts: ", usePostStore().posts);
-      return response;
+      //  dont duplicate posts
+      if( usePostStore().pageCount === 0) {
+        usePostStore().posts = response;
+        return response;
+      } else {
+        usePostStore().posts.push(...response);
+        console.log("The posts: ", usePostStore().posts);
+        return response;
+      }
+ 
     },
     getCommentsForPost: async (payload) => {
       const response = await $fetch("/api/dashboard/get-comments-for-post", {
@@ -60,7 +67,6 @@ export const usePostStore = defineStore("post", {
       return response;
     },
     deletePost: async (payload) => {
-      console.log("delete payload", payload);
       const response = await $fetch("/api/dashboard/delete", {
         method: "POST",
         body: payload,
@@ -69,13 +75,17 @@ export const usePostStore = defineStore("post", {
         (post) => post._id === payload
       );
       usePostStore().posts.splice(findIndex, 1);
-      console.log("posts after delete: ", usePostStore().posts);
-
+      if(findIndex === -1) {
+        console.log('nope, checking other posts')
+        const findIndex = useUserStore().posts.findIndex(
+          (post) => post._id === payload
+        );
+        useUserStore().posts.splice(findIndex, 1);
+      }
       return response;
     },
     getRefresh: (state) => {
       usePostStore().refresh++;
-      console.log("The refresh: ", usePostStore().refresh);
     },
   },
 });

@@ -8,9 +8,16 @@
 </template>
 
 <script setup>
+import { useUserStore } from '~~/store/userStore';
+const store = useUserStore();
 const props = defineProps(['modelValue'])
 const posts = ref(props.modelValue)
-console.log(posts.value)
+
+onMounted(()=>{
+    store.$state.posts = posts.value
+})
+
+console.log('111', posts.value)
 
 
 
