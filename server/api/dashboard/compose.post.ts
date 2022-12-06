@@ -13,9 +13,12 @@ export default defineEventHandler(async (event) => {
         videos: body?.postVideos ?? [],
         media: body?.postMedia ?? [],
     });
+    const populatedPost = await postStatus.populate('author', ['username', 'handleName', 'profilePicture'])
     const addPost = await UserModel.updateOne(
         { _id: new toId(id) },
         { $push: { posts: postStatus._id } }
     );
-    return { error: false, message: "Post Created" };
+
+    console.log('populatedPost', populatedPost)
+    return { error: false, message: "Post Created", populatedPost };
 })

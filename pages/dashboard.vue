@@ -6,7 +6,7 @@
 
     <template #postMedia><ComposePostMediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
     <div v-if="!loading && posts.length > 0" class="first overflow-auto transition-all bg-zinc-600">
-      <StatusUserStatus :key="refresh" v-model="posts"/>
+      <StatusUserStatus v-model="posts"/>
     </div>
     <div v-else-if="loading">
         <v-progress-linear indeterminate color="cyan"></v-progress-linear>
@@ -38,12 +38,13 @@ definePageMeta({
 });
 
 watch(refresh, async (val) => {
-  const newPosts = await store.getPosts();
-  posts.value = newPosts;
+  // const newPosts = await store.getPosts();
+  // posts.value = newPosts;
 })
 
 onMounted( async () => {
-  const allPosts = await store.getPosts(0);
+  scrollTo(0,0);
+  const allPosts = await store.getPosts();
   await nextTick(()=> {
     if(allPosts.length === 0) {
     loading.value = false;
@@ -51,7 +52,7 @@ onMounted( async () => {
     loading.value = false;
   }
   });
-  posts.value = allPosts;
+  posts.value = store.$state.posts;
 
 });
 

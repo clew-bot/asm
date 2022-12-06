@@ -59,9 +59,6 @@ export const useUserStore = defineStore('user', {
         useUserStore().userId = response.id;
         useUserStore().profilePicture = response.profilePicture;
         useUserStore().friends = response.friends;
-        console.log(response)
-        console.log('222', useUserStore().profilePicture)
-
       }
     },
   })
