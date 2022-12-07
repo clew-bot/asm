@@ -2,7 +2,16 @@
 <template>
   <div v-if="showButtonsOrNot">
     <v-btn
-    v-if="(!showFriendRequestSentBtn)"
+    v-if="showAcceptFriendBtn"
+    elevation="1"
+    class="text-xs rounded-xl"
+    color="orange"
+    :disabled="disabled"
+    >
+      Accept Friend Request
+    </v-btn>
+    <v-btn
+    v-else-if="(!showFriendRequestSentBtn)"
     @click.prevent="sendFriendRequest"
     elevation="1"
     class="text-xs rounded-xl"
@@ -42,11 +51,31 @@ const disabled = ref(false);
 const showAddFriendBtn = ref(false);
 const showFriendRequestSentBtn = ref(false);
 const showButtonsOrNot = ref(false);
+const showAcceptFriendBtn = ref(false);
 const myFriends = userStore.$state.friends;
 const friRequestSent = userStore.$state.friendRequestsSent;
 const myId = userStore.$state.userId;
+const friendRequests = userStore.$state.friendRequests;
+
+console.log('fr', friendRequests)
+
 
 onMounted(async() => {
+
+  if(friendRequests.length > 0) {
+    const isFriend = friendRequests.find(
+      (friend) => friend === props.props.id
+    );
+    if (isFriend) {
+      console.log('is requested', isFriend)
+      showAcceptFriendBtn.value = true;
+    }
+    // } else {
+    //   console.log('is not friend', isFriend)
+    //   showAddFriendBtn.value = true;
+    // }
+  }
+
   if(myFriends) {
     const isFriend = myFriends.find((friend) => friend === props.props.id);
     if (isFriend) {

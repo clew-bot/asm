@@ -19,17 +19,22 @@ export default defineEventHandler(async (event) => {
         $push: {
             friends: myId
         },
-        $inc: { notificationCount: 1 } 
+        $inc: { notificationCount: 1 } ,
+        $pullAll: { friendRequestsSent: [myId] }
     }, {
         new: true
     })
+
+
+
     const updateMe = await UserModel.findOneAndUpdate({
         _id: myId
     }, {
         $push: {
             friends: userId
         },
-        $inc: { notificationCount: 1 } 
+        $inc: { notificationCount: 1 },
+        $pullAll: { friendRequests: [userId] } 
     }, {
         new: true
     })

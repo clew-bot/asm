@@ -15,6 +15,7 @@ export const useUserStore = defineStore('user', {
         friendRequestsSent: [],
         notifications: [],
         notificationCount: 0,
+        friendRequests: [],
        }),
     getters: {
        mId: (state) => state.id,
@@ -72,6 +73,7 @@ export const useUserStore = defineStore('user', {
         useUserStore().profilePicture = response.profilePicture;
         useUserStore().friends = response.friends;
         useUserStore().friendRequestsSent = response.friendRequestsSent;
+        useUserStore().friendRequests = response.friendRequests;
         useUserStore().notificationCount = response.notificationCount;
         console.log('userStore', useUserStore().notificationCount)
       },

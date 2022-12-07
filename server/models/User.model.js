@@ -54,6 +54,10 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
+    friendRequestsReceived: {
+        type: Array,
+        default: [],
+    },
     notifications: {
         type: Array,
         default: [],

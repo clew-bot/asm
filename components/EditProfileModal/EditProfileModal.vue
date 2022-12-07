@@ -119,7 +119,7 @@ const saveEditInputs = async () => {
     dialog.value = false;
     console.log('sh', store.$state.handle)
     if(store.handle === "") {
-      // router.go();
+      router.go();
     } else if (store.handle !== "") {
       router.push({ path: `/profile/${store.handle}` });
     }
