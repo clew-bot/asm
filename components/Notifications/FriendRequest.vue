@@ -3,41 +3,44 @@
 </style>
 <template>
     <v-card
-      class="mx-auto bg-inherit"
       elevation="0"
     >
     <TransitionGroup name="list">
       <v-list
         v-for="notification in modelValue"
         :key="notification"
-        class="h-[8rem] border-4 border-slate-600 rounded-2xl bg-slate-700
-        transition-all"
-        
+        class="h-[8rem] bg-zinc-800 hover:bg-zinc-700 border-b-[var(--dashBorder)] border-[.2px] transition-all duration-150"
       >
       <v-card-title>
           <div class="flex justify-items-start">
             <NuxtLink
-                  clas="w-fit"
                   :to="`/profile/${notification.from?.handleName}`">
-            <StatusUserAvatar class="pb-10" :props="notification.from.profilePicture"/>
+            <StatusUserAvatar
+            class="mt-1"
+            :props="notification.from.profilePicture"/>
             </NuxtLink>
-            <div class="absolute left-16 top-3 ml-2 w-fit">
-          
+            <div 
+            class="ml-3 w-full">
                 <div
-                  class="text-base font-semibold text-white cursor-default"
+                  class="text-base font-semibold text-white cursor-default] "
                 >
                   {{notification.title}}
                 </div>
-                <div class="text-sm text-amber-300 cursor-default">
-                  {{notification.content}}!
+                <div class="text-sm text-amber-300
+                mb-1 cursor-default overflow-hidden w-[80%] sm:w-[85%] 
+                lg:w-[88%] whitespace-nowrap text-ellipsis inline-block">
+                  {{notification.content}} 
                   </div>
-                  <NuxtLink
+                  <br>
+            
+                  <div class="text-xs font-bold hover:text-blue-300 hover:underline z-10 w-fit cursor-pointer">
+                    <NuxtLink
                   :to="`/profile/${notification.from.handleName}`">
-                  <div class="text-xs font-bold hover:text-blue-300 hover:underline">
                     {{notification.from.username}}
+                  </NuxtLink>
                   </div>
-                </NuxtLink>
-              <div class="text-xs text-gray-400 cursor-pointer">
+             
+              <div class="text-xs text-gray-400 cursor-default">
                 @{{ notification?.from?.handleName }}
               </div>
             </div>
@@ -45,12 +48,17 @@
             <div
               class="text-slate-300 absolute top-4 right-6 text-xs cursor-default"
             >
-              {{ regularDate(notification.createdAt) }}
+              <!-- {{ regularDate(notification.createdAt) }} -->
             </div>
             <div
-              class="text-slate-500 absolute top-8 right-6 text-xs cursor-default"
+              class="text-slate-200 absolute top-4 right-6 text-xs cursor-default"
             >
-              {{ createdAtLog(notification.createdAt) }}
+              {{ simplifiedTime(notification.createdAt) }}
+            </div>
+            <div
+              class="text-slate-300 absolute bottom-4 right-6 text-xs cursor-default"
+            >
+              <!-- <IconComponent :props="{ name: 'mdi-chevron-down', size: 'xx-large'}" /> -->
             </div>
             <div v-if="notification.type === 'friendRequestReceived'">
             <div

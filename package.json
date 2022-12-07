@@ -23,6 +23,7 @@
     "@nuxtjs/axios": "^5.13.6",
     "@pinia/nuxt": "^0.4.4",
     "@videojs-player/vue": "^1.0.0",
+    "@vuepic/vue-datepicker": "^3.6.1",
     "bcrypt": "^5.1.0",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",

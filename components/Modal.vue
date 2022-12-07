@@ -15,20 +15,24 @@
         v-model="dialog"
         theme="dark"
       >
-      <div class="w/full flex justify-center items-center">
+      <div class="flex justify-center items-center">
         <div class="signup flex justify-center items-center">
-      <v-card class="bg-stone-900 px-10 pt-2 pb-7 rounded-2xl drop-shadow-2xl">
-        <div class="flex items-stretch">
-        <p class="p-3 pb-0 font-extrabold text-slate-100 text-3xl">Create Account</p>
+      <v-card class="bg-stone-900 px-10 pt-2 pb-7 rounded-2xl drop-shadow-2xl relative">
+        <IconComponent
+        class="absolute top-3 right-3 cursor-pointer"
+        @click="dialog = false" 
+        :props="{ name: 'mdi-close', color: '#fff' }"/>
+        <div class="flex items-stretch sm:pl-4">
+        <p class="p-3 pb-0 font-extrabold text-slate-100 text-3xl whitespace-nowrap">Create Account</p>
         <SmallIcon class="mb-2 ml-3"/>
     </div>
       <v-form 
             v-model="valid" 
-            class="max-w-[40rem] min-w-[25rem] pt-5"
+            class="max-w-[45rem] sm:min-w-[25rem] pt-5 sm:px-4"
             @submit.prevent="handleCreateAccount"
             id="signup-form"
             >
-            <v-radio-group v-model="radios" inline>
+            <!-- <v-radio-group v-model="radios" inline>
               <v-radio value="Google">
                 <template v-slot:label>
                   <div><strong class="text-success">Girl</strong></div>
@@ -39,39 +43,41 @@
                   <div><strong class="text-primary">Boy</strong></div>
                 </template>
               </v-radio>
-            </v-radio-group>
+            </v-radio-group> -->
         <label class="font-semibold text-slate-300 italic p-3 mt-10">Choose a username</label>
         <v-text-field
           autocomplete="off"
           name="username"
-          class="p-3 pb-1 pt-0"
+          class="p-3 pb-0 pt-0"
           v-model="username"
           :rules="nameRules"
           :counter="10"
           label="Username"
           required
+          density="compact"
         ></v-text-field>
         
        
-        <label class="font-semibold text-slate-300 italic p-3 mt-10">Choose a password</label>
+        <label class="font-semibold text-slate-300 italic p-3 mt-0">Choose a password</label>
         <v-text-field
         autocomplete="off"
           name="password"
-          class="px-3 py-1 pt-0"
+          class="px-3 py-0 pt-0"
           v-model="password"
-          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          :pre-append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="passwordRules"
           :counter="10"
           label="Password"
           :type="show1 ? 'text' : 'password'"
           @click:append="show1 = !show1"
           required
+          density="compact"
         ></v-text-field>
-        <label class="font-semibold text-slate-300 italic p-3 mt-10">Verify password</label>
+        <label class="font-semibold text-slate-300 italic p-3 mt-0">Verify password</label>
         <v-text-field
         autocomplete="off"
           name="securePassword"
-          class="px-3 py-1 pt-0"
+          class="px-3 py-0 pt-0"
           v-model="securePassword"
           :rules="samePassword"
           :counter="10"
@@ -80,7 +86,14 @@
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="show1 = !show1"
           required
+          density="compact"
         ></v-text-field>
+        <label class="font-semibold text-slate-300 italic p-3 mt-10">Birthday</label>
+        <div
+        class="px-3 pb-5 pt-0">
+        <DatePicker/>
+          </div>
+   
         <label class="font-semibold text-slate-300 italic p-3 mt-10">Enter an email</label>
         <v-text-field
           autocomplete="off"
@@ -90,6 +103,7 @@
           :rules="emailRules"
           label="E-mail"
           required
+          density="compact"
         ></v-text-field>
         <div class="p-2 pb-4 signup-btn">
           <v-btn
@@ -102,8 +116,9 @@
             >Sign Up
           </v-btn>
         </div>
-      </v-form>
-      <v-card-actions>
+        <v-card-actions
+      class="px-2 lg:px-6"
+      >
             <v-btn 
             variant="outlined" 
             block 
@@ -112,6 +127,8 @@
             Close
         </v-btn>
           </v-card-actions>
+      </v-form>
+  
     </v-card>
     </div>
     </div>
@@ -137,6 +154,9 @@ import { set } from "mongoose";
     const email = ref("");
     const serverError = ref(false);
     const takenName = ref("");
+    // const birthday = ref("");
+
+
     const nameRules = ref([
       (v) => !!v || "Username is required",
       (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
@@ -170,13 +190,18 @@ import { set } from "mongoose";
         console.log(emailRules.value)
     }
     const handleCreateAccount = async (e) => {
-        const { username, password, securePassword, email } = Object.fromEntries(new FormData(e.target))
-        console.log(username, password, securePassword, email)
+
+        console.log(Object.fromEntries(new FormData(e.target)))
+
+        const { username, password, securePassword, email, birthday } = Object.fromEntries(new FormData(e.target))
+        console.log(username, password, securePassword, email, birthday)
         const data = {
             username,
             password,
-            email
+            email,
+            birthday
         }
+        console.log(data)
         const clientSignUpToken = await store.signUp(data)
         console.log(clientSignUpToken.error)
         if (clientSignUpToken.error) {

@@ -2,6 +2,7 @@
 @import url("@/assets/css/animations.css");
 </style>
 <template>
+
   <TransitionGroup name="list">
     <div
       v-for="(status, i) in props.modelValue"

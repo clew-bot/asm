@@ -24,6 +24,7 @@ export default defineEventHandler(async (event) => {
                 password: body.password,
                 handleName: 'user' + r.toString(),
                 location: 'Earth',
+                birthday: body.birthday
             });
         const token = jwt.sign({ id: newUser._id }, config.JWT_SECRET, {
             expiresIn: 43200, // 12 hours

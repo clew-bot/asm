@@ -23,7 +23,6 @@
           class="p-3 pb-1"
           v-model="username"
           :rules="nameRules"
-          :counter="10"
           :label="userLabel"
           required
           :class="{ 'text-red-500': usernameError }"
@@ -75,7 +74,7 @@ const store = useUserStore();
 const username = ref("");
 const password = ref("");
 const email = ref("");
-const userLabel = ref("Username or Password");
+const userLabel = ref("Username or Email");
 const passLabel = ref("Password");
 
 

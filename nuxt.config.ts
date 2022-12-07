@@ -9,6 +9,9 @@ export default defineNuxtConfig({
         },
     },
     modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
+    build: {
+        transpile: ['@vuepic/vue-datepicker']
+    },
     runtimeConfig: {
         MONGO_URI: process.env.MONGO_URI,
         JWT_SECRET: process.env.JWT_SECRET,

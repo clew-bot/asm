@@ -46,7 +46,7 @@
                 <IconComponent class="pr-2" :props="{name: 'mdi-map-marker', size: 'x-small'}"/><span>{{props.location}}</span>
             </div>
             <div class="flex text-sm font-semibold pt-1">
-                <IconComponent class="pr-2" :props="{name: 'mdi-cake-variant', size: 'x-small'}"/><span>{{memberSinceLog(props.createdAt)}}</span>
+                <IconComponent class="pr-2" :props="{name: 'mdi-cake-variant', size: 'x-small'}"/><span>{{props?.birthday}}</span>
             </div>
             <div class="pt-5 italic">{{props.bio || 'If it ain\'t broke don\'t fix it'}}</div>
         </div>

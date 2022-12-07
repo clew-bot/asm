@@ -9,10 +9,11 @@
      <ProfilePostsAndFriends :username="name" v-model="profilePosts"/>
       </div>
       <div v-else class="flex justify-center items-center h-screen">
-      <v-progress-linear
+        <v-progress-circular
+      :width="4"
+      color="white"
       indeterminate
-      color="purple"
-    ></v-progress-linear>
+    ></v-progress-circular>
     </div>
   </NuxtLayout>
 </template>

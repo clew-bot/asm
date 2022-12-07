@@ -30,6 +30,38 @@ export const createdAtLog = (times) => {
     return "A few seconds ago";
   };
 
+  export const simplifiedTime = (times) => {
+    let newTime = new Date(times);
+    var seconds = Math.floor((new Date() - newTime) / 1000);
+    var interval = seconds / 31536000;
+    if (interval > 2) {return Math.floor(interval) + "y";}
+    if (interval > 1) {
+      return Math.floor(interval) + "y";
+    }
+    interval = seconds / 2592000;
+    if (interval > 2) {return Math.floor(interval) + "mo";}
+    if (interval > 1) {
+   
+      return Math.floor(interval) + "mo";
+    }
+    interval = seconds / 86400;
+    if (interval > 2) {return Math.floor(interval) + "d";}
+    if (interval > 1) {
+      return Math.floor(interval) + "d";
+    }
+    interval = seconds / 3600;
+    if (interval > 2) {return Math.floor(interval) + "h";}
+    if (interval > 1) {
+      return Math.floor(interval) + "h";
+    }
+    interval = seconds / 60;
+      if (interval > 2) {return Math.floor(interval) + "m";}
+    if (interval > 1) {
+      return Math.floor(interval) + "m";
+    }
+    return "Now";
+  };
+
   export const memberSinceLog = (times) => {
     let monthHash = {
       1: "January",
