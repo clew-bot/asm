@@ -24,7 +24,7 @@
   >
 </div>
 <div v-else>
-  <div class="font-bold text-blue-400 rounded-xl p-2 text-xl">
+  <div class="font-bold text-blue-400 rounded-xl p-2 text-xl border-2">
     FRIENDS 😊
   </div>
 </div>
@@ -44,11 +44,9 @@ const showFriendRequestSentBtn = ref(false);
 const showButtonsOrNot = ref(false);
 const myFriends = userStore.$state.friends;
 const friRequestSent = userStore.$state.friendRequestsSent;
+const myId = userStore.$state.userId;
+
 onMounted(async() => {
-  // await userStore.getUser();
-  console.log('fr', userStore.$state.friendRequestsSent)
-  console.log('props', props)
-  console.log('friRequestSent', friRequestSent.length > 0)
   if(myFriends) {
     const isFriend = myFriends.find((friend) => friend === props.props.id);
     if (isFriend) {
@@ -74,37 +72,8 @@ onMounted(async() => {
 
 });
 
-// const showAddFriendButton = () => {
-//   if (myFriends) {
-//     const isFriend = myFriends.find((friend) => friend._id === props.props._id);
-//     if (isFriend) {
-//       console.log('is friend', isFriend)
-//       return false;
-//     } else {
-//       return true;
-//     }
-//   }
-// };
-
-
-// const showFriendRequestSent = () => {
-//   if (friRequestSent) {
-//     const isFriend = friRequestSent.find(
-//       (friend) => friend._id === props.props._id
-//     );
-//     if (isFriend) {
-//       return false;
-//     } else {
-//       return true;
-//     }
-//   }
-// };
-
-const myId = userStore.$state.userId;
-
 const sendFriendRequest = (e) => {
   disabled.value = true;
-  console.log('send friend request', props.props.id);
   const data = {
     username: props.props.username,
     id: props.props.id,

@@ -10,21 +10,28 @@
     >
     <!-- {{comment}} -->
       <div class="flex items-startrelative pt-3 pl-2 whitespace-normal">
-       <StatusUserAvatar :props="comment.author.profilePicture"/>
+        <NuxtLink :to="`/profile/${comment.author.handleName}`">
+          <StatusUserAvatar
+          class="mt-1"
+          :props="comment.author.profilePicture"/>
+          </NuxtLink>
         <div class="ml-2 z-10 w-full">
           <div>
-            <div class="text-base font-bold text-stone-300 pr-8 pb-2 pt-1">
+            <div class="text-base font-bold text-stone-300 pr-8 pb-1 pt-0">
               <span
-                class="cursor-pointer hover:underline hover:text-blue-500"
-                >{{ comment.author.username }}</span
+                class="cursor-pointer text-blue-400 hover:underline hover:text-blue-500"
+                >
+                <NuxtLink :to="`/profile/${comment.author.handleName}`">
+                  {{ comment.author.username }}
+                </NuxtLink></span
               >
               <span
-                class="font-normal text-white-100 hover:no-underline cursor-default"
+                class="font-normal text-white hover:no-underline cursor-default"
                 >&nbsp;{{ comment.content }}</span
               >
             </div>
             <div class="flex text-sm gap-2 font-semibold">
-              <div class="text-slate-700 hover:underline cursor-pointer italic">
+              <div class="text-yellow-400 hover:underline cursor-pointer italic">
                 reply
               </div>
               <!-- <div class="text-red-300 hover:underline cursor-pointer">Report</div> -->

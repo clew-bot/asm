@@ -63,6 +63,7 @@
                 placeholder="Comment.."
                 rows="1"
                 hide-details="true"
+                @keydown.enter.prevent="sendComment"
                 ></v-textarea>
             </v-container>
         </div>
@@ -70,6 +71,7 @@
         class="pb-5 px-4 "
         >
             <v-icon
+           
             @click="sendComment"
             color="#67e8f9"
             class="-rotate-[30deg] cursor-pointer hover:text-[#22d3ee]">mdi-send</v-icon>

@@ -59,6 +59,10 @@ const UserSchema = new mongoose.Schema({
         default: [],
         ref: "NotificationModel",
     },
+    notificationCount: {
+        type: Number,
+        default: 0,
+    },
     messages: {
         type: Array,
         default: [],

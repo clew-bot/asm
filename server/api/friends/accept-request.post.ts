@@ -18,7 +18,8 @@ export default defineEventHandler(async (event) => {
     }, {
         $push: {
             friends: myId
-        }
+        },
+        $inc: { notificationCount: 1 } 
     }, {
         new: true
     })
@@ -27,7 +28,8 @@ export default defineEventHandler(async (event) => {
     }, {
         $push: {
             friends: userId
-        }
+        },
+        $inc: { notificationCount: 1 } 
     }, {
         new: true
     })

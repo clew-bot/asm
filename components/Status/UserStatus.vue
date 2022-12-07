@@ -18,7 +18,9 @@
         <!-- {{status.author}} -->
         <v-card-title>
           <div class="flex justify-items-start pt-3">
+            <NuxtLink :to="`/profile/${status.author.handleName}`">
             <StatusUserAvatar :props="status.author.profilePicture" />
+            </NuxtLink>
             <div class="absolute left-16 top-4 ml-2 w-fit">
               <NuxtLink :to="`/profile/${status.author.handleName}`">
                 <div

@@ -14,14 +14,19 @@ export default defineEventHandler(async (event) => {
     // add user to friend request list
     const addFriend = await UserModel.updateOne(
         { _id: userId },
-        { $push: { friendRequests: id, } },
-    );
+        { $push: { friendRequests: id, }, $inc: { notificationCount: 1 } },
+    ).exec();
+
+
+    console.log('add' , addFriend)
 
     // add me to friend request sent list
     const addMe = await UserModel.updateOne(
         { _id: id },
-        { $push: { friendRequestsSent: userId } },
-    );
+        { $push: { friendRequestsSent: userId },
+        $inc: { notificationCount: 1 } },
+
+    ).exec();
     const newNotificationForUser = await new NotificationModel({
         title: "Friend Request",
         content: "You have a new friend request",

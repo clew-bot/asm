@@ -31,6 +31,8 @@
 
 <script setup>
 import { useNotifStore } from "~~/store/NotifStore";
+import { useUserStore } from "~~/store/userStore";
+const userStore = useUserStore();
 const notifStore = useNotifStore();
 const allNotifs = ref([]);
 const refresher = ref(0);
@@ -47,6 +49,7 @@ onMounted(async () => {
 
   console.log("mounted from notifications.vue");
   const getNotifs = notifStore.receiveNotifs();
+  const clearNotifs = userStore.clearNotifications();
   allNotifs.value = await getNotifs;
   setTimeout(() => {
     loading.value = false;

@@ -117,7 +117,12 @@ const saveEditInputs = async () => {
   await store.editDetails();
   setTimeout(() => {
     dialog.value = false;
-    router.go();
+    console.log('sh', store.$state.handle)
+    if(store.handle === "") {
+      // router.go();
+    } else if (store.handle !== "") {
+      router.push({ path: `/profile/${store.handle}` });
+    }
   }, 1000);
 
 

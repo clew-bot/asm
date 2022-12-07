@@ -13,6 +13,8 @@ export const useUserStore = defineStore('user', {
         friends: [],
         myProfile: [],
         friendRequestsSent: [],
+        notifications: [],
+        notificationCount: 0,
        }),
     getters: {
        mId: (state) => state.id,
@@ -70,6 +72,23 @@ export const useUserStore = defineStore('user', {
         useUserStore().profilePicture = response.profilePicture;
         useUserStore().friends = response.friends;
         useUserStore().friendRequestsSent = response.friendRequestsSent;
+        useUserStore().notificationCount = response.notificationCount;
+        console.log('userStore', useUserStore().notificationCount)
+      },
+
+      getNotifications: async () => {
+        const response = await $fetch("/api/user/notifications", {
+          method: "GET",
+        });
+        console.log('response', response)
+        useUserStore().notificationCount = response.notificationCount;
+      },
+      clearNotifications: async () => {
+        const response = await $fetch("/api/user/notification-clear", {
+          method: "GET",
+        });
+        console.log('response', response)
+        useUserStore().notificationCount = response.notificationCount;
       }
     },
   })

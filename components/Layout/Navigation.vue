@@ -20,7 +20,10 @@
                     </NuxtLink>
                     <NuxtLink to="/notifications">
                         <li class="xl:p-4 sm:p-3 flex justify-center items-center  cursor-pointer">
-                            <img :src="bell" alt="" class="pl-1 icon-hover">
+                            <v-badge :content="(count || 0)" v-if="(count > 0)">
+                                <img :src="bell" alt="" class="pl-1 icon-hover">
+                            </v-badge>
+                            <img v-else :src="bell" alt="" class="pl-1 icon-hover">
                             <p class="ml-5 hidden xl:block">Notifications</p></li>
                     </NuxtLink>
                     <NuxtLink to="/messages">
@@ -88,10 +91,28 @@ import bookmark from "@/assets//svg/bookmark.svg";
 import profile from "@/assets//svg/profile.svg";
 import more from "@/assets//svg/more.svg";
 import plus from "@/assets//svg/plus.png";
+import { useUserStore } from "~~/store/userStore";
+const store = useUserStore();
+// const notificationNumber = ref(store.$state?.notificationCount)
+const count = ref(store.$state?.notificationCount)
+const notificationNumber = store.$subscribe((state) => {
+    console.log('ugh', state)
+    if(state.events.key === 'notificationCount') {
+        console.log('hi')
+        count.value = state.events.newValue
+    }
+    
 
-import { useUserStore } from "@/store/userStore";
+})
 
-const store = useUserStore(); 
+
+console.log("Runni333ng")
+// watch(notificationNumber.value, (val) => {
+//     console.log("Running")
+//     count.value = val
+// })
+
+
 
 const logout = async () => {
     console.log('logout')
