@@ -157,8 +157,8 @@ const checkMatching = (id) => {
 };
 
 // console.log(checkMatching(userId))
-console.log('myid', userId)
-console.log('utilityObj', utilityObj.value)
+// console.log('myid', userId)
+// console.log('utilityObj', utilityObj.value)
 
 onMounted(() => {
   props.modelValue.forEach((status) => {

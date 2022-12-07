@@ -17,7 +17,6 @@ onMounted(()=>{
     store.$state.posts = posts.value
 })
 
-console.log('111', posts.value)
 
 
 

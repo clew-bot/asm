@@ -21,7 +21,6 @@
 
 
 const {props} = defineProps(['props']);
-console.log(props)
 const heightChange = ref(true)
 
 const test = () => {

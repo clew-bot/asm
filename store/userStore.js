@@ -50,7 +50,6 @@ export const useUserStore = defineStore('user', {
           body: payload
         });
         useUserStore().posts = response.posts;
-        console.log('rp', useUserStore().posts)
         return response;
       },
       getProfileInfoForUser: async (payload) => {
@@ -59,7 +58,7 @@ export const useUserStore = defineStore('user', {
           body: payload,
         });
         useUserStore().userPosts = response.posts;
-        console.log('getprofileforuser', useUserStore().userPosts)
+        // console.log('getprofileforuser', useUserStore().userPosts)
         return response;
       },
       getUser: async () => {
