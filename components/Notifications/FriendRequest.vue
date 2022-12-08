@@ -61,7 +61,7 @@
               <!-- <IconComponent :props="{ name: 'mdi-chevron-down', size: 'xx-large'}" /> -->
             </div>
             <div v-if="notification.type === 'friendRequestReceived'">
-            <!-- <div
+            <div
               class="text-slate-500 absolute bottom-2 right-10 text-xs cursor-default"
             >
               <IconComponent
@@ -73,7 +73,7 @@
               class="text-slate-500 absolute bottom-2 right-4 text-xs cursor-default"
             >
               <IconComponent :props="{name: 'mdi-close-thick', size: 'large', color: 'red'}" />
-            </div> -->
+            </div>
           </div>
           <!-- <div>
             <div

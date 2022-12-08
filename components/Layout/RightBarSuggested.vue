@@ -12,7 +12,7 @@
        border-l-[.2px] border-l-[var(--dashBorder)]">
            <div class="sticky top-0 h-screen overflow-auto no-scroll">
                <div class="p-5 overflow-hidden">
-        <div> Title</div>
+        <div>Chad's profile</div>
                </div>
            </div>
        </div>

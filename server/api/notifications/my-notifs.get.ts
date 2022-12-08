@@ -5,7 +5,6 @@ const toId = mongoose.Types.ObjectId;
 import jwt from "jsonwebtoken";
 
 export default defineEventHandler(async (event) => {
-    console.log('ayoooo')
     const id:any = await useStorage().getItem("user");
      const findNotifications = 
      await UserModel.findOne({ _id: new toId(id) })
