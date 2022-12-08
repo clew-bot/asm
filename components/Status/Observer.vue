@@ -16,9 +16,7 @@ const store = usePostStore();
 const loading = ref(false);
 
 onMounted(() => {
-  console.log("mounted");
   const observedElement = document.querySelector(".observer");
-  console.log(observedElement);
   if (!store.$state.postsFull) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(async (entry) => {
@@ -33,12 +31,9 @@ onMounted(() => {
             store.$state.postsFull = true;
             observer.unobserve(observedElement);
           }
-           
-            console.log('fdfdfdfd')
           }, 500);
-
-    
         } else {
+          console.log("not intersecting");
         }
       });
     });

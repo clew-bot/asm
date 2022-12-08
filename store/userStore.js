@@ -68,28 +68,24 @@ export const useUserStore = defineStore('user', {
         const response = await $fetch("/api/user/user-id", {
           method: "GET",
         });
-        console.log('response', response)
         useUserStore().userId = response.id;
         useUserStore().profilePicture = response.profilePicture;
         useUserStore().friends = response.friends;
         useUserStore().friendRequestsSent = response.friendRequestsSent;
         useUserStore().friendRequests = response.friendRequests;
         useUserStore().notificationCount = response.notificationCount;
-        console.log('userStore', useUserStore().notificationCount)
       },
 
       getNotifications: async () => {
         const response = await $fetch("/api/user/notifications", {
           method: "GET",
         });
-        console.log('response', response)
         useUserStore().notificationCount = response.notificationCount;
       },
       clearNotifications: async () => {
         const response = await $fetch("/api/user/notification-clear", {
           method: "GET",
         });
-        console.log('response', response)
         useUserStore().notificationCount = response.notificationCount;
       }
     },

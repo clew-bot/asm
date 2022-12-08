@@ -25,15 +25,15 @@ export default defineEventHandler(async (event) => {
 
 
     const newNotificationForMe = await new NotificationModel({
-        title: "Friend Request",
-        content: "You have sent a friend request to " + body.username,
+        title: "Sent Request 🙂",
+        content: "Sent a friend request to " + body.username,
         type: "friendRequestSent",
         from: userId,
         to: id,
     }).save();
 
     const newNotificationForUser = await new NotificationModel({
-        title: "Friend Request",
+        title: "New Request!",
         content: "You have a new friend request",
         type: "friendRequestReceived",
         from: id, // me

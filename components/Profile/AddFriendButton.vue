@@ -68,38 +68,19 @@ onMounted(async() => {
       (friend) => friend === props.props.id
     );
     if (isFriend) {
-      console.log('is requested', isFriend)
       showAcceptFriendBtn.value = true;
     }
-    // } else {
-    //   console.log('is not friend', isFriend)
-    //   showAddFriendBtn.value = true;
-    // }
   }
-
   if(myFriends) {
     const isFriend = myFriends.find((friend) => friend === props.props.id);
-    if (isFriend) {
-      showButtonsOrNot.value = false;
-    } else {
-      showButtonsOrNot.value = true;
-    }
+    isFriend ? showButtonsOrNot.value = false : showButtonsOrNot.value = true;
   }
-
   if(friRequestSent.length > 0) {
     const isFriend = friRequestSent.find(
       (friend) => friend === props.props.id
     );
-    if (isFriend) {
-      console.log('is requested', isFriend)
-      showFriendRequestSentBtn.value = true;
-   
-    } else {
-      console.log('is not friend', isFriend)
-      showAddFriendBtn.value = true;
-    }
+    isFriend ? showFriendRequestSentBtn.value = true : showAddFriendBtn.value = true;
   }
-
 });
 
 const sendFriendRequest = (e) => {
@@ -113,13 +94,7 @@ const sendFriendRequest = (e) => {
 
 const acceptFriendRequest = async () => {
   disabled.value = true;
-
-  const dto = {
-      fromId : props.props.id,
-  }
-  console.log('accept friend request', dto);
-  const newNotifs = await notifStore.acceptFriendRequest(dto)
-  console.log('newNotifs', newNotifs)
+  const newNotifs = await notifStore.acceptFriendRequest(props.props.id)
 }
 </script>
 

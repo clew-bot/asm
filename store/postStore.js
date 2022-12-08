@@ -16,7 +16,7 @@ export const usePostStore = defineStore("post", {
   },
   actions: {
     composePost: async (payload) => {
-      console.log("The payload for compose post: ", payload);
+      // console.log("The payload for compose post: ", payload);
       const data = {
         post: usePostStore().post,
         postImages: payload?.images,
@@ -40,10 +40,9 @@ export const usePostStore = defineStore("post", {
       return response;
     },
     check: async (payload) => {
-      console.log(usePostStore().post);
+      // console.log(usePostStore().post);
     },
     getPosts: async (payload) => {
-      console.log("dp", usePostStore().pageCount);
       const response = await $fetch("/api/dashboard/get-posts", {
         method: "POST",
         body: usePostStore().pageCount,
@@ -54,7 +53,7 @@ export const usePostStore = defineStore("post", {
         return response;
       } else {
         usePostStore().posts.push(...response);
-        console.log("The posts: ", usePostStore().posts);
+        // console.log("The posts: ", usePostStore().posts);
         return response;
       }
  
@@ -75,9 +74,7 @@ export const usePostStore = defineStore("post", {
         (post) => post._id === payload
       );
       usePostStore().posts.splice(findIndex, 1);
-      console.log('findIndex', findIndex)
-        console.log('also, checking other posts')
-        const findIndex2 = useUserStore().posts.findIndex(
+      const findIndex2 = useUserStore().posts.findIndex(
           (post) => post._id === payload
         );
         useUserStore().posts.splice(findIndex2, 1);

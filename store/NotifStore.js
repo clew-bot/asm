@@ -1,7 +1,6 @@
 import { defineStore, storeToRefs } from "pinia";
 import { useUserStore } from "./userStore";
 const userStore = useUserStore();
-// const userStore = useUserStore();
 
 export const useNotifStore = defineStore("notif", {
   state: () => ({ notifications: [] }),
@@ -23,21 +22,33 @@ export const useNotifStore = defineStore("notif", {
         const response = await $fetch("/api/notifications/my-notifs", {
           method: "GET",
         });
-        console.log('r', response)
-        return response;
+        if(response.length === userStore.$state.notifications.length){
+          return;
+        } else {
+          useNotifStore().notifications = response;
+          return response;
+        }
+
       },
       acceptFriendRequest: async (payload) => {
-
-        const data = {
-          fromId: payload,
-          // notifId: payload.notifId,
-        }
-        console.log(data)
+        console.log(payload)
         const response = await $fetch("/api/friends/accept-request", {
           method: "POST",
-          body: data,
+          body: payload,
         });
         console.log('accept', response)
+        return response;
+      },
+
+      declineFriendRequest: async (payload) => {
+        const index = useNotifStore().notifications.findIndex((notif) => notif._id === payload.notifId);
+        useNotifStore().notifications.splice(index, 1);
+        const response = await $fetch("/api/friends/decline-request", {
+          method: "POST",
+          body: payload,
+        });
+        useNotifStore().notifications.unshift(response);
+        console.log('12312312', useNotifStore().notifications)
         return response;
       }
   },

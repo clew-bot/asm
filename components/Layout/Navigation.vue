@@ -96,17 +96,13 @@ const store = useUserStore();
 // const notificationNumber = ref(store.$state?.notificationCount)
 const count = ref(store.$state?.notificationCount)
 const notificationNumber = store.$subscribe((state) => {
-    console.log('ugh', state)
     if(state.events.key === 'notificationCount') {
         console.log('hi')
         count.value = state.events.newValue
     }
-    
-
 })
 
 
-console.log("Runni333ng")
 // watch(notificationNumber.value, (val) => {
 //     console.log("Running")
 //     count.value = val

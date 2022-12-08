@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const id:any = await useStorage().getItem("user");
     const body = await readBody(event);
     const myId = new toId(id);
-    const userId = new toId(body.fromId.fromId)
+    const userId = new toId(body)
     const theUser = await UserModel.findOneAndUpdate({
         _id: userId
     }, {
@@ -36,8 +36,8 @@ export default defineEventHandler(async (event) => {
 
     // update 
     const newNotificationForMe = await new NotificationModel({
-        title: "Friend Request Accepted",
-        content: "You are now friends with " + theUser?.username,
+        title: "New Friend! 😊",
+        content: "Now friends with " + theUser?.username + "🥳",
         type: "friendRequestAccepted",
         from: userId,
     }).save();
@@ -47,8 +47,8 @@ export default defineEventHandler(async (event) => {
 
     // update the other user
     const newNotificationForUser = await new NotificationModel({
-        title: "Friend Request Accepted",
-        content: "You are now friends with " + updateMe?.username,
+        title: "New Friend! 😊",
+        content: "Now friends with " + updateMe?.username + "🥳",
         type: "friendRequestAccepted",
         from: myId,
     }).save();
@@ -56,18 +56,10 @@ export default defineEventHandler(async (event) => {
     // add notification to user
     const addNotif = await UserModel.updateOne({ _id: userId }, { $push: { notifications: newNotificationForUser._id } });
 
-    const updateMyNotif = await NotificationModel.findOneAndUpdate({
+    const updateMyNotif = await NotificationModel.deleteOne({
         'from': userId,
         'type': 'friendRequestReceived',
         'to': myId,
-    }, {
-        $set: {
-            content: "You are now friends with " + theUser?.username,
-            type: "friendRequestAccepted",
-            read: true,
-        }
-    }, {
-        new: true
     })
 
     const allNotifications = await UserModel.findOne({ _id: myId })
