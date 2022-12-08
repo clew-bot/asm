@@ -61,7 +61,7 @@
               <!-- <IconComponent :props="{ name: 'mdi-chevron-down', size: 'xx-large'}" /> -->
             </div>
             <div v-if="notification.type === 'friendRequestReceived'">
-            <div
+            <!-- <div
               class="text-slate-500 absolute bottom-2 right-10 text-xs cursor-default"
             >
               <IconComponent
@@ -73,7 +73,7 @@
               class="text-slate-500 absolute bottom-2 right-4 text-xs cursor-default"
             >
               <IconComponent :props="{name: 'mdi-close-thick', size: 'large', color: 'red'}" />
-            </div>
+            </div> -->
           </div>
           <!-- <div>
             <div
@@ -92,18 +92,23 @@
   </template>
 <script setup>
 import { useNotifStore } from "~~/store/NotifStore";
-const { modelValue } = defineProps(['modelValue'])
+const { modelValue, props } = defineProps(['modelValue', 'props'])
 const emit = defineEmits(['accepted'])
 const clicked = ref(false)
-console.log('111', modelValue)
+console.log('111', props)
+console.log('222', modelValue)
+
 const notifStore = useNotifStore();
+
+
+
 
 const acceptFriendRequest = async (fromId, notifId) => {
   clicked.value = true
   console.log('accept friend request', fromId, notifId);
   const dto = {
       fromId,
-     notifId
+    //  notifId
   }
   console.log(dto)
   const newNotifs = await notifStore.acceptFriendRequest(dto)

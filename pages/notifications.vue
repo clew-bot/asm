@@ -7,6 +7,7 @@
     <div v-if="(allNotifs.length > 0 && !loading)">
       <div>
         <NotificationsFriendRequest
+          :props="friends"
           @accepted="refresh"
           :key="refresher"
           v-model="allNotifs"
@@ -37,6 +38,7 @@ const notifStore = useNotifStore();
 const allNotifs = ref([]);
 const refresher = ref(0);
 const loading = ref(true);
+const friends = userStore.$state.friends;
 
 const refresh = async (data) => {
   console.log("in refresh", data.allNotifications.notifications);
@@ -46,10 +48,11 @@ const refresh = async (data) => {
 };
 
 onMounted(async () => {
-
+  console.log(friends)
   console.log("mounted from notifications.vue");
-  const getNotifs = notifStore.receiveNotifs();
   const clearNotifs = userStore.clearNotifications();
+  const getNotifs = notifStore.receiveNotifs();
+  console.log(userStore.$state.friends)
   allNotifs.value = await getNotifs;
   setTimeout(() => {
     loading.value = false;

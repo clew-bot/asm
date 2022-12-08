@@ -5,14 +5,12 @@ const toId = mongoose.Types.ObjectId;
 import jwt from "jsonwebtoken";
 
 export default defineEventHandler(async (event) => {
-    console.log('222')
     const id:any = await useStorage().getItem("user");
     const body = await readBody(event);
+    console.log('222', body.fromId.fromId)
     const myId = new toId(id);
-    const userId = new toId(body.fromId)
-    const notifId = new toId(body.notifId)
+    const userId = new toId(body.fromId.fromId)
     console.log('111', body)
-    // update users friends
     const theUser = await UserModel.findOneAndUpdate({
         _id: userId
     }, {
@@ -41,7 +39,7 @@ export default defineEventHandler(async (event) => {
 
     // update 
     const newNotificationForMe = await new NotificationModel({
-        title: "Friend Request",
+        title: "Friend Request Accepted",
         content: "You are now friends with " + theUser?.username,
         type: "friendRequestAccepted",
         from: userId,
@@ -53,7 +51,7 @@ export default defineEventHandler(async (event) => {
 
     // update the other user
     const newNotificationForUser = await new NotificationModel({
-        title: "Friend Request",
+        title: "Friend Request Accepted",
         content: "You are now friends with " + updateMe?.username,
         type: "friendRequestAccepted",
         from: myId,
@@ -64,16 +62,17 @@ export default defineEventHandler(async (event) => {
     const addNotif = await UserModel.updateOne({ _id: userId }, { $push: { notifications: newNotificationForUser._id } });
 
 
-    const updateMyNotif = await NotificationModel.findOneAndUpdate({
-        _id: notifId
-    }, {
-        $set: {
-            read: true,
-            type: "friendRequestAccepted"
-        }
-    }, {
-        new: true
-    }, )
+    // const updateMyNotif = await NotificationModel.findOneAndUpdate({
+    //     _id: notifId
+    // }, {
+    //     $set: {
+    //         read: true,
+    //         type: "friendRequestAccepted"
+    //     }
+    // }, {
+    //     new: true
+    // }, )
+
 
     const allNotifications = await UserModel.findOne({ _id: myId })
     .populate({ 

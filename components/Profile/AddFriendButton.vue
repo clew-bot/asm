@@ -3,6 +3,7 @@
   <div v-if="showButtonsOrNot">
     <v-btn
     v-if="showAcceptFriendBtn"
+    @click.prevent="acceptFriendRequest"
     elevation="1"
     class="text-xs rounded-xl"
     color="orange"
@@ -57,7 +58,7 @@ const friRequestSent = userStore.$state.friendRequestsSent;
 const myId = userStore.$state.userId;
 const friendRequests = userStore.$state.friendRequests;
 
-console.log('fr', friendRequests)
+console.log('fr', props)
 
 
 onMounted(async() => {
@@ -108,7 +109,17 @@ const sendFriendRequest = (e) => {
     id: props.props.id,
   }
   notifStore.sendFriendRequest(data);
-
 };
+
+const acceptFriendRequest = async () => {
+  disabled.value = true;
+
+  const dto = {
+      fromId : props.props.id,
+  }
+  console.log('accept friend request', dto);
+  const newNotifs = await notifStore.acceptFriendRequest(dto)
+  console.log('newNotifs', newNotifs)
+}
 </script>
 
