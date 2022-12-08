@@ -73,6 +73,19 @@
     filter: blur(5px);
     opacity: 0;
   }
+
+  .notif-enter-active {
+    animation: slideFromUp 0.7s;
+  }
+  .notif-leave-active {
+    transition: all 1s ease;
+  }
+  .notif-enter-from,
+  .notif-leave-to {
+    animation: slideFromDown 0.7s;
+    filter: blur(5px);
+    opacity: 0;
+  }
   
   .v-enter-active,
   .v-leave-active {

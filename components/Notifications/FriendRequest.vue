@@ -2,14 +2,14 @@
 @import url("@/assets/css/animations.css");
 </style>
 <template>
-
-    <v-card elevation="0">
-      <TransitionGroup name="list">
+  <v-card elevation="0">
+    <TransitionGroup name="notif">
       <v-list
         v-for="notification in modelValue"
         :key="notification"
-        class="h-[8rem] bg-zinc-800 hove:bg-zinc-700 border-b-[var(--dashBorder)] border-[.2px] transition-all duration-150"
+        class=" bg-zinc-700 hover:bg-zinc-800 border-b-[var(--dashBorder)] border-[.2px] transition-all duration-150"
       >
+      <!-- {{ notification.type }} -->
         <v-card-title>
           <div class="flex justify-items-start">
             <NuxtLink :to="`/profile/${notification.from?.handleName}`">
@@ -19,34 +19,40 @@
               />
             </NuxtLink>
             <div class="ml-3 w-full">
-              <div class="text-base font-semibold text-white cursor-default]">
+              <div 
+              :class="{ 
+              'text-green-500 animate-pulse hover:text-green-400': notification.type === 'friendRequestAccepted',
+              'text-red-400 hover:animate-pulse': notification.type === 'friendRequestDenied',
+              'text-blue-400 hover:animate-pulse': notification.type === 'friendRequestSent',
+              'text-sky-500 uppercase underline animate-pulse animate-bounce': notification.type === 'friendRequestReceived',}"
+
+              class="text-xl font-bold  cursor-default w-fit">
                 {{ notification.title }}
               </div>
               <div
-                class="text-sm text-amber-300 mb-1 cursor-default overflow-hidden w-[80%] sm:w-[85%] lg:w-[88%] whitespace-nowrap text-ellipsis inline-block"
+                class="text-base font-semibold text-stone-100 mb-1 cursor-default overflow-hidden w-[80%] sm:w-[85%] lg:w-[88%] whitespace-nowrap text-ellipsis inline-block"
               >
                 {{ notification.content }}
-              </div>
-              <br />
-
-              <div
-                class="text-xs font-bold hover:text-blue-300 hover:underline z-10 w-fit cursor-pointer"
+                <div
+                class="text-base text-sky-400 font-bold hover:text-sky-600 hover:underline z-10 w-fit cursor-pointer mt-2 bg-zinc-900 rounded p-1"
               >
                 <NuxtLink :to="`/profile/${notification.from.handleName}`">
-                  {{ notification.from.username }}
+                  <!-- {{ notification.from.username }} -->
+                @{{ notification?.from?.handleName }}
+
                 </NuxtLink>
               </div>
 
               <div class="text-xs text-gray-400 cursor-default">
-                @{{ notification?.from?.handleName }}
               </div>
+              </div>
+
+          
             </div>
 
             <div
               class="text-slate-300 absolute top-4 right-6 text-xs cursor-default"
-            >
-              <!-- {{ regularDate(notification.createdAt) }} -->
-            </div>
+            ></div>
             <div
               class="text-slate-200 absolute top-4 right-6 text-xs cursor-default"
             >
@@ -54,13 +60,14 @@
             </div>
             <div
               class="text-slate-300 absolute bottom-4 right-6 text-xs cursor-default"
-            >
-              <!-- <IconComponent :props="{ name: 'mdi-chevron-down', size: 'xx-large'}" /> -->
-            </div>
+            ></div>
             <div v-if="notification.type === 'friendRequestReceived'">
               <div
-                class="text-slate-100 absolute bottom-2 right-16 text-xs cursor-pointer border-zinc-300 hover: border-2 rounded p-2 bg-zinc-700 hover:shadow-lg z-10 transition-all"
-                @click="acceptFriendRequest(notification.from._id, notification._id)"
+                class="text-slate-100 absolute bottom-2 right-16 text-xs cursor-pointer border-zinc-300 hover: border-2 rounded p-2 bg-zinc-700 hover:shadow-lg z-10 transition-all
+                hover:-translate-y-1 hover:scale-110"
+                @click="
+                  acceptFriendRequest(notification.from._id, notification._id)
+                "
               >
                 Accept
               </div>
@@ -68,7 +75,7 @@
                 @click="
                   denyFriendRequest(notification.from._id, notification._id)
                 "
-                class="text-slate-100 absolute bottom-2 right-2 text-xs cursor-pointer border-2 border-zinc-300 rounded p-2 bg-zinc-900 hover:shadow-lg z-10 transition-all"
+                class="text-slate-100 absolute bottom-2 right-2 text-xs cursor-pointer border-2 border-zinc-300 rounded p-2 bg-zinc-900 hover:shadow-lg z-10 transition-all hover:-translate-y-1 hover:scale-110"
               >
                 Nope
               </div>
@@ -102,8 +109,7 @@
         </v-card-title>
       </v-list>
     </TransitionGroup>
-    </v-card>
-
+  </v-card>
 </template>
 <script setup>
 import { useNotifStore } from "~~/store/NotifStore";
