@@ -31,12 +31,21 @@ export const useNotifStore = defineStore("notif", {
 
       },
       acceptFriendRequest: async (payload) => {
-        console.log(payload)
+        let data;
+        if(typeof payload === 'object') {
+        const index = useNotifStore().notifications.findIndex((notif) => notif._id === payload.notifId);
+        console.log('the index: ', index)
+        useNotifStore().notifications.splice(index, 1);
+        data = payload.fromId;
+        } else {
+          data = payload;
+        }
         const response = await $fetch("/api/friends/accept-request", {
           method: "POST",
-          body: payload,
+          body: data,
         });
-        console.log('accept', response)
+        useNotifStore().notifications.unshift(response);
+        console.log('12312312', useNotifStore().notifications)
         return response;
       },
 

@@ -60,7 +60,7 @@
             <div v-if="notification.type === 'friendRequestReceived'">
               <div
                 class="text-slate-100 absolute bottom-2 right-16 text-xs cursor-pointer border-zinc-300 hover: border-2 rounded p-2 bg-zinc-700 hover:shadow-lg z-10 transition-all"
-                @click="acceptFriendRequest(notification.from._id)"
+                @click="acceptFriendRequest(notification.from._id, notification._id)"
               >
                 Accept
               </div>
@@ -113,9 +113,14 @@ const clicked = ref(false);
 
 const notifStore = useNotifStore();
 
-const acceptFriendRequest = async (fromId) => {
+const acceptFriendRequest = async (fromId, notifId) => {
   clicked.value = true;
-  const newNotifs = await notifStore.acceptFriendRequest(fromId);
+  const dto = {
+    fromId,
+    notifId,
+  };
+  const newNotifs = await notifStore.acceptFriendRequest(dto);
+
   emit("accepted", newNotifs);
 };
 
