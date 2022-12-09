@@ -12,7 +12,9 @@
               bordered
               class="badger"
             >
-              <v-avatar class="border-2" size="48">
+              <v-avatar 
+              class="border-2" 
+              :size="props.size ? props.size : '48'">
                 <v-img
                   :src="props.props"
                   alt="John"
@@ -25,7 +27,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['props'])
+const props = defineProps(['props', 'size'])
 
 </script>
 

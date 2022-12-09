@@ -13,19 +13,19 @@
   <div>
     <div
   
-      class="bg-zinc-900 h-[3rem] w-[12rem] rounded-xl flex justify-evenly items-center"
+      class="bg-zinc-900 h-[3rem] w-[12rem] rounded-lg shadow-lg flex justify-evenly items-center"
     >
-      <v-icon color="#0284c7" size="large" class="cursor-pointer"
-        >mdi-emoticon-happy-outline</v-icon
+      <v-icon color="#fde047" size="large" class="cursor-pointer"
+        >mdi-emoticon-happy</v-icon
       >
-      <v-icon class="cursor-pointer" color="#0284c7" size="large">
-        mdi-thumb-up-outline
+      <v-icon class="cursor-pointer" color="#0891b2" size="25">
+        mdi-thumb-up
       </v-icon>
-      <v-icon class="cursor-pointer" color="#0284c7" size="large">
-        mdi-hand-heart-outline
+      <v-icon class="cursor-pointer" color="#ef4444" size="large">
+        mdi-hand-heart
       </v-icon>
-      <v-icon class="cursor-pointer" color="#0284c7" size="large">
-        mdi-lightbulb-on-20
+      <v-icon class="cursor-pointer" color="#fffbeb" size="large">
+        mdi-lightbulb-on
       </v-icon>
     </div>
   </div>

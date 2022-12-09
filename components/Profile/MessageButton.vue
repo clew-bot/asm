@@ -2,9 +2,9 @@
 <template>
        <v-btn
                 elevation="1"
-                class="font-semibold text-xs rounded-xl"
-                prepend-icon="mdi-umbrella"
-                color="#525252">
+                class="font-semibold text-xs rounded normal-case"
+                prepend-icon="mdi-message-text"
+                color="#1d4ed8">
                     Messsage
                 </v-btn>
 </template>

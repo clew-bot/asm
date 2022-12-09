@@ -30,11 +30,20 @@ export const useNotifStore = defineStore("notif", {
         }
 
       },
+      deleteNotif: async (payload) => {
+        const index = useNotifStore().notifications.findIndex((notif) => notif._id === payload.notifId);
+        useNotifStore().notifications.splice(index, 1);
+        const response = await $fetch("/api/notifications/delete-notif", {
+          method: "POST",
+          body: payload,
+        });
+        return response;
+      },
+
       acceptFriendRequest: async (payload) => {
         let data;
         if(typeof payload === 'object') {
         const index = useNotifStore().notifications.findIndex((notif) => notif._id === payload.notifId);
-        console.log('the index: ', index)
         useNotifStore().notifications.splice(index, 1);
         data = payload.fromId;
         } else {

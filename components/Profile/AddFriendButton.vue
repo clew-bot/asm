@@ -5,11 +5,12 @@
     v-if="showAcceptFriendBtn"
     @click.prevent="acceptFriendRequest"
     elevation="1"
-    class="text-xs rounded-xl"
-    color="orange"
+    class="text-xs rounded font-bold normal-case"
+    color="#1d4ed8"
+    :prepend-icon="{'mdi-account-plus': !disabled, 'mdi-account-check': disabled}"
     :disabled="disabled"
     >
-      Accept Friend Request
+      {{disabled ? 'Accepted' : 'Accept'}}
     </v-btn>
     <v-btn
     v-else-if="(!showFriendRequestSentBtn)"
@@ -34,8 +35,13 @@
   >
 </div>
 <div v-else>
-  <div class="font-bold text-blue-400 rounded-xl p-2 text-xl border-2">
-    FRIENDS 😊
+  <div class="font-bold text-blue-400 rounded text-xl
+  ">
+    <IconComponent
+          class="mt-1 cursor-default"
+          :props="{ name: 'mdi-check-bold', color: 'var(--postIcon)' }"
+          title="Friends"
+        />
   </div>
 </div>
 </template>

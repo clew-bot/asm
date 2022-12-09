@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
     // update 
     const newNotificationForMe = await new NotificationModel({
         title: "New Friend! 😊",
-        content: "Now friends with " + theUser?.username + " 🥳",
+        content: "Now friends with " + theUser?.username + "🥳",
         type: "friendRequestAccepted",
         from: userId,
     }).save();
@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
     // update the other user
     const newNotificationForUser = await new NotificationModel({
         title: "New Friend! 😊",
-        content: "Now friends with " + updateMe?.username + " 🥳",
+        content: "Now friends with " + updateMe?.username + "🥳",
         type: "friendRequestAccepted",
         from: myId,
     }).save();

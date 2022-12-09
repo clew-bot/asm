@@ -75,15 +75,14 @@
   }
 
   .notif-enter-active {
-    animation: slideFromUp 0.7s;
+    animation: slideFromUp 1s;
   }
   .notif-leave-active {
-    transition: all 1s ease;
+    transition: all 1.5s ease;
   }
   .notif-enter-from,
   .notif-leave-to {
-    animation: slideFromDown 0.7s;
-    filter: blur(5px);
+    animation: slideFromDown 1.5s;
     opacity: 0;
   }
   
