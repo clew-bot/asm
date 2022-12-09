@@ -14,6 +14,20 @@ export default defineEventHandler(async (event) => {
     const id:any = await useStorage().getItem("user");
     const myId = new toId(id);
 
+    // check if user has already reacted to post
+    const checkReaction = await ReactionModel.findOne({
+        postReactedTo: postIden,
+        from: id
+    })
+
+    if (checkReaction) {
+        console.log('reaction already exists, deleting reaction')
+        // if user has already reacted to post, delete the reaction
+        const deleteReaction = await ReactionModel.findOneAndDelete({
+            _id: checkReaction._id
+        })
+    }
+
     
     const newReaction = await new ReactionModel({
     reactionType: theReaction,

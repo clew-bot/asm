@@ -37,20 +37,20 @@
       >
       <v-icon 
       :class="{ newAnim: anim2 }"
-      @click="(addReaction('excited'), anim2 = true)"
+      @click="(addReaction('laugh'), anim2 = true)"
       class="cursor-pointer" color="#0891b2" size="large">
         mdi-emoticon-excited
       </v-icon>
       <v-icon 
       :class="{ newAnim: anim3 }"
       @click="(addReaction('wink'), anim3 = true)"
-      class="cursor-pointer" color="#ef4444" size="large">
+      class="cursor-pointer" color="#f9a8d4" size="large">
         mdi-emoticon-wink
       </v-icon>
       <v-icon 
       :class="{ newAnim: anim4 }"
       @click="(addReaction('angry'), anim4 = true)"
-      class="cursor-pointer" color="#fffbeb" size="large">
+      class="cursor-pointer" color="#ef4444" size="large">
         mdi-emoticon-angry
       </v-icon>
     </div>

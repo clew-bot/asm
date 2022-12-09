@@ -52,7 +52,6 @@
             v-html="status.content"
           >
           </v-card-text>
-          {{status._id}}
 
           <div v-if="status.media">
             <StatusAllMediaPost v-model="status.media" />
@@ -70,15 +69,13 @@
                   />
                 </div>
               </Transition>
-              <IconComponent
+              <!-- {{checkStatusForMe(status.reactions)}} -->
+              <v-icon
                 @mouseleave="closeTooltip(status._id)"
                 @mouseenter="openTooltip(status._id)"
-                :props="{
-                  name: 'mdi-heart',
-                  color: '#f5f5f4',
-                  size: 'default',
-                }"
-              />
+                :color="checkStatusForMe(status.reactions)"
+                size='default'
+              >mdi-heart</v-icon>
               <IconComponent
                 @click="openComments(i, status._id)"
                 class="ml-3"
@@ -163,6 +160,27 @@ const checkMatching = (id) => {
     return true;
   } else {
     return false;
+  }
+};
+
+const checkStatusForMe = (reaction) => {
+  for (let i = 0; i < reaction.length; i++) {
+    if (reaction[i].from === userId.value) {
+      switch (reaction[i].reactionType) {
+        case "happy":
+          return "#fde047";
+        case "wink":
+          return "#f9a8d4";
+        case "angry":
+          return "#ef4444";
+        case "laugh":
+          return "#0891b2";
+        default:
+          return "black";
+      }
+    } else {
+      return 'black';
+    }
   }
 };
 
