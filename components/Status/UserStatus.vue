@@ -62,6 +62,7 @@
                 <div v-if="utilityObj[status._id]?.toolTip" class="relative">
                   <StatusTooltipStatus
                     :id="status._id"
+                    :index="i"
                     @add-reaction="addReaction"
                     @mouseenter="openTooltip(status._id)"
                     @mouseleave="closeTooltip(status._id)"
@@ -73,7 +74,7 @@
               <v-icon
                 @mouseleave="closeTooltip(status._id)"
                 @mouseenter="openTooltip(status._id)"
-                :color="checkStatusForMe(status.reactions)"
+                :style="{color: dynamicColor[i] || checkStatusForMe(status.reactions) || '#f5f5f4'}"
                 size='default'
               >mdi-heart</v-icon>
               <IconComponent
@@ -154,6 +155,7 @@ const showMoreCommentLabel = ref(false);
 let utilityObj = ref({});
 let timeout;
 const userId = ref(userStore.$state.userId);
+const dynamicColor = ref({});
 
 const checkMatching = (id) => {
   if (utilityObj.value[id]) {
@@ -254,6 +256,19 @@ const addReaction = async (reaction) => {
   Object.keys(utilityObj.value).forEach((key) => {
     utilityObj.value[key].toolTip = false;
   });
+
+  if(reaction.theReaction === 'happy') {
+    dynamicColor.value[reaction.index] = '#fde047';
+  } else if(reaction.theReaction === 'wink') {
+    dynamicColor.value[reaction.index] = '#f9a8d4';
+  } else if(reaction.theReaction === 'angry') {
+    dynamicColor.value[reaction.index] = '#ef4444';
+  } else if(reaction.theReaction === 'laugh') {
+    dynamicColor.value[reaction.index] = '#0891b2';
+  } else {
+    dynamicColor.value[reaction.index] = 'black';
+  }
+
   const postReaction = await store.addReaction(reaction);
   console.log('pr: ', postReaction);
 };

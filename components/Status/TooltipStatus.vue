@@ -63,7 +63,7 @@ const anim1 = ref(false);
 const anim2 = ref(false);
 const anim3 = ref(false);
 const anim4 = ref(false);
-const props = defineProps(["id"]);
+const props = defineProps(["id", "index"]);
 const emit = defineEmits(["addReaction"]);
 
 const addReaction = (reaction) => {
@@ -71,6 +71,7 @@ const addReaction = (reaction) => {
   const dto = {
     statusId: props.id,
     theReaction: reaction,
+    index: props.index,
   };
   setTimeout(() => {
     emit("addReaction", dto);
