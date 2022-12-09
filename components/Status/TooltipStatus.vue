@@ -1,31 +1,57 @@
 <style scoped>
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(-25%);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+
+.newAnim {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1);
+}
+
+@keyframes rotate45 {
+  0% {
+    transform: rotate(0deg);
   }
   50% {
-    transform: translateY(0);
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transform: rotate(-45deg);
   }
-}</style>
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+</style>
 <template>
   <div>
     <div
   
       class="bg-zinc-900 h-[3rem] w-[12rem] rounded-lg shadow-lg flex justify-evenly items-center"
     >
-      <v-icon color="#fde047" size="large" class="cursor-pointer"
+      <v-icon 
+      :class="{ newAnim: anim1 }"
+      @click="(addReaction('happy'), anim1 = true)"
+      color="#fde047" size="large" class="cursor-pointer"
         >mdi-emoticon-happy</v-icon
       >
-      <v-icon class="cursor-pointer" color="#0891b2" size="25">
-        mdi-thumb-up
+      <v-icon 
+      :class="{ newAnim: anim2 }"
+      @click="(addReaction('excited'), anim2 = true)"
+      class="cursor-pointer" color="#0891b2" size="large">
+        mdi-emoticon-excited
       </v-icon>
-      <v-icon class="cursor-pointer" color="#ef4444" size="large">
-        mdi-hand-heart
+      <v-icon 
+      :class="{ newAnim: anim3 }"
+      @click="(addReaction('wink'), anim3 = true)"
+      class="cursor-pointer" color="#ef4444" size="large">
+        mdi-emoticon-wink
       </v-icon>
-      <v-icon class="cursor-pointer" color="#fffbeb" size="large">
-        mdi-lightbulb-on
+      <v-icon 
+      :class="{ newAnim: anim4 }"
+      @click="(addReaction('angry'), anim4 = true)"
+      class="cursor-pointer" color="#fffbeb" size="large">
+        mdi-emoticon-angry
       </v-icon>
     </div>
   </div>
@@ -33,6 +59,24 @@
 
 <script setup>
 const hoverIconAnimation = ref({});
+const anim1 = ref(false);
+const anim2 = ref(false);
+const anim3 = ref(false);
+const anim4 = ref(false);
+const props = defineProps(["id"]);
+const emit = defineEmits(["addReaction"]);
+
+const addReaction = (reaction) => {
+  console.log(reaction);
+  const dto = {
+    statusId: props.id,
+    theReaction: reaction,
+  };
+  setTimeout(() => {
+    emit("addReaction", dto);
+  }, 300);
+
+};
 
 
 

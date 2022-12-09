@@ -32,4 +32,5 @@ const NotificationModel = new mongoose.Schema({
     { timestamps: true }
     );
 
+
 export default mongoose.model("NotificationModel", NotificationModel);

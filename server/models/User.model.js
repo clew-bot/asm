@@ -71,6 +71,11 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
+    postReacions: {
+        type: Array,
+        default: [],
+        ref: "ReactionModel",
+    },
     },
         { timestamps: true }
     );

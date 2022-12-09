@@ -39,6 +39,14 @@ export const usePostStore = defineStore("post", {
       });
       return response;
     },
+    addReaction: async (payload) => {
+      const response = await $fetch("/api/dashboard/add-reaction", {
+        method: "POST",
+        body: payload,
+      });
+      console.log(response)
+      return response;
+    },
     check: async (payload) => {
       // console.log(usePostStore().post);
     },
@@ -53,7 +61,7 @@ export const usePostStore = defineStore("post", {
         return response;
       } else {
         usePostStore().posts.push(...response);
-        // console.log("The posts: ", usePostStore().posts);
+        console.log("The posts: ", usePostStore().posts);
         return response;
       }
  

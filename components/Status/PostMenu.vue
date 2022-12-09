@@ -14,7 +14,7 @@
                 class="mr-2"
                 :props="{
                   name: 'mdi-dots-horizontal',
-                  color: 'var(--postIcon)',
+                  color: '#f5f5f4',
                 }"
               />
       </template>

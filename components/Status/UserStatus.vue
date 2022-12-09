@@ -52,6 +52,8 @@
             v-html="status.content"
           >
           </v-card-text>
+          {{status._id}}
+
           <div v-if="status.media">
             <StatusAllMediaPost v-model="status.media" />
           </div>
@@ -60,6 +62,8 @@
               <Transition>
                 <div v-if="utilityObj[status._id]?.toolTip" class="relative">
                   <StatusTooltipStatus
+                    :id="status._id"
+                    @add-reaction="addReaction"
                     @mouseenter="openTooltip(status._id)"
                     @mouseleave="closeTooltip(status._id)"
                     class="absolute -top-14 -left-3"
@@ -71,7 +75,7 @@
                 @mouseenter="openTooltip(status._id)"
                 :props="{
                   name: 'mdi-heart',
-                  color: 'var(--postIcon)',
+                  color: '#f5f5f4',
                   size: 'default',
                 }"
               />
@@ -79,8 +83,8 @@
                 @click="openComments(i, status._id)"
                 class="ml-3"
                 :props="{
-                  name: 'mdi-message',
-                  color: 'var(--postIcon)',
+                  name: 'mdi-comment-text',
+                  color: '#f5f5f4',
                   size: 'default',
                 }"
               />
@@ -88,12 +92,15 @@
             <div class="flex pt-10">
               <IconComponent
                 class="mr-2"
-                :props="{ name: 'mdi-bookmark', color: 'var(--postIcon)' }"
+                :props="{ name: 'mdi-bookmark-box', 
+                color: '#f5f5f4' }"
+                title="Bookmark this post"
               />
               <ClientOnly>
                 <StatusPostMenu
                 v-if="status.author._id === userId"
                 :id="status._id"
+
               />
               </ClientOnly>
      
@@ -222,6 +229,15 @@ const openComments = async (i, id) => {
 };
 const getVal = (arg) => {
   showMoreCommentLabel.value = arg;
+};
+
+const addReaction = async (reaction) => {
+  console.log(reaction);
+  Object.keys(utilityObj.value).forEach((key) => {
+    utilityObj.value[key].toolTip = false;
+  });
+  const postReaction = await store.addReaction(reaction);
+  console.log('pr: ', postReaction);
 };
 
 // const checkVal = (id) => {
