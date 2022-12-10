@@ -16,8 +16,8 @@
     v-else-if="(!showFriendRequestSentBtn)"
     @click.prevent="sendFriendRequest"
     elevation="1"
-    class="text-xs rounded-xl"
-    color="#0369a1"
+    class="text-xs rounded"
+    color="#1d4ed8"
     prepend-icon="mdi-account-plus"
     :disabled="disabled"
   >
@@ -26,8 +26,8 @@
   <v-btn
   v-else-if="showFriendRequestSentBtn"
     elevation="1"
-    class="text-xs rounded-xl"
-    color="#0369a1"
+    class="text-xs rounded"
+    color="#1d4ed8"
     prepend-icon="mdi-check"
     disabled
   >

@@ -22,6 +22,11 @@
     opacity: 0;
   }
 }
+
+.start1 {
+  animation: rotate45 1s cubic-bezier(0, 0, 0.2, 1);
+}
+
 </style>
 <template>
   <div>
@@ -30,7 +35,7 @@
       class="bg-zinc-900 h-[3rem] w-[12rem] rounded-lg shadow-lg flex justify-evenly items-center"
     >
       <v-icon 
-      :class="{ newAnim: anim1 }"
+      :class="{ newAnim: anim1, 'start1': trigger1}"
       @click="(addReaction('happy'), anim1 = true)"
       color="#fde047" size="large" class="cursor-pointer"
         >mdi-emoticon-happy</v-icon
@@ -65,6 +70,13 @@ const anim3 = ref(false);
 const anim4 = ref(false);
 const props = defineProps(["id", "index"]);
 const emit = defineEmits(["addReaction"]);
+const trigger1 = ref(false);
+
+onMounted(() => {
+  setTimeout(() => {
+    trigger1.value = true;
+  }, 1000);
+});
 
 const addReaction = (reaction) => {
   console.log(reaction);

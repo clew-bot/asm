@@ -66,7 +66,7 @@
                     @add-reaction="addReaction"
                     @mouseenter="openTooltip(status._id)"
                     @mouseleave="closeTooltip(status._id)"
-                    class="absolute -top-14 -left-3"
+                    class="absolute -top-14 -left-3r"
                   />
                 </div>
               </Transition>
@@ -76,6 +76,7 @@
                 @mouseenter="openTooltip(status._id)"
                 :style="{color: dynamicColor[i] || checkStatusForMe(status.reactions) || '#f5f5f4'}"
                 size='default'
+                class="cursor-pointer"
               >mdi-heart</v-icon>
               <IconComponent
                 @click="openComments(i, status._id)"
@@ -178,10 +179,10 @@ const checkStatusForMe = (reaction) => {
         case "laugh":
           return "#0891b2";
         default:
-          return "black";
+          return "#F5F5F4";
       }
     } else {
-      return 'black';
+      return '#F5F5F4';
     }
   }
 };

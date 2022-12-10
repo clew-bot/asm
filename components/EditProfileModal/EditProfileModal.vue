@@ -16,10 +16,11 @@
   <v-dialog v-model="dialog" persistent class="editProfile">
     <template v-slot:activator="{ props }">
         <v-btn
-            color="white"
+            color="#134e4a"
             prepend-icon="mdi-cog"
-            class="rounded-2xl text-sky-200"
+            class="rounded normal-case text-slate-50"
             v-bind="props"
+
             >Edit Profile</v-btn>
     </template>
 

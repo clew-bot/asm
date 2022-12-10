@@ -1,4 +1,8 @@
-<style lang="scss" scoped>
+<style scoped>
+
+.newFont {
+    font-family: 'Unbounded', cursive !important;
+}
 
 </style>
 <template>
@@ -17,9 +21,7 @@
 
         </div>
         <div v-if="props._id === userId" class="absolute top-5 right-6">
-            
             <EditProfileModal/>
-
         </div>
         <div v-else>
        
@@ -33,14 +35,15 @@
     </div>
     <div class="pt-24 -mb-6 pb-5 bg-zinc-700">
         <div class="px-5">
-            <div class="font-bold text-2xl text-amber-200">
+            <div class="font-bold text-4xl text-slate-50
+            newFont cursor-default">
                 {{props.username}} 
             </div>
             <div>
                 @{{props.handleName}} • <span class="italic font-semibold">Online</span>
             </div>
             <div class="flex text-sm font-semibold pt-4">
-                <IconComponent class="pr-2" :props="{name: 'mdi-calendar-text', size: 'x-small'}"/><span>Joined <span class="font-base text-yellow-400">{{regularDate(props.createdAt)}}</span></span>
+                <IconComponent class="pr-2" :props="{name: 'mdi-calendar-text', size: 'x-small'}"/><span class="font-base text-yellow-400">Joined {{regularDate(props.createdAt)}}</span>
             </div>
             <div class="flex text-sm font-semibold pt-1">
                 <IconComponent class="pr-2" :props="{name: 'mdi-map-marker', size: 'x-small'}"/><span>{{props.location}}</span>
@@ -48,7 +51,7 @@
             <div class="flex text-sm font-semibold pt-1">
                 <IconComponent class="pr-2" :props="{name: 'mdi-cake-variant', size: 'x-small'}"/><span>{{props?.birthday}}</span>
             </div>
-            <div class="pt-5 italic">{{props.bio || 'If it ain\'t broke don\'t fix it'}}</div>
+            <div class="pt-5 text-xl">{{props.bio || 'If it ain\'t broke don\'t fix it'}}</div>
         </div>
     </div>
 </div>
