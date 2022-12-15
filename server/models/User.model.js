@@ -33,6 +33,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    pinnedPost: {
+        type: String,
+        default: "",
+        ref: "UserPost",
+    },
     coverPicture: {
         type: String,
         default: "",

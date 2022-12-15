@@ -17,6 +17,10 @@ export default defineNuxtConfig({
         JWT_SECRET: process.env.JWT_SECRET,
         public: {
             IMAGE_TOKEN: process.env.VUE_APP_IMAGE_TOKEN,
+            FORMAT_ID: process.env.VUE_APP_FORMAT_ID,
+            FORMAT_IDTWO: process.env.VUE_APP_FORMAT_IDTWO,
+            FORMAT_IDTHREE: process.env.VUE_APP_FORMAT_IDTHREE,
+            FORMAT_IDFOUR: process.env.VUE_APP_FORMAT_IDFOUR
         }
       },
     nitro: {

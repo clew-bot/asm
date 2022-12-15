@@ -23,6 +23,9 @@
             <v-list-item-title>
               <StatusPostOptionsDeleteOption :id="props.id"/>
             </v-list-item-title>
+            <v-list-item-title>
+              <StatusPostOptionsPinOption :id="props.id"/>
+            </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

@@ -10,7 +10,7 @@
         <div
           color="primary"
           v-bind="props"
-          class="font-semibold"
+          class="font-semibold text-left text-lg p-2 hover:text-red-400 transition-all"
           @click="dialog = true"
         >
           Delete

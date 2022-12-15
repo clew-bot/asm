@@ -66,6 +66,13 @@ export const usePostStore = defineStore("post", {
       }
  
     },
+    pinPost: async (payload) => {
+      const response = await $fetch("/api/dashboard/pin-post", {
+        method: "POST",
+        body: payload,
+      });
+      return response;
+    },
     getCommentsForPost: async (payload) => {
       const response = await $fetch("/api/dashboard/get-comments-for-post", {
         method: "POST",
