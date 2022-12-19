@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { usePostStore } from "./postStore"
+
 
 
 export const useUserStore = defineStore('user', {
@@ -16,6 +16,7 @@ export const useUserStore = defineStore('user', {
         notifications: [],
         notificationCount: 0,
         friendRequests: [],
+        pinnedPost: "",
        }),
     getters: {
        mId: (state) => state.id,
@@ -74,6 +75,7 @@ export const useUserStore = defineStore('user', {
         useUserStore().friendRequestsSent = response.friendRequestsSent;
         useUserStore().friendRequests = response.friendRequests;
         useUserStore().notificationCount = response.notificationCount;
+        useUserStore().pinnedPost = response.pinnedPost;
       },
 
       getNotifications: async () => {

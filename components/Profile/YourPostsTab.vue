@@ -3,14 +3,14 @@
 </style>
 <template>
     <div v-if="posts !== undefined">
-        <StatusUserStatus v-model="posts"/>
+        <StatusUserStatus v-model="posts" :pinnedPost="pinnedPost"/>
     </div>
 </template>
 
 <script setup>
 import { useUserStore } from '~~/store/userStore';
 const store = useUserStore();
-const props = defineProps(['modelValue'])
+const props = defineProps(['modelValue', 'pinnedPost'])
 const posts = ref(props.modelValue)
 
 onMounted(()=>{

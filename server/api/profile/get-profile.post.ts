@@ -18,8 +18,12 @@ export default defineEventHandler(async (event) => {
     let perPage = 10;
     let page = Math.max(0, body);
     const id:any = await useStorage().getItem("user");
+
     const user = await UserModel.findById({ _id: new toId(id) })
-    .populate({ path: "posts", populate: { path: "author reactions" }, options: { sort: { createdAt: -1 } } }).limit(perPage).skip(perPage * page).exec();
-    console.log('sss')
-    return user
+    .populate({ path: "posts", populate: { path: "author reactions" }, options: { sort: { createdAt: -1, pinnedPost: 0   } } }).limit(perPage).skip(perPage * page).exec();
+
+    user?.populate({ path: "pinnedPost", populate: { path: "author" }})
+
+    return user;
+   
 })

@@ -20,7 +20,7 @@
       </template>
       <v-list>
         <v-list-item>
-            <v-list-item-title>
+            <v-list-item-title v-if="props.userId.statusId === props.userId.userId">
               <StatusPostOptionsDeleteOption :id="props.id"/>
             </v-list-item-title>
             <v-list-item-title>
@@ -37,7 +37,9 @@ import { usePostStore } from '~~/store/postStore';
 import { useUserStore } from '~~/store/userStore';
 const userStore = useUserStore();
 const store = usePostStore();
-const props = defineProps(['id']);
+const props = defineProps(['id', 'userId']);
+
+console.log(props.userId)
 
 onMounted(() => {
 })

@@ -2,14 +2,14 @@
 @import url("@/assets/css/animations.css");
 </style>
 <template>
-
+    <StatusPinnedPost v-if="pinnedPost" :pinnedPost="pinnedPost"/>
   <TransitionGroup name="list">
     <div
       v-for="(status, i) in props.modelValue"
       :key="status._id"
       class="cont flex justify-center"
     >
-      <!-- {{status.author}} -->
+      <!-- {{status.author.pinnedPost}} -->
       <v-card
         elevation="0"
         color="#18181b"
@@ -97,9 +97,8 @@
               />
               <ClientOnly>
                 <StatusPostMenu
-                v-if="status.author._id === userId"
                 :id="status._id"
-
+                :userId="{userId, statusId: status.author._id}"
               />
               </ClientOnly>
      
@@ -151,12 +150,19 @@ import { usePostStore } from "@/store/postStore";
 import { useUserStore } from "~~/store/userStore";
 const userStore = useUserStore();
 const store = usePostStore();
-const props = defineProps(["modelValue"]);
+const props = defineProps(["modelValue", "pinnedPost"]);
 const showMoreCommentLabel = ref(false);
 let utilityObj = ref({});
 let timeout;
 const userId = ref(userStore.$state.userId);
 const dynamicColor = ref({});
+
+const getPinnedPost = async () => {
+  const res = await store.getPinnedPost();
+  if (res) {
+    return res;
+  }
+};
 
 const checkMatching = (id) => {
   if (utilityObj.value[id]) {
@@ -273,9 +279,4 @@ const addReaction = async (reaction) => {
   const postReaction = await store.addReaction(reaction);
   console.log('pr: ', postReaction);
 };
-
-// const checkVal = (id) => {
-//     console.log(id)
-//     console.log(allComments.value[id])
-// }
 </script>

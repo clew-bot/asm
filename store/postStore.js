@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useUserStore } from "./userStore";
+const userStore = useUserStore();
 
 export const usePostStore = defineStore("post", {
   state: () => ({
@@ -71,6 +72,15 @@ export const usePostStore = defineStore("post", {
         method: "POST",
         body: payload,
       });
+      return response;
+    },
+    getPinnedPost: async (payload) => {
+      console.log('userStore.pinnedPost', userStore.pinnedPost)
+      const response = await $fetch("/api/dashboard/get-pinned-post", {
+        method: "POST",
+        body: userStore.pinnedPost,
+      });
+      console.log('r323232', response)
       return response;
     },
     getCommentsForPost: async (payload) => {
