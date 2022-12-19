@@ -7,10 +7,21 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const id: any = await useStorage().getItem("user");
 
-    const user = await UserSchema.findOne({ handleName: body })
-    .populate({ path: "posts", populate: { path: "author" }, options: { sort: { createdAt: -1 } } });
 
-    user?.populate({ path: "pinnedPost", populate: { path: "author" }})
+    const user2 = await UserSchema.findOne({ handleName: body })
+    .populate({ path: "posts", populate: { path: "author" }, options: { sort: { createdAt: -1 } } })
 
-    return user;
+    console.log('user2: ', user2)
+    if( user2?.pinnedPost === "") {
+        console.log('no pinned post')
+        return user2
+    } else {
+      const user3 = await UserSchema.findOne({ handleName: body })
+      .populate({ path: "posts pinnedPost", populate: { path: "author" }, options: { sort: { createdAt: -1 } } })
+      // console.log('user3: ', user3)
+      return user3
+    }
+    console.log('user: ')
+
+    
 });

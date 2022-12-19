@@ -19,11 +19,23 @@ export default defineEventHandler(async (event) => {
     let page = Math.max(0, body);
     const id:any = await useStorage().getItem("user");
 
-    const user = await UserModel.findById({ _id: new toId(id) })
-    .populate({ path: "posts", populate: { path: "author reactions" }, options: { sort: { createdAt: -1, pinnedPost: 0   } } }).limit(perPage).skip(perPage * page).exec();
+    // const user = await UserModel.findById({ _id: new toId(id) })
+    // .populate({ path: "posts", populate: { path: "author reactions" }, options: { sort: { createdAt: -1, pinnedPost: 0   } } }).limit(perPage).skip(perPage * page).exec();
 
-    user?.populate({ path: "pinnedPost", populate: { path: "author" }})
 
-    return user;
+    // return user;
+    const user2 = await UserModel.findOne({ _id: new toId(id) })
+    .populate({ path: "posts", populate: { path: "author reactions" }, options: { sort: { createdAt: -1 } } })
+
+    console.log('user2: ', user2)
+    if( user2?.pinnedPost === "") {
+        console.log('no pinned post')
+        return user2
+    } else {
+      const user3 = await UserModel.findOne({ _id: new toId(id) })
+      .populate({ path: "posts pinnedPost", populate: { path: "author" }, options: { sort: { createdAt: -1 } } })
+      // console.log('user3: ', user3)
+      return user3
+    }
    
 })

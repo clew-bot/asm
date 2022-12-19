@@ -21,9 +21,7 @@ const props = defineProps(['id']);
 const dialog = ref(false);
 
 const pinPost = async () => {
-  console.log("hi")
   const hello = await store.pinPost(props.id);
-  console.log(hello)
   dialog.value = false;
   //refresh page
 };

@@ -2,6 +2,7 @@
 @import url("@/assets/css/animations.css");
 </style>
 <template>
+  {{ pinnedPost }}
     <StatusPinnedPost v-if="pinnedPost" :pinnedPost="pinnedPost"/>
   <TransitionGroup name="list">
     <div
@@ -98,7 +99,7 @@
               <ClientOnly>
                 <StatusPostMenu
                 :id="status._id"
-                :userId="{userId, statusId: status.author._id}"
+                :userId="userId"
               />
               </ClientOnly>
      
@@ -157,12 +158,7 @@ let timeout;
 const userId = ref(userStore.$state.userId);
 const dynamicColor = ref({});
 
-const getPinnedPost = async () => {
-  const res = await store.getPinnedPost();
-  if (res) {
-    return res;
-  }
-};
+console.log(props.pinnedPost)
 
 const checkMatching = (id) => {
   if (utilityObj.value[id]) {

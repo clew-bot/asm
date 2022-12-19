@@ -75,10 +75,10 @@ export const usePostStore = defineStore("post", {
       return response;
     },
     getPinnedPost: async (payload) => {
-      console.log('userStore.pinnedPost', userStore.pinnedPost)
+      console.log('userStore.pinnedPost', userStore.pinnedPost[0])
       const response = await $fetch("/api/dashboard/get-pinned-post", {
         method: "POST",
-        body: userStore.pinnedPost,
+        body: userStore.pinnedPost[0],
       });
       console.log('r323232', response)
       return response;
