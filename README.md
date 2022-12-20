@@ -1,9 +1,21 @@
-# Nuxt 3 Minimal Starter
+# Introduction
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Welcome to Altine, the free social media application written in Nuxt 3. This application is built from scratch and has lots more features to be included over the next year. Altine allows users to connect with each other and make meaningful connections.
 
-## Setup
 
+# Features
+
+ 1. Create personal profile with custom handle names 
+ 2. Upload pictures and videos to your profile 
+ 3. Send messages to other users
+ 4. Befriend other users by sending them friend requests 
+ 5. Create and share posts with everyone or just your friends
+
+## Screenshots
+
+Coming Soon
+
+## Installation
 Make sure to install the dependencies:
 
 ```bash

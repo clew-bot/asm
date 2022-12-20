@@ -43,10 +43,7 @@ onMounted(async () => {
   console.log("2121", data);
   name.value = data.username;
   pinnedPost.value = data.pinnedPost;
-  console.log("pinnedPost", pinnedPost.value)
-  console.log;
   profilePosts.value = userStore.$state.posts;
-  console.log("the dto", dto.value);
   dto.value = data;
   // Add friends to store
 });

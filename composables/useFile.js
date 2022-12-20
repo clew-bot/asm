@@ -2,9 +2,7 @@ import { ref } from "vue";
 const photoData = ref([]);
 const vidData = ref([]);
 const scopedFiles = ref([]);
-const backUpKey = "9uGuBilq1V7HHkeu";
 const allMedia = ref([]);
-const backUpUploader = 'https://yourimageshare.com/api/upload?key=9uGuBilq1V7HHkeu'
 let count;
 export default async function (allFiles) {
   const config = useRuntimeConfig().public;
@@ -72,16 +70,7 @@ const saveImage = async (formData, backUpFormData) => {
       allMedia.value.push(mediaObj);
       vidData.value.push(data.data.value.data);
     }
-    // progress.value += 100 / scopedFiles.value.length;
-    
   } else {
-  //   console.log('loool',backUpFormData)
-  //   console.log("Running backup!");
-  //   console.log(backUpFormData);
-  //   const data = await useFetch(backUpUploader, {
-  //   method: "POST",
-  //   body: backUpFormData,
-  // });
-    console.log('lol')
+    console.log('Something went wrong, trying backup...')
   }
 };

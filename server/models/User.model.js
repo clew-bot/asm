@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema({
     },
     profilePicture: {
         type: String,
-        default: "",
+        default: "https://thumbsnap.com/i/yFAPDCZg.png",
     },
     pinnedPost: {
         type: String,

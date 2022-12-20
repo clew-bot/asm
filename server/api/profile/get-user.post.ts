@@ -21,7 +21,4 @@ export default defineEventHandler(async (event) => {
       // console.log('user3: ', user3)
       return user3
     }
-    console.log('user: ')
-
-    
 });

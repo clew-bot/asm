@@ -2,7 +2,7 @@
 @import url("@/assets/css/animations.css");
 </style>
 <template>
-  {{ pinnedPost }}
+  <!-- {{ pinnedPost }} -->
     <StatusPinnedPost v-if="pinnedPost" :pinnedPost="pinnedPost"/>
   <TransitionGroup name="list">
     <div
@@ -100,14 +100,15 @@
                 <StatusPostMenu
                 :id="status._id"
                 :userId="userId"
+                :statusId="status.author._id"
               />
               </ClientOnly>
      
             </div>
           </div>
           <div class="flex px-4 pb-4">
-            <span class="font-bold">{{ status.likeCount }}&nbsp;</span>
-            Reactions •&nbsp;
+            <span class="font-bold">{{ status.reactions.length }}&nbsp;</span>
+            {{status.reactions.length === 1 ? 'Reaction' : 'Reactions'}} •&nbsp; 
             <span
               @click="openComments(i, status._id)"
               class="cursor-pointer font-bold"

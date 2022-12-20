@@ -37,17 +37,17 @@
                         <p class="ml-5 hidden xl:block">Bookmarks</p></li>
                     </NuxtLink>
                     <NuxtLink to="/profile">
-                    <li class="xl:p-4 sm:p-3 flex justify-center items-center"> <img
-                        :src="message" alt="" class="pl-1 icon-hover">
-                        <p class="ml-5 hidden xl:block">My Profile</p></li>
+                    <li class="xl:p-4 xl:pl-5 sm:p-3 flex justify-center items-center"> <img
+                        :src="profile" alt="" class="pl-1 icon-hover">
+                        <p class="ml-5 hidden xl:block xl:pl-2">My Profile</p></li>
                     </NuxtLink>
                     <li class="xl:p-4 sm:p-3 flex justify-center items-center"> <img
-                        :src="message" alt="" class="pl-1 icon-hover">
+                        :src="more" alt="" class="pl-1 icon-hover">
                         <p class="ml-5 hidden xl:block">More</p></li>
     
                     <li  @click="logout" class="xl:p-4 sm:p-3 flex justify-center items-center cursor-pointer
                     transition-all"> <img
-                        :src="message" alt="" class="pl-1 icon-hover">
+                        :src="logouts" alt="" class="pl-1 icon-hover">
                         <p class= "transition-all
                         ml-5 hidden xl:block">Logout</p></li>
                 </ul>
@@ -90,7 +90,11 @@ import bell from "@/assets//svg/bell.svg";
 import bookmark from "@/assets//svg/bookmark.svg";
 import profile from "@/assets//svg/profile.svg";
 import more from "@/assets//svg/more.svg";
+
 import plus from "@/assets//svg/plus.png";
+import logouts from "@/assets/svg/logout.svg";
+
+
 import { useUserStore } from "~~/store/userStore";
 const store = useUserStore();
 // const notificationNumber = ref(store.$state?.notificationCount)

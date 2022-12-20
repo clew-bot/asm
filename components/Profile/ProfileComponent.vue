@@ -11,7 +11,7 @@
         <div class="">
         <v-avatar
         class="h-[130px] w-[130px] border-2 absolute
-        left-3 -top-12 rounded-full z-9"
+        left-3 -top-12 rounded-full z-9 bg-black"
             color="primary"
             size="128"
             >
@@ -37,10 +37,10 @@
         <div class="px-5">
             <div class="font-bold text-4xl text-slate-50
             newFont cursor-default">
-                {{props.username}} 
+                {{props.username}}
             </div>
-            <div>
-                @{{props.handleName}} • <span class="italic font-semibold">Online</span>
+            <div class="newFont pt-1">
+                @{{props.handleName}}
             </div>
             <div class="flex text-sm font-semibold pt-4">
                 <IconComponent class="pr-2" :props="{name: 'mdi-calendar-text', size: 'x-small'}"/><span class="font-base text-yellow-400">Joined {{regularDate(props.createdAt)}}</span>
