@@ -15,9 +15,9 @@
      v-if="loading"
       v-model="progress"
       height="25"
-      color="red"
+      color="green"
     >
-      <strong>{{ progress }}%</strong>
+      <strong>{{ progress }}{{ typeof progress === 'number' ? '%' : '' }}</strong>
     </v-progress-linear>
   </Transition>
   <ComposePostPreviewFiles
@@ -87,11 +87,21 @@ let videoSrc = ref([]);
 let progress = ref(0);
 let allMedia = ref([]);
 
-
+const setProgress = () => {
+  progress.value = 0;
+  const interval = setInterval(() => {
+    progress.value += 10;
+    if (progress.value > 100) {
+      progress.value = "Hang on..."
+      clearInterval(interval);
+    }
+  }, 300);
+};
 
 const compose = async () => {
   if (allFiles.value.length > 0) {
     loading.value = true;
+    setProgress();
     
     const {imageData, videoData, media, emit, progress, error} = await useFile(allFiles.value)
     if(error) {
