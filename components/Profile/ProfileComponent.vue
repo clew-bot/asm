@@ -10,13 +10,13 @@
     <div class="relative">
         <div class="">
         <v-avatar
-        class="h-[130px] w-[130px] border-2 absolute
-        left-3 -top-12 rounded-full z-9 bg-black"
+        class="h-[130px] w-[130px] border-2 absolute transition-all
+        left-3 -top-12 rounded-full z-9 bg-black hover:h-[200px] hover:w-[200px]"
             color="primary"
             size="128"
             >
             <img 
-            class="h-[130px] w-[130px] border-2 absolute"
+            class=" transition-all h-[130px] w-[130px] border-2 absolute object-cover hover:h-[200px] hover:w-[200px]"
         :src="props.profilePicture" alt=""></v-avatar>
 
         </div>
