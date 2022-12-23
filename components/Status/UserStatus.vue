@@ -159,7 +159,7 @@ let timeout;
 const userId = ref(userStore.$state.userId);
 const dynamicColor = ref({});
 
-console.log(props.pinnedPost)
+// console.log(props.pinnedPost)
 
 const checkMatching = (id) => {
   if (utilityObj.value[id]) {

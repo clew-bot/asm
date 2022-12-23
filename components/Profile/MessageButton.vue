@@ -5,7 +5,7 @@
       v-model="dialog"
       width="500"
     >
-      <template v-slot:activator="{ on, attrs }">
+      <template v-slot:activator="{ attrs }">
         <v-btn
                 elevation="1"
                 class="font-semibold text-xs rounded normal-case"
@@ -13,7 +13,7 @@
                 color="#1d4ed8"
                 v-bind="attrs"
                 @click="dialog = true"
-                v-on="on"
+
                 >
                     Messsage
                 </v-btn>
@@ -49,13 +49,25 @@
 </template>
 
 <script setup>
-const props = defineProps(['props']);
+import { useMessageStore } from '@/store/messageStore';
+const {props} = defineProps(['props']);
 const dialog = ref(false);
 const message = ref('');
+const messageStore = useMessageStore();
+
+
+
+console.log(props)
 
 
 const sendMessage = () => {
     console.log('send message');
+    const dto = {
+        to: props,
+        message: message.value
+    }
+    messageStore.sendMessage(dto);
+
 }
 </script>
 

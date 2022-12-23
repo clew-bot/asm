@@ -44,7 +44,7 @@ watch(refresh, async (val) => {
 onMounted(async () => {
   const data = await store.getProfileInfoForUser(handleName);
   pinnedPost.value = data.pinnedPost;
-  console.log("pinnedPost", pinnedPost.value)
+  // console.log("pinnedPost", pinnedPost.value)
   userPosts.value = data.posts;
   name.value = data.username;
   dto.value = data;

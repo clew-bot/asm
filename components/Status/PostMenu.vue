@@ -38,10 +38,6 @@ import { useUserStore } from '~~/store/userStore';
 const userStore = useUserStore();
 const store = usePostStore();
 const props = defineProps(['id', 'userId', 'statusId']);
-console.log({ props });
-
-
-onMounted(() => {
-})
+// console.log({ props });
 </script>
 
