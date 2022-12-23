@@ -6,7 +6,7 @@
     <template #header>Messages</template>
     <template #rightSide><LayoutRightBarSuggested/></template>
     <div>
-        Messages
+      <MessagesMessageUsers :props="props"/>
     </div>
 </NuxtLayout>
 
@@ -17,6 +17,8 @@ import { useMessageStore } from '~~/store/messageStore';
 const messageStore = useMessageStore();
 
 console.log(await messageStore.getMyMessages())
+
+const props = await messageStore.getMyMessages();
 // const response = await messageStore.getMessageUsers();
 
 

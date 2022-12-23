@@ -8,14 +8,82 @@ export default defineEventHandler(async (event) => {
   console.log("im hit");
   const id: any = await useStorage().getItem("user");
   const myId = new toId(id);
+  console.log(myId);
 
-  const getMessages = await UserModel.findById(myId).populate("friends");
+  const getMessageFromUsers = await UserModel.findOne({
+    _id: myId,
+  })
+    .populate({
+      path: "messages",
+      select: "username profilePicture handleName",
+    })
+    .select("messages")
+    .exec();
 
-  const user2 = await UserModel.findOne({ _id: myId })
-  .populate({ path: "messages", select: "username handleName profilePicture" })
+  // const getMyMessages = await MessageContentModel.find({
+  //     $or: [
+  //         {from: myId},
+  //         {to: myId}
+  //     ]
+  // }).populate({
+  //     path: "from",
+  //     select: "username profilePicture handleName"
+  // }).populate({
+  //     path: "to",
+  //     select: "username profilePicture handleName"
+  // }).sort({createdAt: -1}).
+  // exec();
 
+  //  const getMyMessages = await MessageContentModel.find({
+  //     $or: [
+  //         {from: myId},
+  //         {to: myId}
+  //     ]
+  // }).populate({
+  //     path: "from",
+  //     select: "username profilePicture handleName"
+  // }).populate({
+  //     path: "to",
+  //     select: "username profilePicture handleName"
+  // }).sort({createdAt: -1}).
+  // exec();
+  const getMyMessages = await MessageContentModel.aggregate(
+    [
+        // Matching pipeline, similar to find
+        { 
+            "$match": { 
+                "from": id
+            }
+        },
+        // Sorting pipeline
+        { 
+            "$sort": { 
+                "createdAt": -1 
+            } 
+        },
+        // Grouping pipeline
+        {
+            "$group": {
+                "_id": "$to",
+                "content": {
+                    "$first": "$content" 
+                },
+                "createAt": {
+                    "$first": "$createdAt" 
+                }
+            }
+        },
+        // // Project pipeline, similar to select
+        {
+             "$project": { 
+                "_id": 0,
+                "from": "$_id",
+                "content": 1,
+                "createdAt": 1
+            }
+        }
+    ],
+);
 
-  console.log("getMessages: ", getMessages);
-
-  return user2;
+  return { getMessageFromUsers, getMyMessages };
 });
