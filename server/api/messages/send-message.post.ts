@@ -12,11 +12,18 @@ export default defineEventHandler(async (event) => {
     const {message, to} = body;
     const toUserId = new toId(to);
 
-    const messageContent = await new MessageContentModel({
+    const messageContentToUser = await new MessageContentModel({
         content: message,
         from: myId,
         to: toUserId
     }).save();
+
+    const messageContentToMe = await new MessageContentModel({
+        content: message,
+        from: toUserId,
+        to: myId
+    }).save();
+
 
     const appendMessage = await UserModel.findOneAndUpdate(
         {_id: myId},
@@ -32,7 +39,7 @@ export default defineEventHandler(async (event) => {
         {new: true}
     );
 
-    console.log('body: ', messageContent)
+    console.log('body: ', messageContentToMe)
     return "hi"
 
     

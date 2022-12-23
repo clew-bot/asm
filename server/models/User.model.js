@@ -75,6 +75,7 @@ const UserSchema = new mongoose.Schema({
     messages: {
         type: Array,
         default: [],
+        ref: "User",
     },
     postReacions: {
         type: Array,

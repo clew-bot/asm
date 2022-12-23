@@ -15,5 +15,11 @@ export const useMessageStore = defineStore("message", {
         });
         return response;
         },
+    getMyMessages: async () => {
+        const response = await $fetch("/api/messages/my-messages", {
+            method: "GET",
+        });
+        return response;
+        }
   },
 });
