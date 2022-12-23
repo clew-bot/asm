@@ -1,15 +1,61 @@
 <style scoped></style>
 <template>
-       <v-btn
+     
+                <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
                 elevation="1"
                 class="font-semibold text-xs rounded normal-case"
                 prepend-icon="mdi-message-text"
-                color="#1d4ed8">
+                color="#1d4ed8"
+                v-bind="attrs"
+                @click="dialog = true"
+                v-on="on"
+                >
                     Messsage
                 </v-btn>
+      </template>
+
+      <v-card class="p-2">
+        <v-card-title class="text-h5 grey lighten-2">
+          New Message
+        </v-card-title>
+        <v-textarea
+          auto-grow
+          variant="outlined"
+          rows="3"
+          row-height="25"
+          shaped
+          v-model="message"
+        ></v-textarea>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="sendMessage"
+          >
+            Send Message
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 </template>
 
 <script setup>
 const props = defineProps(['props']);
+const dialog = ref(false);
+const message = ref('');
+
+
+const sendMessage = () => {
+    console.log('send message');
+}
 </script>
 
