@@ -25,10 +25,11 @@ export default defineEventHandler(async (event) => {
     // }).save();
 
 
-    const appendMessage = await UserModel.findOneAndUpdate(
+    const appendMessage = await UserModel
+        .findOneAndUpdate(
         {_id: myId},
         // only push to messages if the message is not already in the array
-        {$addToSet: {messages: toUserId}},
+  
         {upsert: true}
     );
 

@@ -51,39 +51,81 @@ export default defineEventHandler(async (event) => {
     [
         // Matching pipeline, similar to find
         { 
-            "$match": { 
-                "from": id
+            $match: { 
+                $or: [
+                    {from: id},
+                    // {to: id}
+                ]
             }
         },
-        // Sorting pipeline
+        // // Unwinding pipeline
+        // { $project: {
+        //     from: 1,
+        //     to: 1,
+        //     content: 1,
+        //     createdAt: 1,
+        //     _id: 0
+
+        // }},
         { 
-            "$sort": { 
+            $sort: { 
                 "createdAt": -1 
             } 
         },
         // Grouping pipeline
         {
-            "$group": {
-                "_id": "$to",
-                "content": {
-                    "$first": "$content" 
+            $group: {
+                _id: {$concat: ['$to', '$from']},
+                from : {$first: '$from'},
+                to: {$first: 
+                    {$cond: [
+                        {$eq: ['$from', id]},
+                        '$to',
+                        '$from'
+                    ]}
                 },
-                "createAt": {
-                    "$first": "$createdAt" 
-                }
+                msg: {$first: '$content'},
+                timestamp: {$first: '$createdAt'}
             }
         },
+     
         // // Project pipeline, similar to select
-        {
-             "$project": { 
-                "_id": 0,
-                "from": "$_id",
-                "content": 1,
-                "createdAt": 1
-            }
-        }
+        // {
+        //      "$project": { 
+        //         "_id": 0,
+        //         "from": "$_id",
+        //         "content": 1,
+        //         "createdAt": 1
+        //     }
+        // }
+        //populate from and to
+        // {
+        //     $lookup: {
+        //         from: "User",
+        //         localField: "from",
+        //         foreignField: "_id",
+        //         as: "from"
+        //     }
+        // },
+        // {
+        //     $lookup: {
+        //         from: "User",
+        //         localField: "to",
+        //         foreignField: "_id",
+                
+        //         as: "to"
+        //     }
+        // },
+        // {
+        //     $project: {
+        //         from: {$arrayElemAt: ["$from", 0]},
+        //         to: {$arrayElemAt: ["$to", 0]},
+        //         msg: 1,
+        //         timestamp: 1
+        //     }
+        // }
     ],
-);
+)
 
   return { getMessageFromUsers, getMyMessages };
 });
