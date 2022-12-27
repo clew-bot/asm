@@ -72,10 +72,10 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    messages: {
+    conversations: {
         type: Array,
         default: [],
-        ref: "User",
+        ref: "Conversation",
     },
     postReacions: {
         type: Array,

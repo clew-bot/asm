@@ -1,6 +1,8 @@
 import UserModel from "~~/server/models/User.model";
 import NotificationModel from "~~/server/models/Notif.model";
 import MessageContentModel from "~~/server/models/MessageContent.model";
+import ConversationModel from "~~/server/models/Conversation.model";
+
 import mongoose from "mongoose";
 const toId = mongoose.Types.ObjectId;
 
@@ -12,33 +14,54 @@ export default defineEventHandler(async (event) => {
     const {message, to} = body;
     const toUserId = new toId(to);
 
-    const messageContentToUser = await new MessageContentModel({
+    // const messageContentToUser = await new MessageContentModel({
+    //     content: message,
+    //     from: myId,
+    //     users: [myId, toUserId]
+    // }).save();
+     const messageContentToUser = await new MessageContentModel({
         content: message,
-        from: myId,
-        to: toUserId
+        owner: myId,
+        recipient: toUserId
     }).save();
 
-    // const messageContentToMe = await new MessageContentModel({
-    //     content: message,
-    //     from: toUserId,
-    //     to: myId
-    // }).save();
+    // see if conversation exists
+    const conversation = await ConversationModel.findOne({
+        users: { $all: [myId, toUserId] }
+    });
 
+    console.log('conversation: ', conversation);
 
-    const appendMessage = await UserModel
-        .findOneAndUpdate(
-        {_id: myId},
-        // only push to messages if the message is not already in the array
-  
-        {upsert: true}
-    );
+    if (conversation) {
+        // set latestMessage
+        const updateConversation = await ConversationModel.findOneAndUpdate(
+            { _id: conversation._id },
+            { latestMessage: message,
+              from: myId, },
+            { new: true }
+        );
+    } else {
+        // create new conversation
+        const newConversation = await new ConversationModel({
+            users: [myId, toUserId],
+            latestMessage: message,
+            from: myId,
+        }).save();
+        // update both users with new conversation
+        await UserModel.findOneAndUpdate(
+            { _id: myId },
+            { $push: { conversations: newConversation._id } }
+        );
+        await UserModel.findOneAndUpdate(
+            { _id: toUserId },
+            { $push: { conversations: newConversation._id } }
+        );
+    }
 
-    const appendMessageTo = await UserModel.findOneAndUpdate(
-        {_id: toUserId},
-        // only push to messages if the message is not already in the array
-        {$addToSet: {messages: myId}},
-        {upsert: true}
-    );
+    const options = {
+        myId,
+        toUserId,
+    }
 
     return "hi"
-});
+        });
