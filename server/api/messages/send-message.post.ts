@@ -52,10 +52,11 @@ export default defineEventHandler(async (event) => {
             { _id: myId },
             { $push: { conversations: newConversation._id } }
         );
-        await UserModel.findOneAndUpdate(
+        const updateUser = await UserModel.findOneAndUpdate(
             { _id: toUserId },
             { $push: { conversations: newConversation._id } }
         );
+        console.log(updateUser)
     }
 
     const options = {
