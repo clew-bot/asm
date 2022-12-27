@@ -7,7 +7,7 @@
     <template #rightSide><LayoutRightBarSuggested/></template>
     <div>
       <!-- <MessagesMessageUsers :props="props"/> -->
-      <MessagesPrivateMessages/>
+      <MessagesPrivateMessages :props="response"/>
     </div>
 </NuxtLayout>
 
@@ -23,6 +23,7 @@ const userHandle = route.params.id;
 
 const response = await messageStore.getPrivateMessages(userHandle);
 console.log(response)
+
 definePageMeta({
 layout: false,
 middleware: ["auth"],

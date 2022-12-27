@@ -18,13 +18,13 @@ export default defineEventHandler(async (event) => {
     const messagesToUser = await MessageContentModel.find({
         owner: myId,
         recipient: theUser?._id
-    });
+    }).populate('owner recipient');
 
     // find messages from user to me
     const messagesFromUser2 = await MessageContentModel.find({
         owner: theUser?._id,
         recipient: myId
-    });
+    }).populate('owner recipient');
 
     // combine messages
     const allMessages = messagesToUser.concat(messagesFromUser2);
