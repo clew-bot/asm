@@ -58,6 +58,11 @@ export default defineEventHandler(async (event) => {
   //   { $sort: { createdAt: -1 } },
   // ]);
 
+  const checkIfConversationExists = await MessageContentModel.findOne({
+    users: { $all: [myId, toId] },
+  });
+
+  if(checkIfConversationExists) {
   const getMyConversations = await UserModel.findOne({ _id: myId }).populate({
     path: "conversations",
     populate: {
@@ -73,8 +78,11 @@ export default defineEventHandler(async (event) => {
   getMyConversations?.conversations.forEach((conversation) => {
     conversation.users.splice(conversation.users.findIndex((user: any) => user._id.toString() === myId.toString()), 1)
   })
-
-
-
   return { getMyConversations };
+} else {
+  return "Hi"
+}
+
+
+ 
 });
