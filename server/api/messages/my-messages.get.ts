@@ -69,6 +69,12 @@ export default defineEventHandler(async (event) => {
     },
   }).select('conversations')
 
+  // splice out the element with my id in the users array
+  getMyConversations?.conversations.forEach((conversation) => {
+    conversation.users.splice(conversation.users.findIndex((user: any) => user._id.toString() === myId.toString()), 1)
+  })
 
-  return { getMyConversations,  };
+
+
+  return { getMyConversations };
 });
