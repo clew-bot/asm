@@ -4,7 +4,8 @@
 <template>
     <div>
         <v-card 
-        class="border-t-[.2px] border-[var(--dashBorder)] rounded-none"
+        @click="() => $router.push(`/messages/${theUsers.users[0].handleName}`)"
+        class="border-t-[.2px] border-[var(--dashBorder)] rounded-none hover:bg-slate-600"
         v-for="theUsers in props.getMyConversations.conversations" :key="theUsers">
            <div class="absolute text-xs right-2 top-1">{{createdAtLog(theUsers.updatedAt)}}</div>
 
