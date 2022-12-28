@@ -5,8 +5,17 @@
   <NuxtLayout name="dash">
     <template #header>Messages</template>
     <template #rightSide><LayoutRightBarSuggested/></template>
-    <div>
-      <MessagesMessageUsers :props="props"/>
+    <div v-if="!loading">
+      <MessagesMessageUsers :props="data"/>
+    </div>
+    <div v-else
+    class="flex justify-center items-center h-screen relative">
+      <v-progress-circular
+        class="absolute top-48"
+          :width="4"
+          color="white"
+          indeterminate
+        ></v-progress-circular>
     </div>
 </NuxtLayout>
 
@@ -15,11 +24,15 @@
 <script setup>
 import { useMessageStore } from '~~/store/messageStore';
 const messageStore = useMessageStore();
+const loading = ref(true)
+const data = ref(null)
 
-console.log(await messageStore.getMyMessages())
+// console.log(await messageStore.getMyMessages())
+onMounted(async () => {
+  data.value = await messageStore.getMyMessages();
+  loading.value = false;
+});
 
-const props = await messageStore.getMyMessages();
-// const response = await messageStore.getMessageUsers();
 
 
 
