@@ -8,14 +8,7 @@ export default defineNuxtConfig({
             noExternal: ['vuetify'], // add the vuetify vite plugin
         },
     },
-    modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', 'nuxt-socket-io',],
-    io: {
-        // module options
-        sockets: [{
-          name: 'main',
-          url: 'http://localhost:3000'
-        }]
-      },
+    modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
     build: {
         transpile: ['@vuepic/vue-datepicker']
     },
