@@ -37,6 +37,8 @@ const {props} = defineProps(['props'])
 console.log('props: ',props)
 console.log('userStore: ',userStore.$state.userId);
 
+// socket.value = ctx.$nuxtSocket({})
+
 const setUserCss = (message) => {
     if (message.owner._id === userStore.$state.userId ) {
         return 'justify-start flex-row-reverse '

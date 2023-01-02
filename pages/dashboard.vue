@@ -34,6 +34,24 @@ const ableToPost = ref(true);
 const isReset = ref(false);
 const posts = ref([]);
 const loading = ref(true);
+
+const ctx = useNuxtApp()
+
+console.log('ctx: ',ctx.$nuxtSocket);
+
+// connect to socket
+const socket = ref(null);
+onMounted(() => {
+  socket.value = ctx.$nuxtSocket({
+    name: 'main',
+  });
+  socket.value.on('newPost', (data) => {
+    console.log('data: ',data);
+    // store.addPost(data);
+  });
+});
+
+
 definePageMeta({
   layout: false,
   middleware: ["auth"],
