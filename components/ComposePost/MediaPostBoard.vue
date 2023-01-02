@@ -9,7 +9,6 @@
   opacity: 0;
 }</style>
 <template>
-  <!-- <button @click="checkVal">chccccc</button> -->
   <Transition>
   <v-progress-linear
      v-if="loading"
@@ -51,6 +50,7 @@
     <IconComponent
       class="pl-2 rotate-90 ml-2"
       :props="{ name: 'mdi-poll', color: 'var(--postIcon)' }"
+      @click="usePoll"
     />
     <IconComponent
       class="pl-1 mt-1 hover:-rotate-45 transition-all"
@@ -96,6 +96,10 @@ const setProgress = () => {
       clearInterval(interval);
     }
   }, 300);
+};
+
+const usePoll = () => {
+  store.openPoll();
 };
 
 const compose = async () => {

@@ -6,6 +6,7 @@
 
     <template #postMedia><ComposePostMediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
     <div v-if="!loading && posts.length > 0" class="first overflow-auto transition-all bg-zinc-600">
+   
       <StatusUserStatus  v-model="posts"/>
       <div class="bg-[#343438]">
       <StatusObserver />

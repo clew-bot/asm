@@ -10,6 +10,7 @@ export const usePostStore = defineStore("post", {
     pageCount: 0,
     refresh: 0,
     postsFull: false,
+    pollOpen: false,
   }),
   getters: {
     thePost: (state) => state.post,
@@ -97,6 +98,12 @@ export const usePostStore = defineStore("post", {
 
       return response;
     },
+
+    openPoll: () => {
+      console.log('hit')
+      usePostStore().pollOpen = !usePostStore().pollOpen
+    },
+
     getRefresh: (state) => {
       usePostStore().refresh++;
     },
