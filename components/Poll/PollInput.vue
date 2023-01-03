@@ -8,17 +8,18 @@
         single-line=""
         hide-details 
         label="Option 1"
-        v-model="option1"
+        class="p-2"
 
      >
      <template v-slot:append-inner >
-        <v-icon>mdi-dots-grid</v-icon>
-        <v-icon>mdi-close</v-icon>
+        <v-icon class="cursor-pointer">{{ props.icon }}</v-icon>
+        <v-icon class="cursor-pointer">mdi-close</v-icon>
      </template>
      </v-text-field>
 </template>
 
 <script setup>
+const props = defineProps(['icon']);
 
 </script>
 
