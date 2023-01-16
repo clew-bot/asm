@@ -7,19 +7,24 @@
         variant="solo"
         single-line=""
         hide-details 
-        label="Option 1"
+        :label="props.label"
         class="p-2"
-
+        :id="props.id"
+        v-model="props.value"
      >
      <template v-slot:append-inner >
-        <v-icon class="cursor-pointer">{{ props.icon }}</v-icon>
+        <v-icon class="handle cursor-pointer">{{ props.icon }}</v-icon>
         <v-icon class="cursor-pointer">mdi-close</v-icon>
      </template>
      </v-text-field>
 </template>
 
 <script setup>
-const props = defineProps(['icon']);
+const props = defineProps(['icon', 'label', 'value']);
+
+
+
+const text = ref('')
 
 </script>
 

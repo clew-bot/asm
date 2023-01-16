@@ -1,22 +1,30 @@
 <style scoped></style>
 <template>
-  <!-- <div class="p-4 bg-zinc-600 flex flex-col gap-2">
-    <div v-for="poll in pollOptions" :key="poll">
-      <PollInput />
-    </div>
-    <IconComponent
-      :props="{ name: 'mdi-plus', color: 'var(--postIcon)' }"
-      @click="addPoll"
-    />
-  </div> -->
-  <draggable :list="items" 
-               item-key="name"
-               @change="onChange"
+  <draggable
+  v-model="items"
+  item-key="id"
                >
         <template #item="{ element }">
             <div class="list-group-item">
                 <!-- {{ element }} -->
-                <PollInput :icon="element.icon"/>
+                <!-- <PollInput :value="element.value" :icon="element.icon" :label="element.label"/> -->
+                <v-text-field 
+                    density="compact"
+                    variant="solo"
+                    bg-color="red"
+                    single-line=""
+                    hide-details 
+                    :label="element.label"
+                    class="p-2"
+                    v-model="element.value"
+                >
+                <template v-slot:append-inner >
+                    <v-icon class="handle cursor-pointer">{{ element.icon }}</v-icon>
+                    <v-icon 
+                    @click="handleClose(element.id)"
+                    class="cursor-pointer">mdi-close</v-icon>
+                </template>
+                </v-text-field>
             </div>
         </template>
     </draggable>
@@ -29,20 +37,32 @@ import draggable from "vuedraggable";
 const items = ref([
   {
     id: 1,
-    name: "Yo",
+    label: "Option 1",
     icon: "mdi-dots-grid",
+    value: "",
   },
   {
     id: 2,
-    name: "Hi",
+    label: "Option 2",
     icon: "mdi-dots-grid",
+    value: "",
   },
   {
     id: 3,
-    name: "Bitch!",
+    label: "Option 3",
     icon: "mdi-dots-grid",
+    value: "",
   },
 ]);
+
+const handleClose = (event) => {
+    console.log(event)
+    for (let i = 0; i < items.value.length; i++) {
+        if (items.value[i].id === event) {
+            items.value.splice(i, 1);
+        }
+    }
+}
 
 const check = () => {
     console.log(items.value)
