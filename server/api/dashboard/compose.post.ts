@@ -5,6 +5,7 @@ const toId = mongoose.Types.ObjectId;
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
+    console.log('body', body)
     const id:any = await useStorage().getItem("user");
     const postStatus = await UserPost.create({
         author: new toId(id),

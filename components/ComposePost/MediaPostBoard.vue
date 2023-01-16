@@ -103,6 +103,9 @@ const usePoll = () => {
 };
 
 const compose = async () => {
+  if (store.pollOpen === true) {
+    store.submitPoll = true;
+  }
   if (allFiles.value.length > 0) {
     loading.value = true;
     setProgress();
@@ -120,6 +123,7 @@ const compose = async () => {
     }
   } else {
     await store.composePost();
+    store.submitPoll = false;
     emit("userPosted", true);
     countDown = ref(5);
     interval = setInterval(() => {
@@ -140,6 +144,7 @@ watch(uploadImageLoading, async (val) => {
       media: allMedia.value,
     };
     await store.composePost(data);
+    store.submitPoll = false;
     resetVals();
     progress.value = 100;
     emit("userPosted", true);

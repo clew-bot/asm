@@ -11,6 +11,9 @@ export const usePostStore = defineStore("post", {
     refresh: 0,
     postsFull: false,
     pollOpen: false,
+    poll: {},
+    submitPoll: false,
+    pollOk: false,
   }),
   getters: {
     thePost: (state) => state.post,
@@ -18,12 +21,31 @@ export const usePostStore = defineStore("post", {
   },
   actions: {
     composePost: async (payload) => {
+      if(usePostStore().pollOpen) {
+        setTimeout(async () => {
+          const data = {
+            post: usePostStore()?.post,
+            postImages: payload?.images,
+            postVideos: payload?.videos,
+            postMedia: payload?.media,
+            poll: usePostStore()?.poll,
+          };
+          const response = await $fetch("/api/dashboard/compose", {
+            method: "POST",
+            body: data,
+          });
+          usePostStore().images = [];
+          usePostStore().posts.unshift(response.populatedPost);
+          return response;
+        }, 100);
+      } else {
       // console.log("The payload for compose post: ", payload);
       const data = {
-        post: usePostStore().post,
+        post: usePostStore()?.post,
         postImages: payload?.images,
         postVideos: payload?.videos,
         postMedia: payload?.media,
+        poll: usePostStore()?.poll,
       };
       const response = await $fetch("/api/dashboard/compose", {
         method: "POST",
@@ -31,8 +53,8 @@ export const usePostStore = defineStore("post", {
       });
       usePostStore().images = [];
       usePostStore().posts.unshift(response.populatedPost);
-      // useUserStore().posts.unshift(response.populatedPost);
       return response;
+    }
     },
     postComment: async (payload) => {
       const response = await $fetch("/api/dashboard/post-comment", {

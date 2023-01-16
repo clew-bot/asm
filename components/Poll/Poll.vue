@@ -1,5 +1,28 @@
-<style scoped></style>
+<style scoped>
+.list-group-item >>> .v-field {
+  border-radius: 3px !important;
+  text-transform: none;
+}
+</style>
+
 <template>
+ 
+  <div class="normal-case border-2 p-2 rounded bg-neutral-300 text-slate-800 relative pb-7">
+    <div class="ml-7 text-base">Poll</div>   <IconComponent
+      class="pl-2 rotate-90 w-fit ml-2 absolute top-0 left-1"
+      :props="{ name: 'mdi-poll', color: '#262626', size: '1rem' }"
+    />
+    <IconComponent
+      class="pl-2 rotate-90 w-fit ml-2 absolute top-0 right-1"
+      :props="{ name: 'mdi-close-circle', color: '#262626', size: '1rem' }"
+    />
+    <p class="text-base absolute bottom-0 left-9">Add another option</p>
+    <IconComponent
+      class="pl-2 rotate-90 w-fit ml-2 absolute bottom-0 left-1"
+      :props="{ name: 'mdi-plus-circle', color: '#262626', size: '1rem' }"
+      @click="handleAddPoll"
+    />
+   
   <draggable
   v-model="items"
   item-key="id"
@@ -11,45 +34,58 @@
                 <v-text-field 
                     density="compact"
                     variant="solo"
-                    bg-color="red"
+                    bg-color="#262626"
                     single-line=""
                     hide-details 
                     :label="element.label"
-                    class="p-2"
+                    class="p-1 rounded-none placeholder:text-sm"
                     v-model="element.value"
                 >
                 <template v-slot:append-inner >
-                    <v-icon class="handle cursor-pointer">{{ element.icon }}</v-icon>
                     <v-icon 
+                    size="1rem"
+                    class="handle cursor-pointer pt-2">{{ element.icon }}</v-icon>
+                    <v-icon 
+                    size="1rem"
                     @click="handleClose(element.id)"
-                    class="cursor-pointer">mdi-close</v-icon>
+                    class="cursor-pointer pt-2">mdi-close</v-icon>
                 </template>
                 </v-text-field>
             </div>
         </template>
     </draggable>
-
+  </div>
     <!-- <button @click="check">check</button> -->
 </template>
 
 <script setup>
+import { usePostStore } from "~~/store/postStore";
 import draggable from "vuedraggable";
+const postStore = usePostStore();
+
+const watcherSubmit = watchEffect(async () => {
+  if (postStore.submitPoll) {
+    postStore.poll = items.value;
+    await postStore.composePost();
+    // postStore.pollOk = true;
+  }
+});
 const items = ref([
   {
     id: 1,
-    label: "Option 1",
+    label: "Enter an Option...",
     icon: "mdi-dots-grid",
     value: "",
   },
   {
     id: 2,
-    label: "Option 2",
+    label: "Enter an Option...",
     icon: "mdi-dots-grid",
     value: "",
   },
   {
     id: 3,
-    label: "Option 3",
+    label: "Enter an Option...",
     icon: "mdi-dots-grid",
     value: "",
   },
@@ -63,6 +99,17 @@ const handleClose = (event) => {
         }
     }
 }
+
+const handleAddPoll = () => {
+    items.value.push({
+        id: items.value.length + 1,
+        label: "Enter an Option...",
+        icon: "mdi-dots-grid",
+        value: "",
+    })
+}
+
+
 
 const check = () => {
     console.log(items.value)
