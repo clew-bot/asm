@@ -21,8 +21,10 @@ export const usePostStore = defineStore("post", {
   },
   actions: {
     composePost: async (payload) => {
+      //Needs refactor
       if(usePostStore().pollOpen) {
         setTimeout(async () => {
+          console.log("The payload for compose post: ", usePostStore()?.poll)
           const data = {
             post: usePostStore()?.post,
             postImages: payload?.images,
@@ -35,6 +37,7 @@ export const usePostStore = defineStore("post", {
             body: data,
           });
           usePostStore().images = [];
+          usePostStore().poll = {};
           usePostStore().posts.unshift(response.populatedPost);
           return response;
         }, 100);

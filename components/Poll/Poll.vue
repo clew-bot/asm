@@ -65,8 +65,12 @@ const postStore = usePostStore();
 
 const watcherSubmit = watchEffect(async () => {
   if (postStore.submitPoll) {
-    postStore.poll = items.value;
-    await postStore.composePost();
+    if(postStore.pollOpen) {
+      postStore.poll = items.value;
+    } else {
+      postStore.poll = null;
+      return;
+    }
     // postStore.pollOk = true;
   }
 });
@@ -76,18 +80,21 @@ const items = ref([
     label: "Enter an Option...",
     icon: "mdi-dots-grid",
     value: "",
+    votes: 0,
   },
   {
     id: 2,
     label: "Enter an Option...",
     icon: "mdi-dots-grid",
     value: "",
+    votes: 0,
   },
   {
     id: 3,
     label: "Enter an Option...",
     icon: "mdi-dots-grid",
     value: "",
+    votes: 0,
   },
 ]);
 
