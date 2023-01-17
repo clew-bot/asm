@@ -10,6 +10,7 @@
       :key="status._id"
       class="cont flex justify-center"
     >
+    <!-- {{status.poll }} -->
       <!-- {{status.author.pinnedPost}} -->
       <v-card
         elevation="0"
@@ -53,6 +54,13 @@
             v-html="status.content"
           >
           </v-card-text>
+          <div>
+            POLL
+            <v-card>
+           {{ status }}
+
+            </v-card>
+            </div>
 
           <div v-if="status.media">
             <StatusAllMediaPost v-model="status.media" />

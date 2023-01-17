@@ -39,6 +39,8 @@ export const usePostStore = defineStore("post", {
           usePostStore().images = [];
           usePostStore().poll = {};
           usePostStore().posts.unshift(response.populatedPost);
+
+          console.log("REsponse: ", response)
           return response;
         }, 100);
       } else {

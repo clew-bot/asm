@@ -31,12 +31,23 @@ export default defineEventHandler(async (event) => {
         media: body?.postMedia ?? [],
         poll: pollRef ?? null,
     });
-    const populatedPost = await postStatus.populate('author', ['username', 'handleName', 'profilePicture'])
+
+    // Populate Author and Poll
+    // const populatedPost = await postStatus.populate('author', ['username', 'handleName', 'profilePicture'])
+
+    const populatedPoll = await postStatus.populate('author', ['username', 'handleName', 'profilePicture'])
+
+    const populatedPost = await populatedPoll.populate('poll', ['title', 'poll'])
+
+ 
+
+
     const addPost = await UserModel.updateOne(
         { _id: new toId(id) },
         { $push: { posts: postStatus._id } }
     );
 
-    console.log('populatedPost', populatedPost)
+    // console.log('populatedPost', populatedPost)
+    console.log('populatedPoll', populatedPoll)
     return { error: false, message: "Post Created", populatedPost };
 })
