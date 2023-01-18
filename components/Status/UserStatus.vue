@@ -3,14 +3,14 @@
 </style>
 <template>
   <!-- {{ pinnedPost }} -->
-    <StatusPinnedPost v-if="pinnedPost" :pinnedPost="pinnedPost"/>
+  <StatusPinnedPost v-if="pinnedPost" :pinnedPost="pinnedPost" />
   <TransitionGroup name="list">
     <div
       v-for="(status, i) in props.modelValue"
       :key="status._id"
       class="cont flex justify-center"
     >
-    <!-- {{status.poll }} -->
+      <!-- {{status.poll }} -->
       <!-- {{status.author.pinnedPost}} -->
       <v-card
         elevation="0"
@@ -21,7 +21,7 @@
         <v-card-title>
           <div class="flex justify-items-start pt-3">
             <NuxtLink :to="`/profile/${status.author.handleName}`">
-            <StatusUserAvatar :props="status.author.profilePicture" />
+              <StatusUserAvatar :props="status.author.profilePicture" />
             </NuxtLink>
             <div class="absolute left-16 top-4 ml-2 w-fit">
               <NuxtLink :to="`/profile/${status.author.handleName}`">
@@ -54,13 +54,21 @@
             v-html="status.content"
           >
           </v-card-text>
-          <div>
-            POLL
-            <v-card>
-           {{ status }}
-
+          <StatusPollView v-if="status.poll" :poll="status?.poll"/>
+          <!-- <div>
+            <v-card class="mx-12">
+              <v-radio-group>
+                <div class="">
+                  <v-radio
+                    v-for="poll in status.poll?.poll"
+                    :key="poll"
+                    :label="poll.value"
+                    :value="poll"
+                  ></v-radio>
+                </div>
+              </v-radio-group>
             </v-card>
-            </div>
+          </div> -->
 
           <div v-if="status.media">
             <StatusAllMediaPost v-model="status.media" />
@@ -83,10 +91,16 @@
               <v-icon
                 @mouseleave="closeTooltip(status._id)"
                 @mouseenter="openTooltip(status._id)"
-                :style="{color: dynamicColor[i] || checkStatusForMe(status.reactions) || '#f5f5f4'}"
-                size='default'
+                :style="{
+                  color:
+                    dynamicColor[i] ||
+                    checkStatusForMe(status.reactions) ||
+                    '#f5f5f4',
+                }"
+                size="default"
                 class="cursor-pointer"
-              >mdi-heart</v-icon>
+                >mdi-heart</v-icon
+              >
               <IconComponent
                 @click="openComments(i, status._id)"
                 class="ml-3"
@@ -100,23 +114,24 @@
             <div class="flex pt-10">
               <IconComponent
                 class="mr-2"
-                :props="{ name: 'mdi-bookmark-box', 
-                color: '#f5f5f4' }"
+                :props="{ name: 'mdi-bookmark-box', color: '#f5f5f4' }"
                 title="Bookmark this post"
               />
               <ClientOnly>
                 <StatusPostMenu
-                :id="status._id"
-                :userId="userId"
-                :statusId="status.author._id"
-              />
+                  :id="status._id"
+                  :userId="userId"
+                  :statusId="status.author._id"
+                />
               </ClientOnly>
-     
             </div>
           </div>
           <div class="flex px-4 pb-4">
             <span class="font-bold">{{ status.reactions.length }}&nbsp;</span>
-            {{status.reactions.length === 1 ? 'Reaction' : 'Reactions'}} •&nbsp; 
+            {{
+              status.reactions.length === 1 ? "Reaction" : "Reactions"
+            }}
+            •&nbsp;
             <span
               @click="openComments(i, status._id)"
               class="cursor-pointer font-bold"
@@ -127,9 +142,7 @@
             >
           </div>
         </div>
-        <div v-if="i === Object.keys(props.modelValue).length - 1">
-      
-        </div>
+        <div v-if="i === Object.keys(props.modelValue).length - 1"></div>
         <div v-if="utilityObj[status._id]?.open">
           <StatusCommentInput
             @check-commented="checkCommented"
@@ -193,7 +206,7 @@ const checkStatusForMe = (reaction) => {
           return "#F5F5F4";
       }
     } else {
-      return '#F5F5F4';
+      return "#F5F5F4";
     }
   }
 };
@@ -269,19 +282,19 @@ const addReaction = async (reaction) => {
     utilityObj.value[key].toolTip = false;
   });
 
-  if(reaction.theReaction === 'happy') {
-    dynamicColor.value[reaction.index] = '#fde047';
-  } else if(reaction.theReaction === 'wink') {
-    dynamicColor.value[reaction.index] = '#f9a8d4';
-  } else if(reaction.theReaction === 'angry') {
-    dynamicColor.value[reaction.index] = '#ef4444';
-  } else if(reaction.theReaction === 'laugh') {
-    dynamicColor.value[reaction.index] = '#0891b2';
+  if (reaction.theReaction === "happy") {
+    dynamicColor.value[reaction.index] = "#fde047";
+  } else if (reaction.theReaction === "wink") {
+    dynamicColor.value[reaction.index] = "#f9a8d4";
+  } else if (reaction.theReaction === "angry") {
+    dynamicColor.value[reaction.index] = "#ef4444";
+  } else if (reaction.theReaction === "laugh") {
+    dynamicColor.value[reaction.index] = "#0891b2";
   } else {
-    dynamicColor.value[reaction.index] = 'black';
+    dynamicColor.value[reaction.index] = "black";
   }
 
   const postReaction = await store.addReaction(reaction);
-  console.log('pr: ', postReaction);
+  console.log("pr: ", postReaction);
 };
 </script>
