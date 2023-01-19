@@ -53,27 +53,61 @@ onMounted( async () => {
 
 });
 
-const getValue = (val) => {
-  //convert to if else
-  if (val.length === 0 || !store.pollOk) {
+const thePost = ref(null);
+
+store.$subscribe((mutation, state) => {
+  console.log("I'm running running and running running and running running CIIEERRAAA ")
+  console.log('state', store.post.length)
+  console.log(mutation)
+  console.log('pollok', store.pollOk)
+  thePost.value = state.post
+  if(mutation.events.key === 'pollOk') {
+  if (store.pollOpen) {
+    console.log('trye')
+    isDisabled.value = true;
+  } 
+  else if (store.pollOk) {
+    isDisabled.value = false;
+  }
+} else if (mutation.type === "patch object" && mutation.storeId === 'post') {
+  if (store.post.length === 0) {
     isDisabled.value = true;
   } 
   else {
     isDisabled.value = false;
   }
+}
+});
+
+
+
+
+const getValue = (val) => {
+  //convert to if else
+  store.$subscribe((mutation, state) => {
+  console.log("I'm running running and running running and running running CIIEERRAAA ")
+  if (store.post.length === 0) {
+    console.log('trye')
+    isDisabled.value = true;
+  } 
+  else {
+    isDisabled.value = false;
+  }
+  // thePost.value = state.post
+});
+
+
   // val.length === 0 ? isDisabled.value = true : isDisabled.value = false;
 };
+
+// Watch for changes?
 
 const askForRefresh = async (value) => {
   isReset.value = true;
   setTimeout(() => {
   isReset.value = false;
   }, 5000);
-  // await store.getPosts();
-  await nextTick(() => {
-    // posts.value = store.$state.posts;
     isDisabled.value = true;
-  }); 
 }
 </script>
 

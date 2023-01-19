@@ -89,32 +89,14 @@ let progress = ref(0);
 let allMedia = ref([]);
 
 
-console.log('disable', disable)
+// console.log('disable', disable)
 
-const setProgress = () => {
-  progress.value = 0;
-  const interval = setInterval(() => {
-    progress.value += 10;
-    if (progress.value > 100) {
-      progress.value = "Hang on..."
-      clearInterval(interval);
-    }
-  }, 300);
-};
-
-const watchPollOk = watch(
-  () => store.pollOk,
-  (val) => {
-    console.log("running", val)
-    if (val === true) {
-      disable2.value = true;
-    }
-  }
-);
 
 const usePoll = () => {
   store.openPoll();
-  store.pollOk = false;
+  if (store.pollOk === true) {
+
+  }
 };
 
 const compose = async () => {

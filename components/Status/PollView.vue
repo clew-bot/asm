@@ -49,10 +49,10 @@ const changeOption = (option) => {
 }
 
 const handleVote = (option) => {
-  console.log("option", selectedOption.value)
+  // console.log("option", selectedOption.value)
 }
 
-console.log("props", poll)
+// console.log("props", poll)
 
 </script>
 

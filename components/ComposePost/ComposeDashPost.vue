@@ -14,7 +14,7 @@
                 label="Compose new post..."
                 auto-grow
                 rows="2"
-                color="yellow"
+                color="white"
                 class="bg-zinc-700"
                 hide-details="true"
                 ></v-textarea>
@@ -44,8 +44,9 @@ watch(checkReset, (newVal) => {
 
 watch(userPost ,(newVal) => {
     if(!checkReset.value) {
-    emit("updatePost", userPost.value);
-    store.$state.post = userPost.value;
+    // emit("updatePost", userPost.value);
+    store.$patch({post: userPost.value})
+    console.log("store.$state.post", store.$state.post)
     }
 })
 
