@@ -4,7 +4,7 @@
     <template #rightSide><LayoutRightBarSuggested/></template>
     <template #postStatus><ComposeDashPost :reset="isReset" @updatePost="getValue"/></template>
 
-    <template #postMedia><ComposePostMediaPostBoard :post="ableToPost" @user-posted="askForRefresh"/></template>
+    <template #postMedia><ComposePostMediaPostBoard :post="isDisabled" @user-posted="askForRefresh"/></template>
     <div v-if="!loading && posts.length > 0" class="first overflow-auto transition-all bg-zinc-600">
    
       <StatusUserStatus  v-model="posts"/>
@@ -20,7 +20,6 @@
     pt-10">
         There doesn't seem to be any posts here.
     </div>
-
     <div class="h-screen w-full flex justify-center font-semibold text-orange-500 relative"><div class="absolute bottom-0">
       Looks like you've reached the end 😂
     </div></div>
@@ -31,7 +30,7 @@
 <script setup>
 import { usePostStore } from '~~/store/postStore';
 const store = usePostStore();
-const ableToPost = ref(true);
+const isDisabled = ref(true);
 const isReset = ref(false);
 const posts = ref([]);
 const loading = ref(true);
@@ -55,7 +54,14 @@ onMounted( async () => {
 });
 
 const getValue = (val) => {
-  val.length === 0 ? ableToPost.value = true : ableToPost.value = false;
+  //convert to if else
+  if (val.length === 0 || !store.pollOk) {
+    isDisabled.value = true;
+  } 
+  else {
+    isDisabled.value = false;
+  }
+  // val.length === 0 ? isDisabled.value = true : isDisabled.value = false;
 };
 
 const askForRefresh = async (value) => {
@@ -66,7 +72,7 @@ const askForRefresh = async (value) => {
   // await store.getPosts();
   await nextTick(() => {
     // posts.value = store.$state.posts;
-    ableToPost.value = true;
+    isDisabled.value = true;
   }); 
 }
 </script>

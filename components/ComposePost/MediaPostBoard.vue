@@ -72,6 +72,7 @@
 import { usePostStore } from "~~/store/postStore";
 const store = usePostStore();
 const disable = computed(() => props.post);
+const disable2 = ref(false);
 const props = defineProps(["post"]);
 const emit = defineEmits(["userPosted"]);
 const photoData = ref([]);
@@ -87,6 +88,9 @@ let videoSrc = ref([]);
 let progress = ref(0);
 let allMedia = ref([]);
 
+
+console.log('disable', disable)
+
 const setProgress = () => {
   progress.value = 0;
   const interval = setInterval(() => {
@@ -98,13 +102,25 @@ const setProgress = () => {
   }, 300);
 };
 
+const watchPollOk = watch(
+  () => store.pollOk,
+  (val) => {
+    console.log("running", val)
+    if (val === true) {
+      disable2.value = true;
+    }
+  }
+);
+
 const usePoll = () => {
   store.openPoll();
+  store.pollOk = false;
 };
 
 const compose = async () => {
   if (store.pollOpen === true) {
     store.submitPoll = true;
+    // disable.value = true;
   }
   if (allFiles.value.length > 0) {
     loading.value = true;

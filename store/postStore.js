@@ -13,7 +13,7 @@ export const usePostStore = defineStore("post", {
     pollOpen: false,
     poll: {},
     submitPoll: false,
-    pollOk: false,
+    pollOk: true,
   }),
   getters: {
     thePost: (state) => state.post,

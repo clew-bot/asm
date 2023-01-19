@@ -63,17 +63,6 @@ import { usePostStore } from "~~/store/postStore";
 import draggable from "vuedraggable";
 const postStore = usePostStore();
 
-const watcherSubmit = watchEffect(async () => {
-  if (postStore.submitPoll) {
-    if(postStore.pollOpen) {
-      postStore.poll = items.value;
-    } else {
-      postStore.poll = null;
-      return;
-    }
-    // postStore.pollOk = true;
-  }
-});
 const items = ref([
   {
     id: 1,
@@ -97,6 +86,38 @@ const items = ref([
     votes: 0,
   },
 ]);
+const watchItems = watch(items.value, (newVal, oldVal) => {
+  console.log("watchItems", newVal);
+  for(let i = 0; i < newVal.length; i++) {
+    if(newVal[i].value === "") {
+      console.log("Should be disabled")
+      postStore.pollOk = false;
+      return;
+    } else {
+      console.log("Should be enabled")
+      postStore.pollOk = true;
+    }
+  }
+});
+
+const watcherSubmit = watchEffect(async () => {
+  if(postStore.pollOpen) {
+    postStore.pollOk = false;
+  }
+  if (postStore.submitPoll) {
+    if(postStore.pollOpen) {
+      console.log("testing", items.value)
+    
+
+      postStore.poll = items.value;
+    } else {
+      postStore.poll = null;
+      return;
+    }
+    // postStore.pollOk = true;
+  }
+});
+
 
 const handleClose = (event) => {
     console.log(event)
