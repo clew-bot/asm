@@ -62,10 +62,14 @@ store.$subscribe((mutation, state) => {
   console.log('pollok', store.pollOk)
   thePost.value = state.post
 
-  if (store.pollOk && store.post.length !== 0) {
+  if(store.pollOpen) {
+    if (store.pollOk && store.post.length !== 0) {
+      isDisabled.value = false;
+    } else {
+      isDisabled.value = true;
+    }
+  } else if (store.post.length !== 0) {
     isDisabled.value = false;
-  } else if (store.post.length === 0) {
-    isDisabled.value = true;
   } else {
     isDisabled.value = true;
   }

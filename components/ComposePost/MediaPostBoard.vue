@@ -120,6 +120,7 @@ const compose = async () => {
     await store.composePost();
     store.submitPoll = false;
     store.pollOpen = false;
+    store.pollOk = true;
     emit("userPosted", true);
     countDown = ref(5);
     interval = setInterval(() => {
@@ -142,6 +143,8 @@ watch(uploadImageLoading, async (val) => {
     await store.composePost(data);
     store.submitPoll = false;
     store.pollOpen = false;
+    store.pollOk = true;
+
     resetVals();
     progress.value = 100;
     emit("userPosted", true);
