@@ -1,34 +1,44 @@
 <template>
   <NuxtLayout name="dash">
     <template #header>HOME</template>
-    <template #rightSide><LayoutRightBarSuggested/></template>
-    <template #postStatus><ComposeDashPost :reset="isReset" @updatePost="getValue"/></template>
+    <template #rightSide><LayoutRightBarSuggested /></template>
+    <template #postStatus
+      ><ComposeDashPost :reset="isReset" @updatePost="getValue"
+    /></template>
 
-    <template #postMedia><ComposePostMediaPostBoard :post="isDisabled" @user-posted="askForRefresh"/></template>
-    <div v-if="!loading && posts.length > 0" class="first overflow-auto transition-all bg-zinc-600">
-   
-      <StatusUserStatus  v-model="posts"/>
+    <template #postMedia
+      ><ComposePostMediaPostBoard
+        :post="isDisabled"
+        @user-posted="askForRefresh"
+    /></template>
+    <div
+      v-if="!loading && posts.length > 0"
+      class="first overflow-auto transition-all bg-zinc-600"
+    >
+      <StatusUserStatus v-model="posts" />
       <div class="bg-[#343438]">
-      <StatusObserver />
-    </div>
+        <StatusObserver />
+      </div>
     </div>
     <div v-else-if="loading">
-        <v-progress-linear indeterminate color="cyan"></v-progress-linear>
+      <v-progress-linear indeterminate color="cyan"></v-progress-linear>
     </div>
-    <div v-else-if="posts.length === 0 && !loading"
-    class="text-center text-3xl font-semibold text-orange-400
-    pt-10">
-        There doesn't seem to be any posts here.
+    <div
+      v-else-if="posts.length === 0 && !loading"
+      class="text-center text-3xl font-semibold text-orange-400 pt-10"
+    >
+      There doesn't seem to be any posts here.
     </div>
-    <div class="h-screen w-full flex justify-center font-semibold text-orange-500 relative"><div class="absolute bottom-0">
-      Looks like you've reached the end 😂
-    </div></div>
+    <div
+      class="h-screen w-full flex justify-center font-semibold text-orange-500 relative"
+    >
+      <div class="absolute bottom-0">Looks like you've reached the end 😂</div>
+    </div>
   </NuxtLayout>
 </template>
 
-
 <script setup>
-import { usePostStore } from '~~/store/postStore';
+import { usePostStore } from "~~/store/postStore";
 const store = usePostStore();
 const isDisabled = ref(true);
 const isReset = ref(false);
@@ -39,30 +49,31 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-onMounted( async () => {
-  scrollTo(0,0);
+onMounted(async () => {
+  scrollTo(0, 0);
   const allPosts = await store.getPosts();
-  await nextTick(()=> {
-    if(allPosts.length === 0) {
-    loading.value = false;
-  } else {
-    loading.value = false;
-  }
+  await nextTick(() => {
+    if (allPosts.length === 0) {
+      loading.value = false;
+    } else {
+      loading.value = false;
+    }
   });
   posts.value = store.$state.posts;
-
 });
 
 const thePost = ref(null);
 
 store.$subscribe((mutation, state) => {
-  console.log("I'm running running and running running and running running CIIEERRAAA ")
-  console.log('state', store.post.length)
-  console.log(mutation)
-  console.log('pollok', store.pollOk)
-  thePost.value = state.post
+  console.log(
+    "I'm running running and running running and running running CIIEERRAAA "
+  );
+  console.log("state", store.post.length);
+  console.log(mutation);
+  console.log("pollok", store.pollOk);
+  thePost.value = state.post;
 
-  if(store.pollOpen) {
+  if (store.pollOpen) {
     if (store.pollOk && store.post.length !== 0) {
       isDisabled.value = false;
     } else {
@@ -74,42 +85,36 @@ store.$subscribe((mutation, state) => {
     isDisabled.value = true;
   }
 
-//   if(mutation.events.key === 'pollOk' && mutation.events.newValue === true) {
-//     console.log("i'm here", store.pollOpen)
-//     isDisabled.value = true;
-//   if (store.pollOpen) {
-//     isDisabled.value = true;
-//   } 
-//   else if (store.pollOk) {
-//     isDisabled.value = false;
-//   }
-// } else if (mutation.type === "patch object" && mutation.storeId === 'post') {
-//   if (store.post.length === 0 || !store.pollOk) {
-//     isDisabled.value = true;
-//   } 
-//   else {
-//     isDisabled.value = false;
-//   }
-// }
+  //   if(mutation.events.key === 'pollOk' && mutation.events.newValue === true) {
+  //     console.log("i'm here", store.pollOpen)
+  //     isDisabled.value = true;
+  //   if (store.pollOpen) {
+  //     isDisabled.value = true;
+  //   }
+  //   else if (store.pollOk) {
+  //     isDisabled.value = false;
+  //   }
+  // } else if (mutation.type === "patch object" && mutation.storeId === 'post') {
+  //   if (store.post.length === 0 || !store.pollOk) {
+  //     isDisabled.value = true;
+  //   }
+  //   else {
+  //     isDisabled.value = false;
+  //   }
+  // }
 });
-
-
-
 
 const getValue = (val) => {
   //convert to if else
   store.$subscribe((mutation, state) => {
-
-  if (store.post.length === 0) {
-    console.log('trye')
-    isDisabled.value = true;
-  } 
-  else {
-    isDisabled.value = false;
-  }
-  // thePost.value = state.post
-});
-
+    if (store.post.length === 0) {
+      console.log("trye");
+      isDisabled.value = true;
+    } else {
+      isDisabled.value = false;
+    }
+    // thePost.value = state.post
+  });
 
   // val.length === 0 ? isDisabled.value = true : isDisabled.value = false;
 };
@@ -119,9 +124,8 @@ const getValue = (val) => {
 const askForRefresh = async (value) => {
   isReset.value = true;
   setTimeout(() => {
-  isReset.value = false;
+    isReset.value = false;
   }, 5000);
-    isDisabled.value = true;
-}
+  isDisabled.value = true;
+};
 </script>
-
