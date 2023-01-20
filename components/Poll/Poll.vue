@@ -88,16 +88,31 @@ const items = ref([
 ]);
 const watchItems = watch(items.value, (newVal, oldVal) => {
   console.log("watchItems", newVal);
-  for(let i = 0; i < newVal.length; i++) {
-    if(newVal[i].value === "") {
-      console.log("Should be disabled")
-      postStore.pollOk = false;
-      return;
-    } else {
-      console.log("Should be enabled")
-      postStore.pollOk = true;
-    }
+
+  //check if any of the value property is empty 
+  //if so, disable the submit button
+
+  console.log("run")
+  console.log(Object.values(newVal).some((item) => item.value === ""))
+
+  if(postStore.pollOpen && Object.values(newVal).some((item) => item.value === "")) {
+    console.log("Should be disabled")
+    postStore.pollOk = false;
+    return;
+  } else {
+    console.log("Should be enabled")
+    postStore.pollOk = true;
   }
+  // for(let i = 0; i < newVal.length; i++) {
+  //   if(newVal[i].value === "") {
+  //     console.log("Should be disabled")
+  //     postStore.pollOk = false;
+  //     return;
+  //   } else {
+  //     console.log("Should be enabled")
+  //     postStore.pollOk = true;
+  //   }
+  // }
 });
 
 const watcherSubmit = watchEffect(async () => {
@@ -107,8 +122,6 @@ const watcherSubmit = watchEffect(async () => {
   if (postStore.submitPoll) {
     if(postStore.pollOpen) {
       console.log("testing", items.value)
-    
-
       postStore.poll = items.value;
     } else {
       postStore.poll = null;

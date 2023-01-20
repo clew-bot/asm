@@ -61,22 +61,32 @@ store.$subscribe((mutation, state) => {
   console.log(mutation)
   console.log('pollok', store.pollOk)
   thePost.value = state.post
-  if(mutation.events.key === 'pollOk') {
-  if (store.pollOpen) {
-    console.log('trye')
-    isDisabled.value = true;
-  } 
-  else if (store.pollOk) {
+
+  if (store.pollOk && store.post.length !== 0) {
     isDisabled.value = false;
-  }
-} else if (mutation.type === "patch object" && mutation.storeId === 'post') {
-  if (store.post.length === 0) {
+  } else if (store.post.length === 0) {
     isDisabled.value = true;
-  } 
-  else {
-    isDisabled.value = false;
+  } else {
+    isDisabled.value = true;
   }
-}
+
+//   if(mutation.events.key === 'pollOk' && mutation.events.newValue === true) {
+//     console.log("i'm here", store.pollOpen)
+//     isDisabled.value = true;
+//   if (store.pollOpen) {
+//     isDisabled.value = true;
+//   } 
+//   else if (store.pollOk) {
+//     isDisabled.value = false;
+//   }
+// } else if (mutation.type === "patch object" && mutation.storeId === 'post') {
+//   if (store.post.length === 0 || !store.pollOk) {
+//     isDisabled.value = true;
+//   } 
+//   else {
+//     isDisabled.value = false;
+//   }
+// }
 });
 
 
@@ -85,7 +95,7 @@ store.$subscribe((mutation, state) => {
 const getValue = (val) => {
   //convert to if else
   store.$subscribe((mutation, state) => {
-  console.log("I'm running running and running running and running running CIIEERRAAA ")
+
   if (store.post.length === 0) {
     console.log('trye')
     isDisabled.value = true;

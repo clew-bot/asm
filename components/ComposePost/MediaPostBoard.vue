@@ -94,9 +94,6 @@ let allMedia = ref([]);
 
 const usePoll = () => {
   store.openPoll();
-  if (store.pollOk === true) {
-
-  }
 };
 
 const compose = async () => {
