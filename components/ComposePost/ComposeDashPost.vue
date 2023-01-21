@@ -38,6 +38,8 @@ const checkReset = computed(() =>  props.reset )
 
 watch(checkReset, (newVal) => {
     if (newVal) {
+        console.log("hit reset")
+        store.post = "";
     userPost.value = "";
     }
 })
