@@ -22,7 +22,6 @@ export const usePostStore = defineStore("post", {
   actions: {
     composePost: async (payload) => {
       //Needs refactor
-      console.log('thePost', usePostStore().post)
       if(usePostStore().pollOpen) {
         setTimeout(async () => {
           console.log("The payload for compose post (pt.1): ", usePostStore()?.poll)

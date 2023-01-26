@@ -97,15 +97,12 @@ const usePoll = () => {
 };
 
 const compose = async () => {
-  console.log(store.post)
   if (store.pollOpen === true) {
     store.submitPoll = true;
-    // disable.value = true;
   }
   if (allFiles.value.length > 0) {
     loading.value = true;
-    setProgress();
-    
+    // setProgress();
     const {imageData, videoData, media, emit, progress, error} = await useFile(allFiles.value)
     if(error) {
       resetVals();
@@ -116,6 +113,7 @@ const compose = async () => {
       vidData.value = videoData;
       uploadImageLoading.value = emit;
       allMedia.value = media;
+      
     }
   } else {
     await store.composePost();
@@ -124,7 +122,8 @@ const compose = async () => {
     store.pollOk = true;
 
     emit("userPosted", true);
-    countDown = ref(5);
+    console.log("Yssss")
+    countDown.value = 5;
     interval = setInterval(() => {
       countDown.value--;
     }, 1000);

@@ -16,6 +16,7 @@
     />
     <IconComponent
       class="pl-2 rotate-90 w-fit ml-2 absolute top-0 right-1"
+      @click="handleClosePoll"
       :props="{ name: 'mdi-close-circle', color: '#262626', size: '1rem' }"
     />
     <p class="text-base absolute bottom-0 left-9">Add another option</p>
@@ -64,6 +65,10 @@ import { usePostStore } from "~~/store/postStore";
 import draggable from "vuedraggable";
 const postStore = usePostStore();
 
+const handleClosePoll = () => {
+  postStore.pollOpen = false;
+}
+
 const items = ref([
   {
     id: 1,
@@ -103,7 +108,6 @@ const watchItems = watch(items.value, (newVal, oldVal) => {
 });
 
 const watcherSubmit = watchEffect(async () => {
-  console.log("hiiii", postStore.poll)
   if (postStore.pollOpen) {
     postStore.pollOk = false;
   }
