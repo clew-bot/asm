@@ -22,7 +22,6 @@ export default defineEventHandler(async (event) => {
 
     if (checkReaction) {
         console.log('reaction already exists, deleting reaction')
-        // if user has already reacted to post, delete the reaction
         const deleteReaction = await ReactionModel.findOneAndDelete({
             _id: checkReaction._id
         })

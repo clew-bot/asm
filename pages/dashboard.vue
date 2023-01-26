@@ -65,14 +65,7 @@ onMounted(async () => {
 const thePost = ref(null);
 
 store.$subscribe((mutation, state) => {
-  console.log(
-    "I'm running running and running running and running running CIIEERRAAA "
-  );
-  console.log("state", store.post.length);
-  console.log(mutation);
-  console.log("pollok", store.pollOk);
   thePost.value = state.post;
-
   if (store.pollOpen) {
     if (store.pollOk && store.post.length !== 0) {
       isDisabled.value = false;

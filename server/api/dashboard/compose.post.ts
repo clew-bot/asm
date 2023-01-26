@@ -49,5 +49,5 @@ export default defineEventHandler(async (event) => {
 
     // console.log('populatedPost', populatedPost)
     console.log('populatedPoll', populatedPoll)
-    return { error: false, message: "Post Created", populatedPost };
+    return { error: false, message: "Post Created", populatedPost, populatedPoll };
 })

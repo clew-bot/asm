@@ -38,9 +38,9 @@ const checkReset = computed(() =>  props.reset )
 
 watch(checkReset, (newVal) => {
     if (newVal) {
-        console.log("hit reset")
-        store.post = "";
+        // store.post = "";
     userPost.value = "";
+    // store.poll = {};
     }
 })
 
@@ -48,7 +48,6 @@ watch(userPost ,(newVal) => {
     if(!checkReset.value) {
     // emit("updatePost", userPost.value);
     store.$patch({post: userPost.value})
-    console.log("store.$state.post", store.$state.post)
     }
 })
 

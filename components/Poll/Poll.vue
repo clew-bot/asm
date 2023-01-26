@@ -6,9 +6,11 @@
 </style>
 
 <template>
- 
-  <div class="normal-case border-2 p-2 rounded bg-neutral-300 text-slate-800 relative pb-7">
-    <div class="ml-7 text-base">Poll</div>   <IconComponent
+  <div
+    class="normal-case border-2 p-2 rounded bg-neutral-300 text-slate-800 relative pb-7"
+  >
+    <div class="ml-7 text-base">Poll</div>
+    <IconComponent
       class="pl-2 rotate-90 w-fit ml-2 absolute top-0 left-1"
       :props="{ name: 'mdi-poll', color: '#262626', size: '1rem' }"
     />
@@ -22,40 +24,39 @@
       :props="{ name: 'mdi-plus-circle', color: '#262626', size: '1rem' }"
       @click="handleAddPoll"
     />
-   
-  <draggable
-  v-model="items"
-  item-key="id"
-               >
-        <template #item="{ element }">
-            <div class="list-group-item">
-                <!-- {{ element }} -->
-                <!-- <PollInput :value="element.value" :icon="element.icon" :label="element.label"/> -->
-                <v-text-field 
-                    density="compact"
-                    variant="solo"
-                    bg-color="#262626"
-                    single-line=""
-                    hide-details 
-                    :label="element.label"
-                    class="p-1 rounded-none placeholder:text-sm"
-                    v-model="element.value"
-                >
-                <template v-slot:append-inner >
-                    <v-icon 
-                    size="1rem"
-                    class="handle cursor-pointer pt-2">{{ element.icon }}</v-icon>
-                    <v-icon 
-                    size="1rem"
-                    @click="handleClose(element.id)"
-                    class="cursor-pointer pt-2">mdi-close</v-icon>
-                </template>
-                </v-text-field>
-            </div>
-        </template>
+
+    <draggable v-model="items" item-key="id">
+      <template #item="{ element }">
+        <div class="list-group-item">
+          <!-- {{ element }} -->
+          <!-- <PollInput :value="element.value" :icon="element.icon" :label="element.label"/> -->
+          <v-text-field
+            density="compact"
+            variant="solo"
+            bg-color="#262626"
+            single-line=""
+            hide-details
+            :label="element.label"
+            class="p-1 rounded-none placeholder:text-sm"
+            v-model="element.value"
+          >
+            <template v-slot:append-inner>
+              <v-icon size="1rem" class="handle cursor-pointer pt-2">{{
+                element.icon
+              }}</v-icon>
+              <v-icon
+                size="1rem"
+                @click="handleClose(element.id)"
+                class="cursor-pointer pt-2"
+                >mdi-close</v-icon
+              >
+            </template>
+          </v-text-field>
+        </div>
+      </template>
     </draggable>
   </div>
-    <!-- <button @click="check">check</button> -->
+  <!-- <button @click="check">check</button> -->
 </template>
 
 <script setup>
@@ -87,87 +88,52 @@ const items = ref([
   },
 ]);
 const watchItems = watch(items.value, (newVal, oldVal) => {
-  console.log("watchItems", newVal);
-
-  //check if any of the value property is empty 
-  //if so, disable the submit button
-
   console.log("run")
-  console.log(Object.values(newVal).some((item) => item.value === ""))
-
-  if(postStore.pollOpen && Object.values(newVal).some((item) => item.value === "")) {
-    console.log("Should be disabled")
+  if (
+    postStore.pollOpen &&
+    Object.values(newVal).some((item) => item.value === "")
+  ) {
+    console.log("Should be disabled");
     postStore.pollOk = false;
     return;
   } else {
-    console.log("Should be enabled")
+    console.log("Should be enabled");
     postStore.pollOk = true;
   }
-  // for(let i = 0; i < newVal.length; i++) {
-  //   if(newVal[i].value === "") {
-  //     console.log("Should be disabled")
-  //     postStore.pollOk = false;
-  //     return;
-  //   } else {
-  //     console.log("Should be enabled")
-  //     postStore.pollOk = true;
-  //   }
-  // }
 });
 
 const watcherSubmit = watchEffect(async () => {
-  if(postStore.pollOpen) {
+  console.log("hiiii", postStore.poll)
+  if (postStore.pollOpen) {
     postStore.pollOk = false;
   }
   if (postStore.submitPoll) {
-    if(postStore.pollOpen) {
-      console.log("testing", items.value)
+    if (postStore.pollOpen) {
+      console.log("testing", items.value);
       postStore.poll = items.value;
     } else {
       postStore.poll = null;
       return;
     }
-    // postStore.pollOk = true;
   }
 });
 
-
 const handleClose = (event) => {
-    console.log(event)
-    for (let i = 0; i < items.value.length; i++) {
-        if (items.value[i].id === event) {
-            items.value.splice(i, 1);
-        }
+  console.log(event);
+  for (let i = 0; i < items.value.length; i++) {
+    if (items.value[i].id === event) {
+      items.value.splice(i, 1);
     }
-}
+  }
+};
 
 const handleAddPoll = () => {
-    items.value.push({
-        id: items.value.length + 1,
-        label: "Enter an Option...",
-        icon: "mdi-dots-grid",
-        value: "",
-    })
-}
-
-
-
-const check = () => {
-    console.log(items.value)
-}
-
-const onChange = (event) => {
-  reOrder();
+  items.value.push({
+    id: items.value.length + 1,
+    label: "Enter an Option...",
+    icon: "mdi-dots-grid",
+    value: "",
+  });
 };
 
-const reOrder = (event) => {
-    pollOptions.value.forEach((poll, index) => {
-      poll.order = index + 1;
-    });
-};
-
-// drag and drop for poll options
-const addPoll = () => {
-  pollOptions.value += 1;
-};
 </script>

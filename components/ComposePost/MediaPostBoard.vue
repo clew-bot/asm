@@ -97,6 +97,7 @@ const usePoll = () => {
 };
 
 const compose = async () => {
+  console.log(store.post)
   if (store.pollOpen === true) {
     store.submitPoll = true;
     // disable.value = true;
@@ -121,6 +122,7 @@ const compose = async () => {
     store.submitPoll = false;
     store.pollOpen = false;
     store.pollOk = true;
+
     emit("userPosted", true);
     countDown = ref(5);
     interval = setInterval(() => {
@@ -144,7 +146,6 @@ watch(uploadImageLoading, async (val) => {
     store.submitPoll = false;
     store.pollOpen = false;
     store.pollOk = true;
-
     resetVals();
     progress.value = 100;
     emit("userPosted", true);
