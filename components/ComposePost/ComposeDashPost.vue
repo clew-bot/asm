@@ -38,9 +38,7 @@ const checkReset = computed(() =>  props.reset )
 
 watch(checkReset, (newVal) => {
     if (newVal) {
-        // store.post = "";
     userPost.value = "";
-    // store.poll = {};
     }
 })
 

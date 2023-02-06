@@ -23,12 +23,26 @@
         </div>
       </div>
     </div>
-    <v-textarea
+    <!-- <v-textarea
+      class="border-2"
       v-model="message"
       :label="`Message ${props[0].owner.handleName}...`"
-
-      rows="2"
-      @keyup.enter="sendMessage"></v-textarea>
+      variant="outline"
+      rows="1"
+      @keyup.enter="sendMessage"></v-textarea> -->
+      <v-container fluid>
+                 <v-textarea
+                v-model="userMessage"
+                label="Message"
+                auto-grow
+                rows="1"
+                color="white"
+                class="bg-zinc-700"
+                hide-details="true"
+                hint="Press enter to send"
+                variant="outline"
+                ></v-textarea>
+            </v-container>
   </v-card>
 </template>
 
@@ -38,6 +52,7 @@ const userStore = useUserStore();
 const { props } = defineProps(["props"]);
 const route = useRoute();
 const username = route.params.id;
+const userMessage = ref("");
 
 console.log("props: ", props);
 console.log("userStore: ", userStore.$state.userId);

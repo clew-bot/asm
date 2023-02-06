@@ -32,11 +32,6 @@ export default defineEventHandler(async (event) => {
     allMessages.sort((a: any, b: any) => {
         return a.createdAt - b.createdAt;
     });
-
-
-    console.log('FIRST::::::: ',messagesToUser);
-    console.log('SECONDO!!!!!!!!!!!!!! ', messagesFromUser2);
-
   return allMessages;
   
 });

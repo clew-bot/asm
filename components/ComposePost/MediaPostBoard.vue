@@ -88,10 +88,6 @@ let videoSrc = ref([]);
 let progress = ref(0);
 let allMedia = ref([]);
 
-
-// console.log('disable', disable)
-
-
 const usePoll = () => {
   store.openPoll();
 };
@@ -102,7 +98,6 @@ const compose = async () => {
   }
   if (allFiles.value.length > 0) {
     loading.value = true;
-    // setProgress();
     const {imageData, videoData, media, emit, progress, error} = await useFile(allFiles.value)
     if(error) {
       resetVals();
