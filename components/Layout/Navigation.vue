@@ -50,6 +50,7 @@
                         :src="logouts" alt="" class="pl-1 icon-hover">
                         <p class= "transition-all
                         ml-5 hidden xl:block">Logout</p></li>
+                        
                 </ul>
             </div>
         </div>

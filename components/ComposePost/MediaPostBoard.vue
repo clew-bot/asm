@@ -9,7 +9,6 @@
   opacity: 0;
 }</style>
 <template>
-  <!-- <button @click="checkVal">chccccc</button> -->
   <Transition>
   <v-progress-linear
      v-if="loading"
@@ -51,6 +50,7 @@
     <IconComponent
       class="pl-2 rotate-90 ml-2"
       :props="{ name: 'mdi-poll', color: 'var(--postIcon)' }"
+      @click="usePoll"
     />
     <IconComponent
       class="pl-1 mt-1 hover:-rotate-45 transition-all"
@@ -72,6 +72,7 @@
 import { usePostStore } from "~~/store/postStore";
 const store = usePostStore();
 const disable = computed(() => props.post);
+const disable2 = ref(false);
 const props = defineProps(["post"]);
 const emit = defineEmits(["userPosted"]);
 const photoData = ref([]);
@@ -87,22 +88,16 @@ let videoSrc = ref([]);
 let progress = ref(0);
 let allMedia = ref([]);
 
-const setProgress = () => {
-  progress.value = 0;
-  const interval = setInterval(() => {
-    progress.value += 10;
-    if (progress.value > 100) {
-      progress.value = "Hang on..."
-      clearInterval(interval);
-    }
-  }, 300);
+const usePoll = () => {
+  store.openPoll();
 };
 
 const compose = async () => {
+  if (store.pollOpen === true) {
+    store.submitPoll = true;
+  }
   if (allFiles.value.length > 0) {
     loading.value = true;
-    setProgress();
-    
     const {imageData, videoData, media, emit, progress, error} = await useFile(allFiles.value)
     if(error) {
       resetVals();
@@ -113,11 +108,17 @@ const compose = async () => {
       vidData.value = videoData;
       uploadImageLoading.value = emit;
       allMedia.value = media;
+      
     }
   } else {
     await store.composePost();
+    store.submitPoll = false;
+    store.pollOpen = false;
+    store.pollOk = true;
+
     emit("userPosted", true);
-    countDown = ref(5);
+    console.log("Yssss")
+    countDown.value = 5;
     interval = setInterval(() => {
       countDown.value--;
     }, 1000);
@@ -136,6 +137,9 @@ watch(uploadImageLoading, async (val) => {
       media: allMedia.value,
     };
     await store.composePost(data);
+    store.submitPoll = false;
+    store.pollOpen = false;
+    store.pollOk = true;
     resetVals();
     progress.value = 100;
     emit("userPosted", true);

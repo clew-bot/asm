@@ -36,6 +36,11 @@ const UserPostSchema = new mongoose.Schema({
         default: [],
         ref: "ReactionModel",
     },
+    poll: {
+        type: Object,
+        default: {},
+        ref: "PollModel",
+    },
     },
     { timestamps: true }
     );

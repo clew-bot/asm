@@ -6,7 +6,8 @@
     <template #header>Messages</template>
     <template #rightSide><LayoutRightBarSuggested/></template>
     <div>
-      <MessagesMessageUsers :props="props"/>
+      <!-- <MessagesMessageUsers :props="props"/> -->
+      <MessagesPrivateMessages :props="response"/>
     </div>
 </NuxtLayout>
 
@@ -16,12 +17,12 @@
 import { useMessageStore } from '~~/store/messageStore';
 const messageStore = useMessageStore();
 
-console.log(await messageStore.getMyMessages())
+const route = useRoute();
+console.log(route.params.id)
+const userHandle = route.params.id;
 
-const props = await messageStore.getMyMessages();
-// const response = await messageStore.getMessageUsers();
-
-
+const response = await messageStore.getPrivateMessages(userHandle);
+console.log(response)
 
 definePageMeta({
 layout: false,
