@@ -29,8 +29,8 @@
             :to="`/profile/${user.handleName}`"
             class="flex items-center"
           >
-            <v-button class="rounded-lg p-2 bg-slate-700 text-xs font-semibold"
-              >View</v-button
+            <v-btn class="rounded-lg p-2 bg-slate-700 text-xs font-semibold"
+              >View</v-btn
             >
           </NuxtLink>
         </div>
