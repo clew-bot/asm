@@ -17,10 +17,15 @@
         <!-- Loop over the Suggestions -->
         <div
          v-for="user in theSuggestions" :key="user._id"
-         class="flex p-1"
+         class="flex justify-between items-center p-1"
         >
-        <StatusUserAvatar :props="user.profilePicture" :size="70"/>
-        <div class="semi-bold">{{ user.username }}</div>
+        <div class="flex items-center">
+            <NuxtLink :to="`/profile/${user.handleName}`" class="flex items-center">
+        <StatusUserAvatar :props="user.profilePicture" :size="40"/>
+        <div class="semi-bold pl-1 font-bold">{{ user.username }}</div>
+            </NuxtLink>
+    </div>
+        <v-button class="rounded-lg p-2 bg-blue-500 text-xs font-semibold">Add</v-button>
     </div>
                </v-card>
            </div>

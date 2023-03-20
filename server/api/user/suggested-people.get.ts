@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
 
     // Get suggested people but not the current user
     // const suggestedPeople = await UserModel.find({ _id: { $ne: new toId(id) } }).limit(5).select(['username', 'profilePicture', 'name'])
-    const suggestedPeople = await UserModel.find({_id: { $ne: new toId(id) }}).limit(3).select(['username', 'profilePicture', 'name'])
+    const suggestedPeople = await UserModel.find({_id: { $ne: new toId(id) }}).limit(3).select(['username', 'profilePicture', 'name', 'handleName'])
 
     console.log("Suggested People From Server: ", suggestedPeople)
     return suggestedPeople;
