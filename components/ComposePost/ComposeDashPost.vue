@@ -27,9 +27,6 @@
 import { usePostStore } from '~~/store/postStore';
 const store = usePostStore();
 const userPost = ref("");
-const cloneUserPost = ref(null);
-const clonedText = ref("");
-
 
 const emit = defineEmits(["updatePost"]);
 const props = defineProps(['reset']);

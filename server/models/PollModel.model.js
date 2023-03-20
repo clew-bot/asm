@@ -13,6 +13,11 @@ const PollModel = new mongoose.Schema({
         default: [],
         ref: "User",
     },
+    votedBy: {
+        type: Array,
+        default: [],
+        ref: "User",
+    },
     },
     { timestamps: true }
     );
