@@ -89,6 +89,12 @@ export const useUserStore = defineStore('user', {
           method: "GET",
         });
         useUserStore().notificationCount = response.notificationCount;
+      },
+      getSuggestedPeople: async () => {
+        const response = await $fetch("/api/user/suggested-people", {
+          method: "GET",
+        });
+        return response;
       }
     },
   })

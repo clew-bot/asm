@@ -2,8 +2,10 @@
 </style>
 <template>
   <div>
-<h2 class="text-center text-5xl font-bold pb-52"></h2>
-<TestTwo/>
+<h2 class="text-center text-5xl font-bold">
+  <div>Another Social Media</div>
+</h2>
+
   </div>
 </template>
 

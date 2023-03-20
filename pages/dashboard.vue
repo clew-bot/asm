@@ -78,23 +78,6 @@ store.$subscribe((mutation, state) => {
     isDisabled.value = true;
   }
 
-  //   if(mutation.events.key === 'pollOk' && mutation.events.newValue === true) {
-  //     console.log("i'm here", store.pollOpen)
-  //     isDisabled.value = true;
-  //   if (store.pollOpen) {
-  //     isDisabled.value = true;
-  //   }
-  //   else if (store.pollOk) {
-  //     isDisabled.value = false;
-  //   }
-  // } else if (mutation.type === "patch object" && mutation.storeId === 'post') {
-  //   if (store.post.length === 0 || !store.pollOk) {
-  //     isDisabled.value = true;
-  //   }
-  //   else {
-  //     isDisabled.value = false;
-  //   }
-  // }
 });
 
 const getValue = (val) => {
@@ -106,10 +89,7 @@ const getValue = (val) => {
     } else {
       isDisabled.value = false;
     }
-    // thePost.value = state.post
   });
-
-  // val.length === 0 ? isDisabled.value = true : isDisabled.value = false;
 };
 
 // Watch for changes?
