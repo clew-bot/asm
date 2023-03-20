@@ -19,7 +19,7 @@
                 <div class="ok">
                   <div v-if="!openResults">
                   <v-radio
-                    v-for="option in poll.poll"
+                    v-for="option in poll.options"
                     :key="option"
                     :label="option.value"
                     :value="option"
@@ -34,7 +34,7 @@
               </v-radio-group>
         
               <div class="flex justify-center items-center">
-              <v-btn class="m-2 normal-case grow " elevation="0" @click="handleVote(poll)">Vote</v-btn>
+              <v-btn :disabled="poll.votedBy.includes(userId)" class="m-2 normal-case grow " elevation="0" @click="handleVote(poll)">Vote</v-btn>
               
               <v-btn color="#f9fafb" prepend-icon="mdi-poll" class="m-2 normal-case grow font-bold text-slate-600"
               elevation="0" @click="toggleResults">
@@ -47,13 +47,15 @@
 
 <script setup>
 import { usePollStore } from '~~/store/pollStore';
+import { useUserStore } from '~~/store/userStore';
+const userStore = useUserStore();
 const store = usePollStore();
 const { poll } = defineProps(['poll'])
 const selectedOption = ref(null)
 const openResults = ref(false);
-
-console.log("The Poll: ", poll)
-
+const userId = ref(userStore.$state.userId);
+console.log("userId", userId.value)
+console.log(poll)
 // When a user clicks on an option save the option 
 // and the user id to the database
 
@@ -67,11 +69,12 @@ const changeOption = (option) => {
   console.log("selectedOption", selectedOption.value)
 }
 
-const handleVote = (option) => {
-  console.log(option);
-  const castVote = 
-  console.log("option", selectedOption.value)
-  // Do something with value
+const handleVote = async (option) => {
+
+  console.log("selectedOption", selectedOption.value)
+  console.log(option._id);
+  selectedOption.value.pollId = option._id
+  await store.castVote(selectedOption.value)
 }
 
 // console.log("props", poll)

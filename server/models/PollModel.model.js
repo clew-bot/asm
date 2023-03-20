@@ -4,10 +4,24 @@ const PollModel = new mongoose.Schema({
         type: String,
         required: true,
     },
-    poll: {
-        type: Object,
-        required: true,
-    },  
+    // poll: {
+    //     type: Object,
+    //     required: true,
+    // },  
+    options: [{
+        label: {
+          type: String,
+          required: true,
+        },
+        value: {
+          type: String,
+          required: true,
+        },
+        votes: {
+          type: Number,
+          default: 0,
+        },
+      }],
     votes: {
         type: Array,
         default: [],

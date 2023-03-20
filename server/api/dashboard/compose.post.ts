@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
         console.log("true!!!")
         const createPoll = await PollModel.create({
             title: body.post,
-            poll: body.poll,
+            options: body.poll,
     })
     console.log('createPoll', createPoll)
     pollRef = createPoll._id
@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
 
     const populatedPoll = await postStatus.populate('author', ['username', 'handleName', 'profilePicture'])
 
-    const populatedPost = await populatedPoll.populate('poll', ['title', 'poll'])
+    const populatedPost = await populatedPoll.populate('poll', ['title', 'options', 'votedBy'])
 
  
 
