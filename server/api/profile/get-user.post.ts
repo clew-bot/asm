@@ -11,7 +11,6 @@ export default defineEventHandler(async (event) => {
     const user2 = await UserSchema.findOne({ handleName: body })
     .populate({ path: "posts", populate: { path: "author" }, options: { sort: { createdAt: -1 } } })
 
-    console.log('user2: ', user2)
     if( user2?.pinnedPost === "") {
         console.log('no pinned post')
         return user2
