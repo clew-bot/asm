@@ -18,7 +18,7 @@
         <div class="ok">
           <div v-if="!openResults">
             <v-radio
-            :disabled="poll.votedBy.includes(userId) || disabled"
+            :disabled="poll.votedBy?.includes(userId) || disabled"
               v-for="option in poll.options"
               :key="option"
               :label="option.value"
@@ -75,6 +75,8 @@ const userId = ref(userStore.$state.userId);
 const disabled = ref(false);
 // When a user clicks on an option save the option
 // and the user id to the database
+
+console.log("poll", poll)
 
 const toggleResults = () => {
   console.log("openResults");

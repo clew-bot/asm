@@ -31,9 +31,11 @@
       </div>
     </div>
     <StatusAllMediaPost v-model="pinnedPost.media" />
+    <StatusPollView :poll="pinnedPost.poll" />
   </div>
 </template>
 
 <script setup>
 const { pinnedPost } = defineProps(["pinnedPost"]);
+console.log("PP", pinnedPost.poll)
 </script>
