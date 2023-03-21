@@ -60,7 +60,7 @@ const sendMessage = () => {
         message: message.value
     }
     messageStore.sendMessage(dto);
-
+    dialog.value = false;
 }
 </script>
 
