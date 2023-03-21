@@ -11,14 +11,14 @@ export default defineEventHandler(async (event) => {
     const id:any = await useStorage().getItem("user");
     const myId = new toId(id);
     const body = await readBody(event);
+    let toUserId;
     const {message, to} = body;
-    const toUserId = new toId(to);
-
-    // const messageContentToUser = await new MessageContentModel({
-    //     content: message,
-    //     from: myId,
-    //     users: [myId, toUserId]
-    // }).save();
+    if(body.to.length <= 20) {
+        const userId = await UserModel.findOne({ handleName: body.to})
+        toUserId = new toId(userId?._id);
+    } else {
+    toUserId = new toId(to);
+    }
      const messageContentToUser = await new MessageContentModel({
         content: message,
         owner: myId,

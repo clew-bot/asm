@@ -49,12 +49,13 @@
 </template>
 
 <script setup>
-import { useMessageStore } from '@/store/messageStore';
+import { useMessageStore } from '@/store/MessageStore';
 const {props} = defineProps(['props']);
 const dialog = ref(false);
 const message = ref('');
 const messageStore = useMessageStore();
 
+console.log("props from M", props)
 
 const sendMessage = () => {
     const dto = {

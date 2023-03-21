@@ -39,8 +39,6 @@ const pinnedPost = ref(null);
 
 onMounted(async () => {
   const data = await userStore.getProfileInfo();
- 
-  console.log("2121", data);
   name.value = data.username;
   pinnedPost.value = data.pinnedPost;
   profilePosts.value = userStore.$state.posts;

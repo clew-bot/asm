@@ -51,8 +51,9 @@
         <div class="flex flex-col gap-5">
           <v-card-text
             class="px-4 text-base text-white p-0 font-semibold"
-            v-html="status.content"
+
           >
+          {{ status.content }}
           </v-card-text>
           <StatusPollView v-if="status.poll" :poll="status?.poll"/>
           <!-- <div>

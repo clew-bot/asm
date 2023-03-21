@@ -1,9 +1,10 @@
 <template>
-  <v-card><div class="flex items-center gap-2 border-b-2 border-red-400">
+  <v-card ref="cardContainer" class="overflow-auto h-[400px]">
+    <div class="flex items-center gap-2">
     <NuxtLink to="/messages">
     <IconComponent :props="{ name: 'mdi-arrow-left' }"/>
     </NuxtLink> 
-    <div class="uppercase font-bold text-2xl text-green">Now Chatting with {{ username }}</div>
+    <div class="text-2xl text-white font-light">{{ username }}</div>
   </div>
     <div v-for="message in props" :key="message">
       <div class="flex p-2 items-start gap-2" :class="setUserCss(message)">
@@ -23,36 +24,65 @@
         </div>
       </div>
     </div>
-    <!-- <v-textarea
-      class="border-2"
-      v-model="message"
-      :label="`Message ${props[0].owner.handleName}...`"
-      variant="outline"
-      rows="1"
-      @keyup.enter="sendMessage"></v-textarea> -->
-      <v-container fluid>
-                 <v-textarea
-                v-model="userMessage"
-                label="Message"
-                auto-grow
-                rows="1"
-                color="white"
-                class="bg-zinc-700"
-                hide-details="true"
-                hint="Press enter to send"
-                variant="outline"
-                ></v-textarea>
-            </v-container>
+      <hr>
+
   </v-card>
+  <div class="flex pl-3 justify-center md:pb-2 pb-20 items-center flex-">
+                 <v-textarea
+                 v-model="message"
+                placeholder="Send a message..."
+                rows="1"
+                color="#fff"
+                class="bg-slate-500"
+                hide-details="true"
+                variant="outlined"
+                ></v-textarea>
+                <v-btn      @click="sendMessage" flat  class="bg-slate-400 m-4 jus text-black">Send 📨</v-btn>
+              </div>
 </template>
 
 <script setup>
 import { useUserStore } from "~~/store/userStore";
+import { useMessageStore } from '@/store/MessageStore';
 const userStore = useUserStore();
 const { props } = defineProps(["props"]);
 const route = useRoute();
 const username = route.params.id;
 const userMessage = ref("");
+const cardContainer = ref(null); // cr
+
+const message = ref('');
+const messageStore = useMessageStore();
+
+
+const router = useRouter();
+const id = router.currentRoute.value.params.id;
+console.log("id", id)
+// onMounted(()=>{
+  
+//   cardContainer.value.$nextTick(() => {
+//     console.log("mounted", cardContainer.value)
+//         cardContainer.value.scrollTop = cardContainer.value.scrollHeight;
+//       });
+//   })
+
+console.log("props from PM", props)
+
+const sendMessage = () => {
+    const dto = {
+        to: id,
+        message: message.value
+    }
+    messageStore.sendMessage(dto);
+
+}
+
+
+
+
+
+
+
 const setUserCss = (message) => {
   if (message.owner._id === userStore.$state.userId) {
     return "justify-start flex-row-reverse ";
