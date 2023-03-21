@@ -74,7 +74,6 @@
         <div class="border"></div>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="checkMe"></v-btn>
           <v-btn
           :disabled="disabled"
           color="blue" variant="text" @click="dialog = false">

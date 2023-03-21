@@ -128,7 +128,9 @@ const handleClose = (event) => {
 
 const handleAddPoll = () => {
   items.value.push({
+    icon: "mdi-dots-grid",
     id: items.value.length + 1,
+    label: "Enter an Option...",
     value: "",
   });
 };

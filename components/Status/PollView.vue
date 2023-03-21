@@ -30,13 +30,24 @@
           <div
             v-else
           >
-            <h2>Results</h2>
-            <ul>
+          <!-- <h2>Results</h2> -->
+          <v-radio
+            :disabled="true"
+              
+              v-for="option in poll.options"
+              :key="option"
+              :label="`${option.value} - ${option.votes} vote(s)`"
+              :value="option"
+              @click="changeOption(option)"
+              class="text-slate-50 z-10 text-xs opacity-100"
+            ></v-radio>
+          
+            <!-- <ul>
               <li v-for="(option, index) in poll.options" :key="index">
                 {{ option.value }}
                 {{ option.text }} - {{ option.votes }} vote(s)
               </li>
-            </ul>
+            </ul> -->
           </div>
         </div>
       </v-radio-group>
