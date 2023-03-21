@@ -43,7 +43,7 @@
 
       <div class="flex justify-center items-center">
         <v-btn
-          :disabled="poll.votedBy.includes(userId) || disabled"
+          :disabled="poll.votedBy?.includes(userId) || disabled"
           class="m-2 normal-case grow"
           elevation="0"
           @click="handleVote(poll)"
