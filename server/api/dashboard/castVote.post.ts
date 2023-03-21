@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
         }
     )
 
-    console.log("POLL:", poll)
+    // console.log("POLL:", poll)
 
-    return "Hi"
+    return poll
 })
