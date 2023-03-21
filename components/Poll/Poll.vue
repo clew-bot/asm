@@ -93,16 +93,13 @@ const items = ref([
   },
 ]);
 const watchItems = watch(items.value, (newVal, oldVal) => {
-  console.log("run")
   if (
     postStore.pollOpen &&
     Object.values(newVal).some((item) => item.value === "")
   ) {
-    console.log("Should be disabled");
     postStore.pollOk = false;
     return;
   } else {
-    console.log("Should be enabled");
     postStore.pollOk = true;
   }
 });
@@ -113,7 +110,6 @@ const watcherSubmit = watchEffect(async () => {
   }
   if (postStore.submitPoll) {
     if (postStore.pollOpen) {
-      console.log("testing", items.value);
       postStore.poll = items.value;
     } else {
       postStore.poll = null;
@@ -134,8 +130,6 @@ const handleClose = (event) => {
 const handleAddPoll = () => {
   items.value.push({
     id: items.value.length + 1,
-    label: "Enter an Option...",
-    icon: "mdi-dots-grid",
     value: "",
   });
 };

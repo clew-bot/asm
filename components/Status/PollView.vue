@@ -18,6 +18,7 @@
         <div class="ok">
           <div v-if="!openResults">
             <v-radio
+            :disabled="poll.votedBy.includes(userId) || disabled"
               v-for="option in poll.options"
               :key="option"
               :label="option.value"
@@ -42,7 +43,7 @@
 
       <div class="flex justify-center items-center">
         <v-btn
-          :disabled="poll.votedBy.includes(userId)"
+          :disabled="poll.votedBy.includes(userId) || disabled"
           class="m-2 normal-case grow"
           elevation="0"
           @click="handleVote(poll)"
@@ -71,6 +72,7 @@ const { poll } = defineProps(["poll"]);
 const selectedOption = ref(null);
 const openResults = ref(false);
 const userId = ref(userStore.$state.userId);
+const disabled = ref(false);
 // When a user clicks on an option save the option
 // and the user id to the database
 
@@ -86,7 +88,11 @@ const changeOption = (option) => {
 
 const handleVote = async (option) => {
   selectedOption.value.pollId = option._id;
-  await store.castVote(selectedOption.value);
+  const newPolls = await store.castVote(selectedOption.value);
+  console.log("newPolls", newPolls)
+  selectedOption.value.votes = selectedOption.value.votes + 1;
+  disabled.value = true;
+ 
 };
 
 const getResults = async () => {};
