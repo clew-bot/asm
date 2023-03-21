@@ -61,7 +61,7 @@
       class="absolute right-6 top-3 normal-case rounded-lg font-semibold tracking-tight"
       color="#0284c7"
       :class="disable ? 'bg-gray-700 text-white' : ' '"
-      :disabled="disable"
+      :disabled="disable || disable2"
       :elevation="disable ? '0' : '5'"
       >{{ countDown }}</v-btn
     >
@@ -93,6 +93,7 @@ const usePoll = () => {
 };
 
 const compose = async () => {
+  disable2.value = true;
   if (store.pollOpen === true) {
     store.submitPoll = true;
   }
@@ -125,6 +126,7 @@ const compose = async () => {
     setTimeout(() => {
       clearInterval(interval);
       countDown.value = "Post";
+      disable2.value = false;
     }, 5000);
   }
 };
