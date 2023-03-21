@@ -11,7 +11,7 @@
 }
 </style>
 <template>
-  <div>
+  <div :class="theRoute === '/dashboard' ? 'bg-inherit' : 'bg-indigo-900'">
     <v-card class="mx-6 bg-zinc-500 border-t-4 border-t-slate-100">
       <v-radio-group>
         <p class="newFont text-xl font-bold p-2 text-black">{{ poll.title }}</p>
@@ -76,10 +76,13 @@ const disabled = ref(false);
 // When a user clicks on an option save the option
 // and the user id to the database
 
-console.log("poll", poll)
+// check url 
+// if url is /polls/:id
+// change background of the card to slate-100
+ const router = useRouter();
 
+const theRoute = router.currentRoute.value.path;
 const toggleResults = () => {
-  console.log("openResults");
   openResults.value = !openResults.value;
 };
 
