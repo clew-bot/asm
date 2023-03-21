@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 const config = useRuntimeConfig();
     export default defineEventHandler(async (event) => {
         const cookie:any = getCookie(event, "altine");
-        console.log('y/n',(event.req.url === "/api/dashboard/get-posts"))
         if (event.req.url?.includes("/api/")) {
         jwt.verify(cookie, config.JWT_SECRET, async (err:any, decoded:any) => {
             if (err) {
