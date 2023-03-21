@@ -54,9 +54,6 @@ const {props} = defineProps(['props']);
 const dialog = ref(false);
 const message = ref('');
 const messageStore = useMessageStore();
-
-console.log("props from M", props)
-
 const sendMessage = () => {
     const dto = {
         to: props,

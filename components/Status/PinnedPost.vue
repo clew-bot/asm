@@ -31,7 +31,7 @@
       </div>
     </div>
     <StatusAllMediaPost v-model="pinnedPost.media" />
-    <StatusPollView :poll="pinnedPost.poll" />
+    <StatusPollView class="bg-indigo-900 pb-8" :poll="pinnedPost.poll" />
   </div>
 </template>
 

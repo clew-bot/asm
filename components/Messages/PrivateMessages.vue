@@ -1,11 +1,11 @@
 <template>
-  <v-card ref="cardContainer" class="overflow-auto h-[400px]">
+  <v-card ref="cardContainer">
     <div class="flex items-center gap-2">
-    <NuxtLink to="/messages">
-    <IconComponent :props="{ name: 'mdi-arrow-left' }"/>
-    </NuxtLink> 
-    <div class="text-2xl text-white font-light">{{ username }}</div>
-  </div>
+      <NuxtLink to="/messages">
+        <IconComponent :props="{ name: 'mdi-arrow-left' }" />
+      </NuxtLink>
+      <div class="text-2xl text-white font-light">{{ username }}</div>
+    </div>
     <div v-for="message in props" :key="message">
       <div class="flex p-2 items-start gap-2" :class="setUserCss(message)">
         <NuxtLink :to="`/profile/${message.owner.handleName}`">
@@ -13,75 +13,70 @@
             <img :src="message.owner.profilePicture" alt="avatar" />
           </v-avatar>
         </NuxtLink>
-          <div
-            class="talk-bubble tri-right left-top"
-            :class="setUserCssChat(message)"
-          >
-            <div class="talktext font-bold z-10 text-black">
-              <p>{{ message.content }}</p>
-              <span class="text-sm font-extralight">{{   createdAtLog(message.createdAt)  }}</span>
-            </div>
+        <div
+          class="talk-bubble tri-right left-top"
+          :class="setUserCssChat(message)"
+        >
+          <div class="talktext font-bold z-10 text-black">
+            <p>{{ message.content }}</p>
+            <span class="text-sm font-extralight">{{
+              createdAtLog(message.createdAt)
+            }}</span>
+          </div>
         </div>
       </div>
     </div>
-      <hr>
-
+    <hr />
   </v-card>
   <div class="flex pl-3 justify-center md:pb-2 pb-20 items-center flex-">
-                 <v-textarea
-                 v-model="message"
-                placeholder="Send a message..."
-                rows="1"
-                color="#fff"
-                class="bg-slate-500"
-                hide-details="true"
-                variant="outlined"
-                ></v-textarea>
-                <v-btn      @click="sendMessage" flat  class="bg-slate-400 m-4 jus text-black">Send 📨</v-btn>
-              </div>
+    <v-textarea
+      v-model="message"
+      placeholder="Send a message..."
+      rows="1"
+      color="#fff"
+      class="bg-slate-500"
+      hide-details="true"
+      variant="outlined"
+    ></v-textarea>
+    <v-btn
+      :disabled="disabled"
+      @click="sendMessage"
+      flat
+      class="bg-slate-400 m-4 jus text-black"
+      >Send 📨</v-btn
+    >
+  </div>
 </template>
 
 <script setup>
 import { useUserStore } from "~~/store/userStore";
-import { useMessageStore } from '@/store/MessageStore';
+import { useMessageStore } from "@/store/MessageStore";
 const userStore = useUserStore();
 const { props } = defineProps(["props"]);
 const route = useRoute();
 const username = route.params.id;
 const userMessage = ref("");
 const cardContainer = ref(null); // cr
-
-const message = ref('');
+const disabled = ref(false);
+const message = ref("");
 const messageStore = useMessageStore();
-
+const emit = defineEmits(["messageSent"]);
 
 const router = useRouter();
 const id = router.currentRoute.value.params.id;
-console.log("id", id)
-// onMounted(()=>{
-  
-//   cardContainer.value.$nextTick(() => {
-//     console.log("mounted", cardContainer.value)
-//         cardContainer.value.scrollTop = cardContainer.value.scrollHeight;
-//       });
-//   })
-
-console.log("props from PM", props)
-
-const sendMessage = () => {
-    const dto = {
-        to: id,
-        message: message.value
-    }
-    messageStore.sendMessage(dto);
-
-}
-
-
-
-
-
-
+const sendMessage = async () => {
+  if (message.value === "") {
+    return;
+  }
+  disabled.value = true;
+  const dto = {
+    to: id,
+    message: message.value,
+  };
+  await messageStore.sendMessage(dto);
+  emit("messageSent", message.value);
+  disabled.value = false;
+};
 
 const setUserCss = (message) => {
   if (message.owner._id === userStore.$state.userId) {
@@ -110,7 +105,6 @@ const setUserCssChat = (message) => {
   background-color: #f2f3f3;
   margin-left: 10px;
   border-radius: 20px;
-
 }
 .tri-right.left-top:after {
   content: " ";

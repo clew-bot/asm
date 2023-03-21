@@ -11,7 +11,7 @@
 }
 </style>
 <template>
-  <div :class="theRoute === '/dashboard' ? 'bg-inherit' : 'bg-indigo-900'">
+  <div :class="theRoute === '/dashboard' ? 'bg-none' : 'bg-none'">
     <v-card class="mx-6 bg-zinc-500 border-t-4 border-t-slate-100">
       <v-radio-group>
         <p class="newFont text-xl font-bold p-2 text-black">{{ poll.title }}</p>

@@ -1,5 +1,7 @@
 <style scoped>
-
+.newFont {
+    font-family: 'Unbounded', cursive !important;
+}
 </style>
 <template>
     <div>
@@ -16,7 +18,7 @@
               >
             </v-avatar>
             </NuxtLink>
-              <div class="font-bold text-green-400 overflow-hidden text-ellipsis">{{theUsers.users[0].username}}:</div> 
+              <div class="newFont font-lighter text-yellow-400 overflow-hidden text-ellipsis">{{theUsers.users[0].username}}:</div> 
               <div class="max-w-[40%] lg:max-w-[80%] overflow-auto whitespace-nowrap text-ellipsis">&nbsp;{{theUsers.latestMessage}}</div>
             </div>
         </v-card>
