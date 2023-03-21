@@ -114,11 +114,9 @@ const refresh = async () => {
 };
 const saveEditInputs = async () => {
   disabled.value = true;
-  console.log('saveEditInputs');
   await store.editDetails();
   setTimeout(() => {
     dialog.value = false;
-    console.log('sh', store.$state.handle)
     if(store.handle === "") {
       router.go();
     } else if (store.handle !== "") {
@@ -131,9 +129,5 @@ const saveEditInputs = async () => {
 const openTab = (tab) => {
   theTab.value = tab;
 
-};
-
-const checkMe = () => {
-  console.log(theTab.value);
 };
 </script>

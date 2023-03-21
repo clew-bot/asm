@@ -30,7 +30,6 @@ export default defineEventHandler(async (event) => {
         users: { $all: [myId, toUserId] }
     });
 
-    console.log('conversation: ', conversation);
 
     if (conversation) {
         // set latestMessage
@@ -56,7 +55,6 @@ export default defineEventHandler(async (event) => {
             { _id: toUserId },
             { $push: { conversations: newConversation._id } }
         );
-        console.log(updateUser)
     }
 
     const options = {

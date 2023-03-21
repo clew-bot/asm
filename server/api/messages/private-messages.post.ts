@@ -11,8 +11,6 @@ export default defineEventHandler(async (event) => {
 
   // find id of user 
   const theUser = await UserModel.findOne({ handleName: body }).select('_id');
-  console.log(body);
-  console.log(theUser);
 
 //   find messages from me to user
     const messagesToUser = await MessageContentModel.find({

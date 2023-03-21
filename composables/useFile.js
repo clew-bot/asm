@@ -11,8 +11,6 @@ export default async function (allFiles) {
   photoData.value = [];
   vidData.value = [];
   scopedFiles.value = allFiles;
-  console.log('af', allFiles)
-  console.log('af', allFiles.length)
 
   for (count = 0; count <= allFiles.length - 1; count++) {
     if(allFiles[count].size / 1048576 > 50 ) {
@@ -49,7 +47,7 @@ const saveImage = async (formData, backUpFormData) => {
   });
   console.log(data)
   if (data) {
-    console.log('working...', data)
+    console.log('working...')
     const fileType = data.data.value.data.media.slice(-4);
     // console.log('fff2222', fileType)
     if (fileType in possibleImageTypes) {

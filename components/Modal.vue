@@ -185,23 +185,14 @@ import { set } from "mongoose";
         loading[i] = false;
       }, 2000);
     };
-
-    const checkValues = () => {
-        console.log(emailRules.value)
-    }
     const handleCreateAccount = async (e) => {
-
-        console.log(Object.fromEntries(new FormData(e.target)))
-
         const { username, password, securePassword, email, birthday } = Object.fromEntries(new FormData(e.target))
-        console.log(username, password, securePassword, email, birthday)
         const data = {
             username,
             password,
             email,
             birthday
         }
-        console.log(data)
         const clientSignUpToken = await store.signUp(data)
         console.log(clientSignUpToken.error)
         if (clientSignUpToken.error) {

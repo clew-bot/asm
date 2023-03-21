@@ -146,6 +146,5 @@ const deleteNotification = async (fromId, notifId) => {
     notifId,
   };
   const deleteNotif = await notifStore.deleteNotif(dto);
-  console.log('deleteNotif: ', deleteNotif)
 };
 </script>

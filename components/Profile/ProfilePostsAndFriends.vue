@@ -62,8 +62,4 @@ const currentItem = ref("tab-Web");
 const items = ref([`${username.value}'s Posts`, `${username.value}'s friends`]);
 const components = ref(["Your Posts", "Your Friends"]);
 
-
-const checkValues = () => {
-  console.log(currentItem.value);
-};
 </script>

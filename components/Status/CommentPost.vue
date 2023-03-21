@@ -116,9 +116,4 @@ const loadMoreComments = (val) => {
     loadMore.value = false;
 };
 
-// const checkValue = computed((val) => {
-//     console.log('modelValue', modelValue)
-//     console.log('val', val)
-//     return modelValue
-// })
 </script>

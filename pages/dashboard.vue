@@ -84,7 +84,6 @@ const getValue = (val) => {
   //convert to if else
   store.$subscribe((mutation, state) => {
     if (store.post.length === 0) {
-      console.log("trye");
       isDisabled.value = true;
     } else {
       isDisabled.value = false;

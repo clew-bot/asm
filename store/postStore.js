@@ -24,7 +24,7 @@ export const usePostStore = defineStore("post", {
       //Needs refactor
       if(usePostStore().pollOpen) {
         setTimeout(async () => {
-          console.log("The payload for compose post (pt.1): ", usePostStore()?.poll)
+
           const data = {
             post: usePostStore()?.post,
             postImages: payload?.images,
@@ -40,11 +40,9 @@ export const usePostStore = defineStore("post", {
           usePostStore().posts.unshift(response.populatedPost);
           usePostStore().post = "";
           usePostStore().poll = {};
-          console.log("REsponse: ", response)
           return response;
         }, 100);
       } else {
-      console.log("The payload for compose post (pt.2 ): ", payload);
       const data = {
         post: usePostStore()?.post,
         postImages: payload?.images,
@@ -77,7 +75,6 @@ export const usePostStore = defineStore("post", {
         method: "POST",
         body: payload,
       });
-      console.log(response)
       return response;
     },
     check: async (payload) => {
@@ -94,7 +91,6 @@ export const usePostStore = defineStore("post", {
         return response;
       } else {
         usePostStore().posts.push(...response);
-        console.log("The posts: ", usePostStore().posts);
         return response;
       }
  
@@ -131,7 +127,6 @@ export const usePostStore = defineStore("post", {
     },
 
     openPoll: () => {
-      console.log('hit')
       usePostStore().pollOpen = !usePostStore().pollOpen
     },
 

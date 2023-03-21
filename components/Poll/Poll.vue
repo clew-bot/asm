@@ -119,7 +119,6 @@ const watcherSubmit = watchEffect(async () => {
 });
 
 const handleClose = (event) => {
-  console.log(event);
   for (let i = 0; i < items.value.length; i++) {
     if (items.value[i].id === event) {
       items.value.splice(i, 1);

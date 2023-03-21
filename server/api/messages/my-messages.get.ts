@@ -28,7 +28,6 @@ const toId = mongoose.Types.ObjectId;
 
 
 export default defineEventHandler(async (event) => {
-  // console.log("im hit");
   const id: any = await useStorage().getItem("user");
   const myId = new toId(id);
   console.log('myID: ', myId);

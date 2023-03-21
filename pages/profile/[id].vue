@@ -47,7 +47,6 @@ onMounted(async () => {
   // console.log("pinnedPost", pinnedPost.value)
   userPosts.value = data.posts;
   name.value = data.username;
-  console.log("data", data)
   dto.value = data;
   //   if(store.$state.userId === data._id){
   //   router.push('/profile')

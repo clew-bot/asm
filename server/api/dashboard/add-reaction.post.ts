@@ -7,7 +7,6 @@ const toId = mongoose.Types.ObjectId;
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    console.log('body: ', body)
     const theReaction = body.theReaction;
     const postIden = body.statusId;
     const postId = new toId(postIden);

@@ -37,5 +37,4 @@
 
 <script setup>
 const { pinnedPost } = defineProps(["pinnedPost"]);
-console.log("PP", pinnedPost.poll)
 </script>

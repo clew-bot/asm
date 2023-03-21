@@ -23,7 +23,6 @@ export default defineEventHandler(async (event) => {
         _id: notifId
     })
 
-    console.log('delting notif: ', deleteNotifFromMe)
 
     return true;
 });

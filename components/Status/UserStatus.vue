@@ -277,7 +277,6 @@ const getVal = (arg) => {
 };
 
 const addReaction = async (reaction) => {
-  console.log(reaction);
   Object.keys(utilityObj.value).forEach((key) => {
     utilityObj.value[key].toolTip = false;
   });
@@ -295,6 +294,5 @@ const addReaction = async (reaction) => {
   }
 
   const postReaction = await store.addReaction(reaction);
-  console.log("pr: ", postReaction);
 };
 </script>

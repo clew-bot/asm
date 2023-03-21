@@ -36,7 +36,6 @@ import '@vuepic/vue-datepicker/dist/main.css'
 const date = ref();
 const emit = defineEmits(["birthdayDate"])
 watch(date, () => {
-    console.log('watched', format(date.value));
     emit('birthdayDate', format(date.value))
 })  
 const maxDate = ref(new Date(2022, (new Date()).getMonth(), (new Date()).getDate()));

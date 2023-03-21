@@ -94,7 +94,6 @@ const changeOption = (option) => {
 const handleVote = async (option) => {
   selectedOption.value.pollId = option._id;
   const newPolls = await store.castVote(selectedOption.value);
-  console.log("newPolls", newPolls)
   selectedOption.value.votes = selectedOption.value.votes + 1;
   disabled.value = true;
  

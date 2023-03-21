@@ -19,8 +19,8 @@
                             <p class="ml-5 hidden xl:block animate-pulse">Home</p></li>
                     </NuxtLink>
                     <NuxtLink to="/notifications">
-                        <li class="xl:p-4 sm:p-3 flex justify-center items-center  cursor-pointer">
-                            <v-badge :content="(count || 0)" v-if="(count > 0)">
+                        <li class="xl:p-5 sm:p-3 flex justify-center items-center  cursor-pointer">
+                            <v-badge offset-x="5" color="red" :content="(count || 0)" v-if="(count > 0)">
                                 <img :src="bell" alt="" class="pl-1 icon-hover">
                             </v-badge>
                             <img v-else :src="bell" alt="" class="pl-1 icon-hover">
@@ -102,7 +102,6 @@ const store = useUserStore();
 const count = ref(store.$state?.notificationCount)
 const notificationNumber = store.$subscribe((state) => {
     if(state.events.key === 'notificationCount') {
-        console.log('hi')
         count.value = state.events.newValue
     }
 })
@@ -116,7 +115,6 @@ const notificationNumber = store.$subscribe((state) => {
 
 
 const logout = async () => {
-    console.log('logout')
     const loggingOut = await store.logout();
     navigateTo('/login')
     }

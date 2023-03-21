@@ -9,8 +9,6 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const userId = new toId(body.id)
     const id = new toId(myId);
-    console.log("sr: ", body.id);
-    console.log('sw: ', id)
     // add user to friend request list
     const addFriend = await UserModel.updateOne(
         { _id: userId },
@@ -22,7 +20,6 @@ export default defineEventHandler(async (event) => {
         type: "friendRequestReceived",
         from: id,
     }).save();
-    console.log(newNotificationForUser);
 
     const newNotificationForMe = await new NotificationModel({
         title: "Friend Request",
@@ -30,7 +27,6 @@ export default defineEventHandler(async (event) => {
         type: "friendRequestSent",
         from: userId,
     }).save();
-    console.log(newNotificationForMe);
 
     // add notification to user
     const addNotif = await UserModel.updateOne({ _id: userId }, { $push: { notifications: newNotificationForUser._id } });
@@ -38,7 +34,6 @@ export default defineEventHandler(async (event) => {
     // add notification to me
     const addNotifMe = await UserModel.updateOne({ _id: id }, { $push: { notifications: newNotificationForMe._id } });
 
-    console.log(addNotif);
         
     // console.log(addFriend)
     return "hi"

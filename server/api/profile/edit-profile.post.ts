@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 const toId = mongoose.Types.ObjectId;
 
 export default defineEventHandler(async (event) => {
-    console.log('hi from edit-profile')
     const id:any = await useStorage().getItem("user");
     const body = await readBody(event);
 

@@ -7,17 +7,14 @@ const toId = mongoose.Types.ObjectId;
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     let pollRef;
-    console.log('body', body)
     const id:any = await useStorage().getItem("user");
 
 
     if (Object.keys(body.poll).length !== 0) {
-        console.log("true!!!")
         const createPoll = await PollModel.create({
             title: body.post,
             options: body.poll,
     })
-    console.log('createPoll', createPoll)
     pollRef = createPoll._id
     }  
 
@@ -46,8 +43,5 @@ export default defineEventHandler(async (event) => {
         { _id: new toId(id) },
         { $push: { posts: postStatus._id } }
     );
-
-    // console.log('populatedPost', populatedPost)
-    console.log('populatedPoll', populatedPoll)
     return { error: false, message: "Post Created", populatedPost, populatedPoll };
 })

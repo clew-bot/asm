@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 const config = useRuntimeConfig();
     export default defineEventHandler(async (event) => {
-        console.log("run");
         const cookie:any = getCookie(event, "altine");
         console.log('y/n',(event.req.url === "/api/dashboard/get-posts"))
         if (event.req.url?.includes("/api/")) {

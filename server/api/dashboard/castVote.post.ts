@@ -6,7 +6,6 @@ const toId = mongoose.Types.ObjectId;
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    console.log('body', body)
     const id:any = await useStorage().getItem("user");
 
     // Find Poll and update the votes and the voters
@@ -29,7 +28,6 @@ export default defineEventHandler(async (event) => {
         }
     )
 
-    // console.log("POLL:", poll)
 
     return poll
 })

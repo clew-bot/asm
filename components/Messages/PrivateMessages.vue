@@ -53,10 +53,6 @@ const { props } = defineProps(["props"]);
 const route = useRoute();
 const username = route.params.id;
 const userMessage = ref("");
-
-console.log("props: ", props);
-console.log("userStore: ", userStore.$state.userId);
-
 const setUserCss = (message) => {
   if (message.owner._id === userStore.$state.userId) {
     return "justify-start flex-row-reverse ";

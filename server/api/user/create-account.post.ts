@@ -31,10 +31,9 @@ export default defineEventHandler(async (event) => {
         });
         setCookie(event, "altine", token);
         useStorage().setItem("user", newUser._id);
-        console.log(body.username, "has been created 🔥");
+
         return token
     } else {
-        console.log("User already exist");
         return { error: true, message: `User Already Exists`, };
     }
 })

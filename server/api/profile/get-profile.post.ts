@@ -24,18 +24,28 @@ export default defineEventHandler(async (event) => {
 
 
     // return user;
-    const user2 = await UserModel.findOne({ _id: new toId(id) })
-    .populate({ path: "posts", populate: { path: "author reactions" }, options: { sort: { createdAt: -1 } } })
-
-    console.log('user2: ', user2)
-    if( user2?.pinnedPost === "") {
-        console.log('no pinned post')
-        return user2
-    } else {
-      const user3 = await UserModel.findOne({ _id: new toId(id) })
-      .populate({ path: "posts pinnedPost", populate: { path: "author" }, options: { sort: { createdAt: -1 } } })
-      // console.log('user3: ', user3)
-      return user3
-    }
+    const user = await UserModel.findOne({ _id: new toId(id) })
+    .populate({
+      path: "posts",
+      populate: [
+        { path: "author" },
+        { path: "poll" } // Add this line to populate the polls property inside posts
+      ],
+      options: { sort: { createdAt: -1 } }
+    });
+  
+  if (user?.pinnedPost !== '') {
+    await user?.populate({
+      path: 'pinnedPost',
+      populate: [
+        { path: 'author' },
+        { path: 'poll' } // Add this line to populate the polls property inside pinnedPost
+      ]
+    });
+  }
+  
+  console.log('user: ', user);
+  return user;
+  
    
 })

@@ -48,11 +48,9 @@ const friends = userStore.$state.friends;
 // };
 
 const notificationNumber = notifStore.$subscribe((state) => {
-    console.log('ugh', state)
     if(state.events.key === 'notifications') {
         allNotifs.value = state.events.newValue
     }
-    console.log('ug333h', allNotifs.value)
 })
 
 onMounted(async () => {

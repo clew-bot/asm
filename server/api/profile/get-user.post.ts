@@ -18,7 +18,6 @@ export default defineEventHandler(async (event) => {
     options: { sort: { createdAt: -1 } }
   });
     if( user2?.pinnedPost === "" || user2?.pinnedPost === null || user2?.pinnedPost === undefined) {
-        console.log('no pinned post')
         return user2
     } else {
      const user3 = await UserSchema.findOne({ handleName: body })

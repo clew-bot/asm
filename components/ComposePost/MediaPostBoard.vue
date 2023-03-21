@@ -118,7 +118,6 @@ const compose = async () => {
     store.pollOk = true;
 
     emit("userPosted", true);
-    console.log("Yssss")
     countDown.value = 5;
     interval = setInterval(() => {
       countDown.value--;
@@ -169,7 +168,6 @@ const resetVals = () => {
 const deletePicture = (index) => {
   source.value.splice(index, 1);
   allFiles.value.splice(index, 1);
-  console.log('aaa', allFiles.value)
 };
 
 
@@ -189,9 +187,5 @@ const checkFileVideo = (e) => {
     };
     reader.readAsDataURL(file);
   }
-};
-
-const checkVal = () => {
-  console.log(loading.value);
 };
 </script>

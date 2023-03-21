@@ -56,12 +56,7 @@ const message = ref('');
 const messageStore = useMessageStore();
 
 
-
-console.log(props)
-
-
 const sendMessage = () => {
-    console.log('send message');
     const dto = {
         to: props,
         message: message.value

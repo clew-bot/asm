@@ -33,7 +33,7 @@ onMounted(async () => {
   const sorted = await data.value.getMyConversations.conversations.sort((a, b) => {
     return new Date(b.updatedAt) - new Date(a.updatedAt);
   });
-  console.log('data.value', data.value.getMyConversations.conversations)
+
   loading.value = false;
 });
 

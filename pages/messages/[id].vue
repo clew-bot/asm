@@ -18,11 +18,9 @@ import { useMessageStore } from '~~/store/messageStore';
 const messageStore = useMessageStore();
 
 const route = useRoute();
-console.log(route.params.id)
 const userHandle = route.params.id;
 
 const response = await messageStore.getPrivateMessages(userHandle);
-console.log(response)
 
 definePageMeta({
 layout: false,

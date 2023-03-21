@@ -26,7 +26,5 @@
 <script setup>
 
 const {props} = defineProps(['props'])
-console.log(props.getMyConversations.conversations)
-
 </script>
 

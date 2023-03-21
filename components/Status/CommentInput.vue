@@ -91,8 +91,6 @@ const theText = ref('');
 
 const profilePic = ref(userStore.$state.profilePicture)
 
-console.log(profilePic.value)
-console.log(userStore.$state.profilePicture)
 
 const sendComment = async () => {
   theText.value = theText.value.trim();

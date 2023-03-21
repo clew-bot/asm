@@ -4,9 +4,7 @@ import { builtinModules } from "module";
 import { type } from "os";
 
 export default defineEventHandler(async (event) => {
-    console.log("hi")
     const imageReader = await readBody(event);
-    console.log(imageReader)
 
     const response = await $fetch('https://thumbsnap.com/api/upload', {
         method: 'POST',
