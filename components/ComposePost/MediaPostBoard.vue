@@ -93,6 +93,7 @@ const usePoll = () => {
 };
 
 const compose = async () => {
+  store.submitPost = true;
   disable2.value = true;
   if (store.pollOpen === true) {
     store.submitPoll = true;
@@ -166,6 +167,9 @@ const resetVals = () => {
 }
 
 const deletePicture = (index) => {
+  console.log(source.value)
+  console.log(index)
+  videoSrc.value.splice(index, 1);
   source.value.splice(index, 1);
   allFiles.value.splice(index, 1);
 };

@@ -14,6 +14,7 @@ export const usePostStore = defineStore("post", {
     poll: {},
     submitPoll: false,
     pollOk: true,
+    submitPost: false,
   }),
   getters: {
     thePost: (state) => state.post,
