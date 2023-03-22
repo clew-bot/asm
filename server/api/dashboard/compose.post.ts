@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     let pollRef;
     const id:any = await useStorage().getItem("user");
+    let empty = false
 
 
     if (Object.keys(body.poll).length !== 0) {
@@ -16,13 +17,16 @@ export default defineEventHandler(async (event) => {
             options: body.poll,
     })
     pollRef = createPoll._id
+    empty = true;
     }  
 
-
-
+    let bodyPost = body.post
+    if (empty) {
+        bodyPost = ''
+    }
     const postStatus = await UserPost.create({
         author: new toId(id),
-        content: body.post,
+        content: bodyPost,
         photos: body?.postImages ?? [],
         videos: body?.postVideos ?? [],
         media: body?.postMedia ?? [],
