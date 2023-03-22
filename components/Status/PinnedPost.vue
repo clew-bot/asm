@@ -31,10 +31,13 @@
       </div>
     </div>
     <StatusAllMediaPost v-model="pinnedPost.media" />
-    <StatusPollView class="bg-indigo-900 pb-8" :poll="pinnedPost.poll" />
+    <div v-if="pinnedPost.poll !== null">
+    <StatusPollView  class="bg-indigo-900 pb-8" :poll="pinnedPost.poll" />
+    </div>
   </div>
 </template>
 
 <script setup>
 const { pinnedPost } = defineProps(["pinnedPost"]);
+console.log("hdhds", pinnedPost);
 </script>

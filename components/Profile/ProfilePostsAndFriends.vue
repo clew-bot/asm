@@ -40,12 +40,15 @@
             <div v-if="passProps.length > 0">
               <ProfileYourPostsTab v-model="passProps" :pinnedPost="pinnedPost"/>
             </div>
+            <div v-else-if="passProps.length === 0 && pinnedPost">
+              <StatusPinnedPost :pinnedPost="pinnedPost" />
+          </div>
             <div v-else>
               You have no new posts. Hell you don't even have any posts.
             </div>
           </div>
           <div v-else>
-            <ProfileYourFriendsTab />
+            <ProfileYourFriendsTab :friends="props.friends"/>
           </div>
         </v-card>
       </v-window-item>
@@ -55,7 +58,7 @@
 </template>
 
 <script setup>
-const props = defineProps(["modelValue", "username", "pinnedPost"]);
+const props = defineProps(["modelValue", "username", "pinnedPost", "friends"]);
 const passProps = ref(props.modelValue);
 const username = ref(props.username);
 const currentItem = ref("tab-Web");
