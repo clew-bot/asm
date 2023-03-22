@@ -3,7 +3,9 @@
   <NuxtLayout name="dash">
     <template #header>Bookmarks</template>
     <template #rightSide><LayoutRightBarSuggested /></template>
-    <div class="grid sm:grid-cols-2 m-4">
+    <!-- <div class="grid sm:grid-cols-2 m-4"> -->
+    <div class="grid grid-flow-row m-4 mb-20">
+
       <div
         class="m-1 p-1 rounded bg-slate-500 relative"
         v-for="bookmark in bookmarks.bookmarks"
@@ -45,7 +47,7 @@
 
           </div>
         </div>
-        <div v-if="bookmark.poll !== null" class="">
+        <div v-if="bookmark.poll !== null" class="py-3 -mx-5">
             <StatusPollView :poll="bookmark.poll" />
         </div>
       </div>
