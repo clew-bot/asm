@@ -1,5 +1,5 @@
 <style scoped>
-.picker >>> .dp__pointer{
+.picker:deep() .dp__pointer{
     background-color: #2F2F32!important;
     color: white;
     border: 0px solid #2F2F32!important;
