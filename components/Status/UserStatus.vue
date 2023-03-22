@@ -35,17 +35,19 @@
                 @{{ status.author.handleName }}
               </div>
             </div>
-
+            <NuxtLink :to="`/post/${status._id}`" >
             <div
-              class="text-slate-300 absolute top-5 right-6 text-xs cursor-default"
+              class="text-slate-300 absolute top-5 right-6 text-xs cursor-pointer"
             >
               {{ regularDate(status.createdAt) }}
             </div>
+
             <div
-              class="text-slate-500 absolute top-9 right-6 text-xs cursor-default"
+              class="text-slate-500 absolute top-9 right-6 text-xs cursor-pointer"
             >
               {{ createdAtLog(status.createdAt) }}
             </div>
+          </NuxtLink>
           </div>
         </v-card-title>
         <div class="flex flex-col gap-5">
@@ -56,20 +58,6 @@
           {{ status.content }}
           </v-card-text>
           <StatusPollView v-if="status.poll" :poll="status?.poll"/>
-          <!-- <div>
-            <v-card class="mx-12">
-              <v-radio-group>
-                <div class="">
-                  <v-radio
-                    v-for="poll in status.poll?.poll"
-                    :key="poll"
-                    :label="poll.value"
-                    :value="poll"
-                  ></v-radio>
-                </div>
-              </v-radio-group>
-            </v-card>
-          </div> -->
 
           <div v-if="status.media">
             <StatusAllMediaPost v-model="status.media" />

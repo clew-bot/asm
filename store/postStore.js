@@ -134,5 +134,13 @@ export const usePostStore = defineStore("post", {
     getRefresh: (state) => {
       usePostStore().refresh++;
     },
+
+    getSinglePost : async (payload) => {
+      const response = await $fetch("/api/dashboard/single-post", {
+        method: "POST",
+        body: payload,
+      });
+      return response;
+    }
   },
 });
