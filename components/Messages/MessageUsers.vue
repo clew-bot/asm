@@ -18,8 +18,8 @@
               >
             </v-avatar>
             </NuxtLink>
-              <div class="newFont font-lighter text-yellow-400 overflow-hidden text-ellipsis">{{theUsers.users[0].username}}:</div> 
-              <div class="max-w-[40%] lg:max-w-[80%] overflow-auto whitespace-nowrap text-ellipsis">&nbsp;{{theUsers.latestMessage}}</div>
+              <div class="cursor-pointer newFont font-lighter text-yellow-400 overflow-hidden text-ellipsis">{{theUsers.users[0].username}}:</div> 
+              <div class="max-w-[40%] lg:max-w-[80%] overflow-clip whitespace-nowrap text-ellipsis">&nbsp;{{theUsers.latestMessage}}</div>
             </div>
         </v-card>
     </div>
