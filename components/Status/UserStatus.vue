@@ -102,10 +102,12 @@
             </div>
             <div class="flex pt-10">
               <IconComponent
+              @click="bookmarkPost(status._id)"
                 class="mr-2"
                 :props="{ name: 'mdi-bookmark-box', color: '#f5f5f4' }"
                 title="Bookmark this post"
               />
+
               <ClientOnly>
                 <StatusPostMenu
                   :id="status._id"
@@ -171,6 +173,12 @@ const dynamicColor = ref({});
 
 // console.log(props.pinnedPost)
 
+const bookmarkPost = async (id) => {
+  await store.bookmarkPost(id);
+};
+
+console.log(store)
+
 const checkMatching = (id) => {
   if (utilityObj.value[id]) {
     return true;
@@ -215,6 +223,7 @@ onMounted(() => {
     };
   });
 });
+
 
 const openTooltip = (id) => {
   if (utilityObj.value[id] === undefined) {

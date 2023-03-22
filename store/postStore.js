@@ -141,6 +141,22 @@ export const usePostStore = defineStore("post", {
         body: payload,
       });
       return response;
+    },
+    bookmarkPost: async (payload) => {
+      const response = await $fetch("/api/dashboard/add-bookmark", {
+        method: "POST",
+        body: payload,
+      });
+      return response;
+    },
+    getBookmarks: async (payload) => {
+      const response = await $fetch("/api/dashboard/getBookmarks", {
+        method: "GET",
+        body: payload,
+      });
+      return response;
     }
   },
+
+
 });

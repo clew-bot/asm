@@ -87,6 +87,11 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    bookmarks: {
+        type: Array,
+        default: [],
+        ref: "UserPost",
+    },
     },
         { timestamps: true }
     );
