@@ -55,13 +55,14 @@
                               hover:mb-[-2px]
                              hover:border-b-purple-700 ">My Profile</p></li>
                     </NuxtLink>
+                    <NuxtLink to="/settings">
                     <li class="xl:p-4 sm:p-3 flex justify-center items-center"> <img
                         :src="more" alt="" class="pl-1 icon-hover">
                         <p class="ml-5 hidden xl:block
                         hover:border-b-2
                               hover:mb-[-2px]
                              hover:border-b-purple-700 ">More</p></li>
-    
+    </NuxtLink>
                     <li  @click="logout" class="xl:p-4 sm:p-3 flex justify-center items-center cursor-pointer
                     transition-all"> <img
                         :src="logouts" alt="" class="pl-1 icon-hover">

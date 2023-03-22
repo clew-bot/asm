@@ -82,6 +82,10 @@ const UserSchema = new mongoose.Schema({
         default: [],
         ref: "ReactionModel",
     },
+    isPrivate: {
+        type: Boolean,
+        default: false,
+    },
     },
         { timestamps: true }
     );
