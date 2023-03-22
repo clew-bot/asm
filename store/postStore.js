@@ -155,7 +155,15 @@ export const usePostStore = defineStore("post", {
         body: payload,
       });
       return response;
-    }
+    },
+
+    addView: async (payload) => {
+      const response = await $fetch("/api/dashboard/add-view", {
+        method: "POST",
+        body: payload,
+      });
+      return response;
+    },
   },
 
 

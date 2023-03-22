@@ -9,6 +9,9 @@
     <div>
         {{ regularDate(thePost.createdAt) }}
     </div>
+    <div>
+        Views: {{ thePost.views }}
+    </div>
  
  </div>
     <v-card-title class="text-neutral-100 font-bold flex gap-2"> <StatusUserAvatar :props="thePost.author.profilePicture" />{{thePost.author.username}}
@@ -29,6 +32,26 @@
         contain>
         </v-img>
     </div>
+    <div>
+        <div v-if="thePost.videos.length > 0">
+            <video
+              v-for="(video, i) in thePost.videos"
+              :key="i"
+              controls
+              :class="video.height > 700 ? 'w-2/4 sm:w-1/2' : `w-full`"
+              class=""
+            >
+              <source :src="video.media" type="video/mp4" id="video_here" />
+              Your browser does not support HTML5 video.
+            </video>
+        </div>
+    </div>
+    <div
+    v-if="thePost.poll !== null"
+    class="pt-10"
+    >
+        <StatusPollView :poll="thePost.poll" />
+</div>
     </v-card-text>
 </v-card>
   </NuxtLayout>
@@ -47,8 +70,7 @@ const handleName = router.currentRoute.value.params.id;
 const thePost = await postStore.getSinglePost(handleName)
     console.log(thePost)
 onMounted(async () => {
-    console.log("mounted")
-
+    await postStore.addView(handleName)
     //Make request to get post associated with id
 })
 

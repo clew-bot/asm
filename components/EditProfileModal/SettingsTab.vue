@@ -1,6 +1,6 @@
 <template>
     <div>
-Settings
+Statistics
     </div>
 </template>
 

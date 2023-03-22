@@ -56,11 +56,21 @@ export default defineEventHandler(async (event) => {
             { $push: { conversations: newConversation._id } }
         );
     }
+    const newNotificationForUser = await new NotificationModel({
+        title: "New message!",
+        content: "Check your messages",
+        type: "newMessageRecieved",
+        from: myId,
+    }).save();
+
+    const addNotif = await UserModel.updateOne({ _id: toUserId }, { $push: { notifications: newNotificationForUser._id },
+    $inc: { notificationCount: 1 } });
+
 
     const options = {
         myId,
         toUserId,
     }
 
-    return "hi"
+    return null;
         });
