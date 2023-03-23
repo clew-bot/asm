@@ -57,5 +57,5 @@ const UserPostSchema = new mongoose.Schema({
         // ReactionsModel.remove({client_id: this._id}).exec();
         next();
     });
-
-export default mongoose.model("UserPost", UserPostSchema);
+const UserPost = mongoose.model("UserPost", UserPostSchema);
+export default UserPost

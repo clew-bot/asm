@@ -1,14 +1,16 @@
 import mongoose from "mongoose";
-const PollModel = new mongoose.Schema({
+const PollModelSchema = new mongoose.Schema(
+  {
     title: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     // poll: {
     //     type: Object,
     //     required: true,
-    // },  
-    options: [{
+    // },
+    options: [
+      {
         label: {
           type: String,
           required: true,
@@ -21,20 +23,21 @@ const PollModel = new mongoose.Schema({
           type: Number,
           default: 0,
         },
-      }],
+      },
+    ],
     votes: {
-        type: Array,
-        default: [],
-        ref: "User",
+      type: Array,
+      default: [],
+      ref: "User",
     },
     votedBy: {
-        type: Array,
-        default: [],
-        ref: "User",
+      type: Array,
+      default: [],
+      ref: "User",
     },
-    },
-    { timestamps: true }
-    );
+  },
+  { timestamps: true }
+);
 
-
-export default mongoose.model("PollModel", PollModel);
+const PollModel = mongoose.model("PollModel", PollModelSchema);
+export default PollModel;

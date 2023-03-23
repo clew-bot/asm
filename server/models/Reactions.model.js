@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const ReactionModel = new mongoose.Schema({
+const ReactionSchema = new mongoose.Schema({
     reactionType: {
         type: String,
         required: true,
@@ -20,4 +20,5 @@ const ReactionModel = new mongoose.Schema({
     { timestamps: true }
     );
 
-export default mongoose.model("ReactionModel", ReactionModel);
+const ReactionModel = mongoose.model("ReactionModel", ReactionSchema);
+export default ReactionModel;

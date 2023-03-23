@@ -99,5 +99,5 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre("save", async function (next) {
     this.password = bcrypt.hashSync(this.password, 10);
 });
-
-export default mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
+export default User;

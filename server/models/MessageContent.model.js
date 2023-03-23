@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const MessageModel = new mongoose.Schema({
+const MessageModelSchema = new mongoose.Schema({
     // users: {
     //     type: Array,
     //     required: true,
@@ -36,4 +36,5 @@ const MessageModel = new mongoose.Schema({
     { timestamps: true }
     );
 
-export default mongoose.model("MessageModel", MessageModel);
+const MessageModel = mongoose.model("MessageModel", MessageModelSchema);
+export default MessageModel

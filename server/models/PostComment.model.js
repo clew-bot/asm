@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const PostComment = new mongoose.Schema({
+const PostCommentSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -31,4 +31,5 @@ const PostComment = new mongoose.Schema({
     { timestamps: true }
     );
 
-export default mongoose.model("PostComment", PostComment);
+const PostComment = mongoose.model("PostComment", PostCommentSchema);
+export default PostComment
