@@ -14,7 +14,6 @@ export default defineEventHandler(async (event) => {
             select: ["username", "coverPicture", "profilePicture", "handleName"] }, 
         options: { sort: { createdAt: -1 },} })
         .select("username")
-    // console.log('ff', findNotifications)
     if(findNotifications) {
         return findNotifications.notifications
     } else {

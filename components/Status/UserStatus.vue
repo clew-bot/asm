@@ -10,14 +10,12 @@
       :key="status._id"
       class="cont flex justify-center"
     >
-      <!-- {{status.poll }} -->
-      <!-- {{status.author.pinnedPost}} -->
       <v-card
         elevation="0"
         color="#18181b"
         class="border-t-[.2px] rounded-none border-t-[var(--dashBorder)] bg-zinc-700 w-full"
       >
-        <!-- {{status.author}} -->
+
         <v-card-title>
           <div class="flex justify-items-start pt-3">
             <NuxtLink :to="`/profile/${status.author.handleName}`">
@@ -101,10 +99,12 @@
               />
             </div>
             <div class="flex pt-10">
+              <!-- {{ status }} -->
               <IconComponent
-              @click="bookmarkPost(status._id)"
-                class="mr-2"
-                :props="{ name: 'mdi-bookmark-box', color: '#f5f5f4' }"
+              @click="bookmarkPost(status._id, i)"
+              :class="didClickBookmark[i] ? 'bg-green': 'bg-orange'"
+              class="rounded"
+                :props="{ name: 'mdi-bookmark-box', color: '#fff' }"
                 title="Bookmark this post"
               />
 
@@ -171,13 +171,24 @@ let timeout;
 const userId = ref(userStore.$state.userId);
 const dynamicColor = ref({});
 
-// console.log(props.pinnedPost)
 
-const bookmarkPost = async (id) => {
-  await store.bookmarkPost(id);
+const myBookmarks = ref(userStore.bookmarks);
+const didClickBookmark = ref(Array(props.modelValue.length).fill(false));
+
+
+const bookmarkPost = async (id, index) => {
+  didClickBookmark.value[index] = !didClickBookmark.value[index];
+  console.log(didClickBookmark.value[index])
+  if(didClickBookmark.value[index]){
+    await store.bookmarkPost(id);
+  } else {
+  await store.unBookmarkPost(id);
+  }
 };
 
-console.log(store)
+
+
+
 
 const checkMatching = (id) => {
   if (utilityObj.value[id]) {

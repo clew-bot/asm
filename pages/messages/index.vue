@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { useMessageStore } from '~~/store/messageStore';
+import { useMessageStore } from '~~/store/MessageStore';
 const messageStore = useMessageStore();
 const loading = ref(true)
 const data = ref(null)

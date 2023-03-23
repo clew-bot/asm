@@ -147,6 +147,21 @@ export const usePostStore = defineStore("post", {
         method: "POST",
         body: payload,
       });
+
+      useUserStore().bookmarks.push(payload);
+      return response;
+    },
+    unBookmarkPost: async (payload) => {
+      const response = await $fetch("/api/dashboard/delete-bookmark", {
+        method: "POST",
+        body: payload,
+      });
+      console.log(useUserStore().bookmarks)
+      const findIndex = useUserStore().bookmarks.findIndex(
+        (post) => post === payload
+      );
+      useUserStore().bookmarks.splice(findIndex, 1);
+
       return response;
     },
     getBookmarks: async (payload) => {
