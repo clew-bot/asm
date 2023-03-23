@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import UserModel from "~~/server/models/User.model";
-import NotificationModel from "~~/server/models/Notif.model";
 import MessageContentModel from "~~/server/models/MessageContent.model";
 
 import nuxtConfig from "~~/nuxt.config";
