@@ -86,6 +86,8 @@ export const usePostStore = defineStore("post", {
         method: "POST",
         body: usePostStore().pageCount,
       });
+
+      console.log("The Repsponse getPosts: ", response)
       //  dont duplicate posts
       if( usePostStore().pageCount === 0) {
         usePostStore().posts = response;

@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
 import UserModel from "./User.model";
-import NotificationModel from "./Notif.model";
-import PollModel from "./PollModel.model";
-import ReactionModel from "./Reactions.model";
-import UserPost from "./UserPost.model";
 const MessageModelSchema = new mongoose.Schema({
     // users: {
     //     type: Array,
