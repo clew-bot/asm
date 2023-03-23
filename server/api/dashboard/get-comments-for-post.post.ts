@@ -1,7 +1,8 @@
+import mongoose from "mongoose";
 import UserModel from "~~/server/models/User.model";
 import PostComment from "~~/server/models/PostComment.model";
 import UserPost from "~~/server/models/UserPost.model";
-import mongoose from "mongoose";
+
 const toId = mongoose.Types.ObjectId;
 
 export default defineEventHandler(async (event) => {

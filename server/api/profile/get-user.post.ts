@@ -1,12 +1,12 @@
-import UserSchema from "~~/server/models/User.model";
 import mongoose from "mongoose";
+import UserSchema from "~~/server/models/User.model";
+
 const toId = mongoose.Types.ObjectId;
 import jwt from "jsonwebtoken";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const id: any = await useStorage().getItem("user");
-console.log("Hittttt")
 
   const user2 = await UserSchema.findOne({ handleName: body })
   .populate({
