@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import ReactionsModel from "./Reactions.model";
+import UserModel from "./User.model";
 const UserPostSchema = new mongoose.Schema({
     author: {
         type: String,
         required: true,
-        ref: "User",
+        ref: UserModel,
     },
     content: {
         type: String,

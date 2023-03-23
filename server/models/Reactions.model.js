@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import UserModel from "./User.model";
+import UserPost from "./UserPost.model";
 const ReactionSchema = new mongoose.Schema({
     reactionType: {
         type: String,
@@ -7,13 +9,13 @@ const ReactionSchema = new mongoose.Schema({
     from: {
         type: String,
         default: "",
-        ref: "User",
+        ref: UserModel,
         required: true,
     },
     postReactedTo: {
         type: String,
         default: "",
-        ref: "UserPost",
+        ref: UserPost,
         required: true,
     },
     },

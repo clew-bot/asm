@@ -1,4 +1,9 @@
 import mongoose from "mongoose";
+import UserModel from "./User.model";
+import NotificationModel from "./Notif.model";
+import PollModel from "./PollModel.model";
+import ReactionModel from "./Reactions.model";
+import UserPost from "./UserPost.model";
 const MessageModelSchema = new mongoose.Schema({
     // users: {
     //     type: Array,
@@ -7,13 +12,13 @@ const MessageModelSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         default: "",
-        ref: "User",
+        ref: UserModel,
         required: true,
     },
     recipient: {
         type: mongoose.Schema.Types.ObjectId,
         default: "",
-        ref: "User",
+        ref: UserModel,
         required: true,
     },
     content: {

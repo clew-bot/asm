@@ -76,7 +76,7 @@ const UserSchema = new mongoose.Schema({
     conversations: {
         type: Array,
         default: [],
-        ref: "Conversation",
+        ref: "ConversationModel",
     },
     postReacions: {
         type: Array,

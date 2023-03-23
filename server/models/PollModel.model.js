@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import UserModel from "./User.model";
 const PollModelSchema = new mongoose.Schema(
   {
     title: {
@@ -28,12 +29,12 @@ const PollModelSchema = new mongoose.Schema(
     votes: {
       type: Array,
       default: [],
-      ref: "User",
+      ref: UserModel,
     },
     votedBy: {
       type: Array,
       default: [],
-      ref: "User",
+      ref: UserModel,
     },
   },
   { timestamps: true }

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import UserModel from "./User.model";
 const NotificationModelSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -15,13 +16,13 @@ const NotificationModelSchema = new mongoose.Schema({
     from: {
         type: String,
         default: "",
-        ref: "User",
+        ref: UserModel,
         required: true,
     },
     to: {
         type: String,
         default: "",
-        ref: "User",
+        ref: UserModel,
     },
     type: {
         type: String,
