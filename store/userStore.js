@@ -17,6 +17,7 @@ export const useUserStore = defineStore('user', {
         notificationCount: 0,
         friendRequests: [],
         pinnedPost: "",
+        bookmarks: [],
        }),
     getters: {
        mId: (state) => state.id,
@@ -76,6 +77,7 @@ export const useUserStore = defineStore('user', {
         useUserStore().friendRequests = response.friendRequests;
         useUserStore().notificationCount = response.notificationCount;
         useUserStore().pinnedPost = response.pinnedPost;
+        useUserStore().bookmarks = response.bookmarks;
       },
 
       getNotifications: async () => {
