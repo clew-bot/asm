@@ -8,7 +8,6 @@ const UserPostSchema = new mongoose.Schema({
     },
     content: {
         type: String,
-        required: true,
     },
     likeCount: {
         type: Number,
@@ -41,6 +40,11 @@ const UserPostSchema = new mongoose.Schema({
         default: {},
         ref: "PollModel",
     },
+    views: {
+        type: Number,
+        default: 0,
+    },
+  
     },
     { timestamps: true }
     );

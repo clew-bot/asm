@@ -1,13 +1,13 @@
 <style scoped>
-.editProfile >>> .v-overlay__content {
+.editProfile:deep() .v-overlay__content {
   max-width: 550px !important;
 }
 
-.editProfile >>> .v-card-text {
+.editProfile:deep() .v-card-text {
   padding: 0rem 1rem 1rem 1rem !important;
 }
 
-.editProfile >>> .v-card {
+.editProfile:deep() .v-card {
     width:50rem !important;
     min-height: max-content !important;
 }

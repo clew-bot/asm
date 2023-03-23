@@ -14,6 +14,7 @@ export const usePostStore = defineStore("post", {
     poll: {},
     submitPoll: false,
     pollOk: true,
+    submitPost: false,
   }),
   getters: {
     thePost: (state) => state.post,
@@ -133,5 +134,37 @@ export const usePostStore = defineStore("post", {
     getRefresh: (state) => {
       usePostStore().refresh++;
     },
+
+    getSinglePost : async (payload) => {
+      const response = await $fetch("/api/dashboard/single-post", {
+        method: "POST",
+        body: payload,
+      });
+      return response;
+    },
+    bookmarkPost: async (payload) => {
+      const response = await $fetch("/api/dashboard/add-bookmark", {
+        method: "POST",
+        body: payload,
+      });
+      return response;
+    },
+    getBookmarks: async (payload) => {
+      const response = await $fetch("/api/dashboard/getBookmarks", {
+        method: "GET",
+        body: payload,
+      });
+      return response;
+    },
+
+    addView: async (payload) => {
+      const response = await $fetch("/api/dashboard/add-view", {
+        method: "POST",
+        body: payload,
+      });
+      return response;
+    },
   },
+
+
 });

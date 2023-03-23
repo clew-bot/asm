@@ -28,6 +28,7 @@ const UserSchema = new mongoose.Schema({
     friends: {
         type: Array,
         default: [],
+        ref: "User",
     },
     profilePicture: {
         type: String,
@@ -81,6 +82,15 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         default: [],
         ref: "ReactionModel",
+    },
+    isPrivate: {
+        type: Boolean,
+        default: false,
+    },
+    bookmarks: {
+        type: Array,
+        default: [],
+        ref: "UserPost",
     },
     },
         { timestamps: true }

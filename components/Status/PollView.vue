@@ -3,7 +3,7 @@
   font-family: "Unbounded", cursive !important;
 }
 
-.ok >>> .v-label {
+.ok:deep() .v-label {
   opacity: 1 !important;
   font-size: 0.8rem !important;
   color: rgb(0, 0, 0);

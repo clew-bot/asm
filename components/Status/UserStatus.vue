@@ -35,17 +35,19 @@
                 @{{ status.author.handleName }}
               </div>
             </div>
-
+            <NuxtLink :to="`/post/${status._id}`" >
             <div
-              class="text-slate-300 absolute top-5 right-6 text-xs cursor-default"
+              class="text-slate-300 absolute top-5 right-6 text-xs cursor-pointer"
             >
               {{ regularDate(status.createdAt) }}
             </div>
+
             <div
-              class="text-slate-500 absolute top-9 right-6 text-xs cursor-default"
+              class="text-slate-500 absolute top-9 right-6 text-xs cursor-pointer"
             >
               {{ createdAtLog(status.createdAt) }}
             </div>
+          </NuxtLink>
           </div>
         </v-card-title>
         <div class="flex flex-col gap-5">
@@ -56,20 +58,6 @@
           {{ status.content }}
           </v-card-text>
           <StatusPollView v-if="status.poll" :poll="status?.poll"/>
-          <!-- <div>
-            <v-card class="mx-12">
-              <v-radio-group>
-                <div class="">
-                  <v-radio
-                    v-for="poll in status.poll?.poll"
-                    :key="poll"
-                    :label="poll.value"
-                    :value="poll"
-                  ></v-radio>
-                </div>
-              </v-radio-group>
-            </v-card>
-          </div> -->
 
           <div v-if="status.media">
             <StatusAllMediaPost v-model="status.media" />
@@ -114,10 +102,12 @@
             </div>
             <div class="flex pt-10">
               <IconComponent
+              @click="bookmarkPost(status._id)"
                 class="mr-2"
                 :props="{ name: 'mdi-bookmark-box', color: '#f5f5f4' }"
                 title="Bookmark this post"
               />
+
               <ClientOnly>
                 <StatusPostMenu
                   :id="status._id"
@@ -183,6 +173,12 @@ const dynamicColor = ref({});
 
 // console.log(props.pinnedPost)
 
+const bookmarkPost = async (id) => {
+  await store.bookmarkPost(id);
+};
+
+console.log(store)
+
 const checkMatching = (id) => {
   if (utilityObj.value[id]) {
     return true;
@@ -227,6 +223,7 @@ onMounted(() => {
     };
   });
 });
+
 
 const openTooltip = (id) => {
   if (utilityObj.value[id] === undefined) {

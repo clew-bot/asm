@@ -49,7 +49,6 @@ const saveImage = async (formData, backUpFormData) => {
   if (data) {
     console.log('working...')
     const fileType = data.data.value.data.media.slice(-4);
-    // console.log('fff2222', fileType)
     if (fileType in possibleImageTypes) {
       const mediaObj = {
         media: data.data.value.data.media,
@@ -59,7 +58,6 @@ const saveImage = async (formData, backUpFormData) => {
       allMedia.value.push(mediaObj);
       photoData.value.push(data.data.value.data);
     } else if (fileType in possibleVideoTypes) {
-      // allMedia.value.push(data.data.value.data.media);
       const mediaObj = {
         media: data.data.value.data.media,
         height: data.data.value.data.height,

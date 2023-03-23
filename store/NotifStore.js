@@ -52,7 +52,7 @@ export const useNotifStore = defineStore("notif", {
           body: data,
         });
         useNotifStore().notifications.unshift(response);
-
+        console.log("response: ", response)
         return response;
       },
 

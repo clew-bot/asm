@@ -39,9 +39,9 @@ watch(checkReset, (newVal) => {
     }
 })
 
+store.$patch({post: userPost.value})
 watch(userPost ,(newVal) => {
     if(!checkReset.value) {
-    // emit("updatePost", userPost.value);
     store.$patch({post: userPost.value})
     }
 })

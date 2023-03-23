@@ -6,7 +6,7 @@
     <div v-if="dto">
       <ProfileHeader :props="dto.coverPicture" />
       <ProfileComponent :props="dto" />
-      <ProfilePostsAndFriends :key="refresher" :username="name" :pinnedPost="pinnedPost" v-model="userPosts"/>
+      <ProfilePostsAndFriends :key="refresher" :username="name" :pinnedPost="pinnedPost" v-model="userPosts" :friends="friends"/>
     </div>
     <div v-else class="flex justify-center items-center h-screen">
       <v-progress-circular
@@ -33,7 +33,7 @@ const name = ref('');
 const refresher = ref(0)
 const userPosts = ref(null);
 const pinnedPost = ref(null);
-
+const friends = ref(null);
 
 
 watch(refresh, async (val) => {
@@ -46,6 +46,7 @@ onMounted(async () => {
   pinnedPost.value = data.pinnedPost;
   userPosts.value = data.posts;
   name.value = data.username;
+    friends.value = data.friends;
   dto.value = data;
 });
 definePageMeta({

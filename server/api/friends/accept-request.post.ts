@@ -42,6 +42,13 @@ export default defineEventHandler(async (event) => {
         from: userId,
     }).save();
 
+    const newNotif = await NotificationModel.findOne({
+        'from': userId,
+        'type': 'friendRequestAccepted',
+    }).select("title content type from") .populate('from')
+
+    console.log("ttt", newNotif)
+
     // add notification to me
     const addNotifMe = await UserModel.updateOne({ _id: myId }, { $push: { notifications: newNotificationForMe._id } });
 
@@ -69,5 +76,8 @@ export default defineEventHandler(async (event) => {
             path: "from"
         },
         options: { sort: { createdAt: -1 },} })
-    return newNotificationForMe
+
+
+
+    return newNotif
 });

@@ -19,10 +19,6 @@ export default defineEventHandler(async (event) => {
     let page = Math.max(0, body);
     const id:any = await useStorage().getItem("user");
 
-    // const user = await UserModel.findById({ _id: new toId(id) })
-    // .populate({ path: "posts", populate: { path: "author reactions" }, options: { sort: { createdAt: -1, pinnedPost: 0   } } }).limit(perPage).skip(perPage * page).exec();
-
-
     // return user;
     const user = await UserModel.findOne({ _id: new toId(id) })
     .populate({
@@ -43,8 +39,7 @@ export default defineEventHandler(async (event) => {
       ]
     });
   }
-  
-  console.log('user: ', user);
+
   return user;
   
    

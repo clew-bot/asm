@@ -33,6 +33,6 @@
     "socket.io-client": "^4.5.3",
     "video.js": "^7.20.3",
     "vuedraggable": "^4.1.0",
-    "vuetify": "^3.0.1"
+    "vuetify": "^3.1.11"
   }
 }

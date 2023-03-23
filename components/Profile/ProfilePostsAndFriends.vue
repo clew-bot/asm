@@ -1,23 +1,23 @@
 <style scoped>
-.tabber >>> .v-tabs--fixed-tabs .v-slide-group__content > *:first-child {
+.tabber:deep() .v-tabs--fixed-tabs .v-slide-group__content > *:first-child {
   -webkit-margin-start: 0px !important;
   margin-inline-start: 0px !important;
   max-width: none !important;
   width: 50% !important;
 }
 
-.tabber >>> .v-tabs--fixed-tabs .v-slide-group__content > *:last-child {
+.tabber:deep() .v-tabs--fixed-tabs .v-slide-group__content > *:last-child {
   margin-inline-end: 0px !important;
   -webkit-margin-end: 0px !important;
   max-width: none !important;
   width: 50% !important;
 }
 
-.tabber >>> .v-slide-group__content {
+.tabber:deep() .v-slide-group__content {
   justify-content: space-between !important;
 }
 
-.tabber >>> .v-slide-group__content,
+.tabber:deep() .v-slide-group__content,
 .v-slide-group__container {
   border-radius: 0px !important;
 }
@@ -40,12 +40,15 @@
             <div v-if="passProps.length > 0">
               <ProfileYourPostsTab v-model="passProps" :pinnedPost="pinnedPost"/>
             </div>
+            <div v-else-if="passProps.length === 0 && pinnedPost">
+              <StatusPinnedPost :pinnedPost="pinnedPost" />
+          </div>
             <div v-else>
               You have no new posts. Hell you don't even have any posts.
             </div>
           </div>
           <div v-else>
-            <ProfileYourFriendsTab />
+            <ProfileYourFriendsTab :friends="props.friends"/>
           </div>
         </v-card>
       </v-window-item>
@@ -55,7 +58,7 @@
 </template>
 
 <script setup>
-const props = defineProps(["modelValue", "username", "pinnedPost"]);
+const props = defineProps(["modelValue", "username", "pinnedPost", "friends"]);
 const passProps = ref(props.modelValue);
 const username = ref(props.username);
 const currentItem = ref("tab-Web");

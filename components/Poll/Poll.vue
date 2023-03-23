@@ -1,5 +1,5 @@
 <style scoped>
-.list-group-item >>> .v-field {
+.list-group-item:deep() .v-field {
   border-radius: 3px !important;
   text-transform: none;
 }
