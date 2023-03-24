@@ -48,7 +48,6 @@ export default defineEventHandler(async (event) => {
         'type': 'friendRequestAccepted',
     }).select("title content type from") .populate('from')
 
-    console.log("ttt", newNotif)
 
     // add notification to me
     const addNotifMe = await UserModel.updateOne({ _id: myId }, { $push: { notifications: newNotificationForMe._id } });
@@ -62,7 +61,7 @@ export default defineEventHandler(async (event) => {
     }).save();
 
     // add notification to user
-    const addNotif = await UserModel.updateOne({ _id: userId }, { $push: { notifications: newNotificationForUser._id } });
+    const addNotif = await UserModel.updateOne({ _id: userId }, { $push: { notifications: new toId(newNotificationForUser._id) } });
 
     const updateMyNotif = await NotificationModel.deleteOne({
         'from': userId,
@@ -73,8 +72,10 @@ export default defineEventHandler(async (event) => {
     const allNotifications = await UserModel.findOne({ _id: myId })
     .populate({ 
         path: "notifications", 
+        model: NotificationModel,
         populate: {
-            path: "from"
+            path: "from",
+            model: UserModel
         },
         options: { sort: { createdAt: -1 },} })
 

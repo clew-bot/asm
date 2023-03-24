@@ -8,14 +8,12 @@ const ReactionSchema = new mongoose.Schema({
         required: true,
     },
     from: {
-        type: String,
-        default: "",
+        type: mongoose.Schema.Types.ObjectId,
         ref: UserModel,
         required: true,
     },
     postReactedTo: {
-        type: String,
-        default: "",
+        type: mongoose.Schema.Types.ObjectId,
         ref: UserPost,
         required: true,
     },

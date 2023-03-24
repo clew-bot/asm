@@ -95,68 +95,6 @@ export default defineEventHandler(async (event) => {
         $limit: perPage
       }
     ]);
-    
-
-    
-    // ?.populate('reactions')?.populate('poll');
-    // const pipeline = [
-    //   // {
-    //   //   $lookup: {
-    //   //     from: 'UserModel',
-    //   //     localField: 'author',
-    //   //     foreignField: '_id',
-    //   //     as: 'authorData'
-    //   //   }
-    //   // },
-    //   // {
-    //   //   $unwind: '$authorData'
-    //   // },
-    //   {
-    //     $lookup: {
-    //       from: 'ReactionModel',
-    //       localField: 'reactions',
-    //       foreignField: '_id',
-    //       as: 'reactions'
-    //     }
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: 'PollModel',
-    //       localField: 'poll',
-    //       foreignField: '_id',
-    //       as: 'poll'
-    //     }
-    //   },{
-    //     $project: {
-    //       _id: 1,
-    //       content: 1,
-    //       createdAt: 1,
-    //       updatedAt: 1,
-    //       author: {
-    //         username: '$authorData.username',
-    //         handleName: '$authorData.handleName',
-    //         profilePicture: '$authorData.profilePicture'
-    //       },
-    //       reactions: 1,
-    //       poll: 1
-    //     }
-    //   },
-    //   {
-    //     $sort: {
-    //       createdAt: -1
-    //     }
-    //   },
-    //   {
-    //     $skip: page * perPage
-    //   },
-    //   {
-    //     $limit: perPage
-    //   }
-    // ];
-      
-    // const getPosts = await UserPost.aggregate(pipeline);
-
-      
     console.log("Get Posts Ending")
     return getPosts;
 

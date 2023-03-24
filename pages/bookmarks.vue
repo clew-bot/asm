@@ -3,25 +3,27 @@
   <NuxtLayout name="dash">
     <template #header>Bookmarks</template>
     <template #rightSide><LayoutRightBarSuggested /></template>
-    <!-- <div class="grid sm:grid-cols-2 m-4"> -->
     <div class="grid grid-flow-row m-4 mb-20">
-
       <div
         class="m-1 p-1 rounded bg-slate-500 relative"
-        v-for="bookmark in bookmarks.bookmarks"
+        v-for="bookmark in bookmarks[0].bookmarks"
         :key="bookmark"
       >
+      <!-- {{ bookmark.author[0].profilePicture }} -->
         <NuxtLink :to="`/post/${bookmark._id}`">
           <div class="right-2 font-light text-xs absolute">
             {{ simplifiedTime(bookmark.createdAt) }} ago
           </div>
         </NuxtLink>
         <div class="flex gap-2">
-          <StatusUserAvatar :props="bookmark.author.profilePicture" />
-          <div>{{ bookmark.author.username }}</div>
+          <StatusUserAvatar :props="bookmark.author[0].profilePicture" />
+          <div>
+          <div class=" text-lg font-semibold text-slate-100">{{ bookmark.author[0].username }}</div>
+          <div class="text-md">   {{ bookmark.content }}</div>
+        </div>
         </div>
 
-        {{ bookmark.content }}
+     
         <div v-if="bookmark.media.length > 0">
           <div v-if="bookmark.photos.length > 0">
             <v-img
@@ -47,8 +49,9 @@
 
           </div>
         </div>
-        <div v-if="bookmark.poll !== null" class="py-3 -mx-5">
-            <StatusPollView :poll="bookmark.poll" />
+        <!-- {{ typeof bookmark.poll[0]}} -->
+        <div v-if="typeof bookmark.poll[0] !== 'undefined'" class="py-3 -mx-5">
+            <StatusPollView :poll="bookmark.poll[0]" />
         </div>
       </div>
     </div>
@@ -59,8 +62,13 @@
 import { usePostStore } from "~~/store/postStore";
 const postStore = usePostStore();
 
-const bookmarks = await postStore.getBookmarks();
-console.log(bookmarks);
+const bookmarks = ref([]);
+try {
+bookmarks.value = await postStore.getBookmarks();
+console.log(bookmarks.value);
+} catch (error) {
+console.log(error);
+}
 
 definePageMeta({
   layout: false,

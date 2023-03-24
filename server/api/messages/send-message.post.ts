@@ -50,11 +50,11 @@ export default defineEventHandler(async (event) => {
         // update both users with new conversation
         await UserModel.findOneAndUpdate(
             { _id: myId },
-            { $push: { conversations: newConversation._id } }
+            { $push: { conversations: new toId(newConversation._id) } }
         );
         const updateUser = await UserModel.findOneAndUpdate(
             { _id: toUserId },
-            { $push: { conversations: newConversation._id } }
+            { $push: { conversations: new toId(newConversation._id) } }
         );
     }
     const newNotificationForUser = await new NotificationModel({
@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
         from: myId,
     }).save();
 
-    const addNotif = await UserModel.updateOne({ _id: toUserId }, { $push: { notifications: newNotificationForUser._id },
+    const addNotif = await UserModel.updateOne({ _id: toUserId }, { $push: { notifications: new toId(newNotificationForUser._id) },
     $inc: { notificationCount: 1 } });
 
 

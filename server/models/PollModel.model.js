@@ -40,5 +40,5 @@ const PollModelSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const PollModel = mongoose.model("PollModel", PollModelSchema);
+const PollModel = mongoose.model("PollModels", PollModelSchema);
 export default PollModel;

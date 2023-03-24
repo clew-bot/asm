@@ -40,7 +40,7 @@ const UserPostSchema = new mongoose.Schema({
     poll: {
         type: Object,
         default: {},
-        ref: "PollModel",
+        ref: "PollModels",
     },
     views: {
         type: Number,

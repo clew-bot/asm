@@ -138,7 +138,7 @@ export const usePostStore = defineStore("post", {
     },
 
     getSinglePost : async (payload) => {
-      const response = await $fetch("/api/dashboard/single-post", {
+      const response = await $fetch("/api/dashboard/single-posts", {
         method: "POST",
         body: payload,
       });

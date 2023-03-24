@@ -15,7 +15,6 @@ const ConversationModelSchema = new mongoose.Schema({
     },
     from: {
         type: mongoose.Schema.Types.ObjectId,
-        default: "",
         ref: UserModel,
         required: true,
     }},

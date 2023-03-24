@@ -14,14 +14,12 @@ const NotificationModelSchema = new mongoose.Schema({
         default: false,
     },
     from: {
-        type: String,
-        default: "",
+        type: mongoose.Schema.Types.ObjectId,
         ref: UserModel,
         required: true,
     },
     to: {
-        type: String,
-        default: "",
+        type: mongoose.Schema.Types.ObjectId,
         ref: UserModel,
     },
     type: {
@@ -33,5 +31,5 @@ const NotificationModelSchema = new mongoose.Schema({
     { timestamps: true }
     );
 
-const NotificationModel = mongoose.model("NotificationModel", NotificationModelSchema);
+const NotificationModel = mongoose.model("NotificationModels", NotificationModelSchema);
 export default NotificationModel

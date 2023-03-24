@@ -7,13 +7,11 @@ const MessageModelSchema = new mongoose.Schema({
     // },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        default: "",
         ref: UserModel,
         required: true,
     },
     recipient: {
         type: mongoose.Schema.Types.ObjectId,
-        default: "",
         ref: UserModel,
         required: true,
     },

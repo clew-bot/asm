@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
     } else {
   await UserModel.findOneAndUpdate(
     { _id: new toId(id) },
-    { $push: { bookmarks: body } }
+    { $push: { bookmarks: new toId(body) } }
   );
 
   //if post is already bookmarked, remove it from bookmarks array

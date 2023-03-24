@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
 
   const addNotifMe = await UserModel.updateOne(
     { _id: myId },
-    { $push: { notifications: newNotificationForMe._id } }
+    { $push: { notifications: new toId(newNotificationForMe._id) } }
   );
 
   const deleteNotif = await NotificationModel.deleteOne({
@@ -51,26 +51,14 @@ export default defineEventHandler(async (event) => {
       'type': 'friendRequestReceived',
       'to': myId,
    })
-//   const deleteNotif = await NotificationModel.deleteOne({
-//       from: userId,
-//       type: "friendRequestReceived",
-//       to: myId,
-//     },
-//     {
-//       $set: {
-//         read: true,
-//         type: "friendRequestDenied",
-//       },
-//     },
-//     {
-//         new: true,
-//     }
-// );
+
 
   const allNotifications = await UserModel.findOne({ _id: myId }).populate({
     path: "notifications",
+    model: NotificationModel,
     populate: {
       path: "from",
+      model: UserModel,
     },
     options: { sort: { createdAt: -1 } },
   });

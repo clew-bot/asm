@@ -36,7 +36,6 @@ const UserSchema = new mongoose.Schema({
     },
     pinnedPost: {
         type: mongoose.Schema.Types.ObjectId,
-        default: "",
         ref: "UserPost",
     },
     coverPicture: {

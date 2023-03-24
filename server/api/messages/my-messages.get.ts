@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import UserModel from "~~/server/models/User.model";
 import MessageContentModel from "~~/server/models/MessageContent.model";
+import ConversationModel from "~~/server/models/Conversation.model";
 const toId = mongoose.Types.ObjectId;
 
 export default defineEventHandler(async (event) => {
@@ -15,9 +16,10 @@ export default defineEventHandler(async (event) => {
     const getMyConversations = await UserModel.findOne({ _id: myId })
       .populate({
         path: "conversations",
+        model: ConversationModel,
         populate: {
           path: "users from",
-          model: "User",
+          model: UserModel,
         },
       })
       .select("conversations")
