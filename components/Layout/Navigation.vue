@@ -85,8 +85,8 @@
            <NuxtLink to="/notifications">
                 <IconComponent :props="{ name: 'mdi-bell', size: 'large'}"/>
             </NuxtLink>
-            <NuxtLink to="/dashboard">
-           <IconComponent :props="{ name: 'mdi-plus-box-outline', size: 'large'}"/>
+            <NuxtLink to="/bookmarks">
+           <IconComponent :props="{ name: 'mdi-bookmark', size: 'large'}"/>
            </NuxtLink>
            <NuxtLink to="/messages">
            <IconComponent :props="{ name: 'mdi-message-bulleted', size: 'large'}"/>

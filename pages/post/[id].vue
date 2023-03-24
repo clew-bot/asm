@@ -68,7 +68,6 @@ const handleName = router.currentRoute.value.params.id;
 
 
 const thePost = await postStore.getSinglePost(handleName)
-    console.log(thePost)
 onMounted(async () => {
     await postStore.addView(handleName)
     //Make request to get post associated with id

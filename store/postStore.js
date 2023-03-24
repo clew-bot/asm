@@ -87,7 +87,6 @@ export const usePostStore = defineStore("post", {
         body: usePostStore().pageCount,
       });
 
-      console.log("The Repsponse getPosts: ", response)
       //  dont duplicate posts
       if( usePostStore().pageCount === 0) {
         usePostStore().posts = response;
@@ -138,7 +137,7 @@ export const usePostStore = defineStore("post", {
     },
 
     getSinglePost : async (payload) => {
-      const response = await $fetch("/api/dashboard/single-posts", {
+      const response = await $fetch("/api/dashboard/single-post", {
         method: "POST",
         body: payload,
       });
@@ -158,7 +157,6 @@ export const usePostStore = defineStore("post", {
         method: "POST",
         body: payload,
       });
-      console.log(useUserStore().bookmarks)
       const findIndex = useUserStore().bookmarks.findIndex(
         (post) => post === payload
       );

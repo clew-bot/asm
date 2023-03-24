@@ -27,7 +27,7 @@
 }
 </style>
 <template>
-  <v-card class="mt-6 tabber min-w-screen">
+  <v-card elevation="0" class="mt-6 tabber min-w-screen">
     <v-tabs v-model="currentItem" grow color="#ffedd5" bg-color="#27272a">
       <v-tab v-for="item in items" :key="item" :value="'tab-' + item">
         {{ item }}
@@ -43,8 +43,8 @@
             <div v-else-if="passProps.length === 0 && pinnedPost">
               <StatusPinnedPost :pinnedPost="pinnedPost" />
           </div>
-            <div v-else>
-              You have no new posts. Hell you don't even have any posts.
+            <div v-else class="text-center p-4">
+             No Posts
             </div>
           </div>
           <div v-else>

@@ -40,12 +40,6 @@ const refresher = ref(0);
 const loading = ref(true);
 const friends = userStore.$state.friends;
 
-// const refresh = async (data) => {
-//   // console.log("in refresh", data.allNotifications.notifications);
-//   // allNotifs.value = data.allNotifications.notifications;
-//   // console.log("allNotifs", allNotifs.value);
-//   refresher.value++;
-// };
 
 const notificationNumber = notifStore.$subscribe((state) => {
     if(state.events.key === 'notifications') {
@@ -57,7 +51,6 @@ onMounted(async () => {
   const clearNotifs = userStore.clearNotifications();
   const getNotifs = await notifStore.receiveNotifs();
   allNotifs.value = notifStore.$state.notifications;
-  console.log(allNotifs.value)
   setTimeout(() => {
     loading.value = false;
   }, 500);

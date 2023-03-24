@@ -117,4 +117,8 @@ const handleLogin = async (e) => {
   }
 
 }
+definePageMeta({
+
+  middleware: ["redirect"],
+});
 </script>

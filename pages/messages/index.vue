@@ -19,8 +19,8 @@
         ></v-progress-circular>
     </div>
     <div>
-      <div v-if="`${data?.getMyConversations.conversations.length === 0}`" class="text-center">
-        <div class="text-2xl font-semibold text-slate-100">No Messages</div>
+      <div v-if="data?.getMyConversations.conversations.length === 0" class="text-center">
+        <div class="text-2xl font-semibold pt-5 text-slate-100">No Messages</div>
         <div class="text-lg font-semibold text-slate-100">Your messages will go here.</div>
       </div>
     </div>
@@ -34,7 +34,6 @@ const messageStore = useMessageStore();
 const loading = ref(true)
 const data = ref(null)
 
-// console.log(await messageStore.getMyMessages())
 onMounted(async () => {
   data.value = await messageStore.getMyMessages();
   const sorted = await data.value.getMyConversations.conversations.sort((a, b) => {

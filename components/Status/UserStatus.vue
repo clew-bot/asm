@@ -172,18 +172,15 @@ const bookmarks = ref(userStore.bookmarks);
 //Bookmarks is the actual array of bookmarked posts in the model
 //didClickBookmark is the array of booleans that will be used to change the color of the bookmark icon
 const didClickBookmark = ref(Array(props.modelValue.length).fill(false));
-console.log(props.modelValue);
-console.log("bmarks", didClickBookmark.value);
+
 const bookmarkPost = (id, index) => {
   const i = bookmarks.value.indexOf(id);
-  console.log(i);
   if (i === -1) {
     // bookmarks.value.push(id)
   
      store.bookmarkPost(id)
     didClickBookmark.value[index] = true;
   } else {
-    console.log("Unbookmarking")
     // store.bookmarkPost(id)
     store.unBookmarkPost(id);
     bookmarks.value.splice(i, 1);

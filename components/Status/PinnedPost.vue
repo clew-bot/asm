@@ -39,5 +39,4 @@
 
 <script setup>
 const { pinnedPost } = defineProps(["pinnedPost"]);
-console.log("hdhds", pinnedPost);
 </script>

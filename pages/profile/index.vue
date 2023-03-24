@@ -29,7 +29,6 @@ const friends = ref(null);
 
 onMounted(async () => {
   const data = await userStore.getProfileInfo();
-  console.log("data", data)
   name.value = data.username;
   pinnedPost.value = data.pinnedPost;
   profilePosts.value = userStore.$state.posts;
