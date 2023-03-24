@@ -19,7 +19,7 @@ To start up the app locally, follow these steps:
 2. Install dependencies using ```npm install```.
 3. Start the app using ```npm run dev```.
 
-Alternatively, you can start up the application with Docker by using ```docker-compose up```.
+Alternatively, you can start up the application with Docker by using ```docker compose up```.
 
 ## ENV Variables
 ```MONGO_URI``` : MongoDB connection string to access DB
