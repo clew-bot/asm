@@ -15,7 +15,6 @@
         color="#18181b"
         class="border-t-[.2px] rounded-none border-t-[var(--dashBorder)] bg-zinc-700 w-full"
       >
-
         <v-card-title>
           <div class="flex justify-items-start pt-3">
             <NuxtLink :to="`/profile/${status.author.handleName}`">
@@ -33,29 +32,26 @@
                 @{{ status.author.handleName }}
               </div>
             </div>
-            <NuxtLink :to="`/post/${status._id}`" >
-            <div
-              class="text-slate-300 absolute top-5 right-6 text-xs cursor-pointer"
-            >
-              {{ regularDate(status.createdAt) }}
-            </div>
+            <NuxtLink :to="`/post/${status._id}`">
+              <div
+                class="text-slate-300 absolute top-5 right-6 text-xs cursor-pointer"
+              >
+                {{ regularDate(status.createdAt) }}
+              </div>
 
-            <div
-              class="text-slate-500 absolute top-9 right-6 text-xs cursor-pointer"
-            >
-              {{ createdAtLog(status.createdAt) }}
-            </div>
-          </NuxtLink>
+              <div
+                class="text-slate-500 absolute top-9 right-6 text-xs cursor-pointer"
+              >
+                {{ createdAtLog(status.createdAt) }}
+              </div>
+            </NuxtLink>
           </div>
         </v-card-title>
         <div class="flex flex-col gap-5">
-          <v-card-text
-            class="px-4 text-base text-white p-0 font-semibold"
-
-          >
-          {{ status.content }}
+          <v-card-text class="px-4 text-base text-white p-0 font-semibold">
+            {{ status.content }}
           </v-card-text>
-          <StatusPollView v-if="status.poll" :poll="status?.poll"/>
+          <StatusPollView v-if="status.poll" :poll="status?.poll" />
 
           <div v-if="status.media">
             <StatusAllMediaPost v-model="status.media" />
@@ -101,9 +97,11 @@
             <div class="flex pt-10">
               <!-- {{ status }} -->
               <IconComponent
-              @click="bookmarkPost(status._id, i)"
-              :class="didClickBookmark[i] ? 'bg-green': 'bg-orange'"
-              class="rounded"
+                @click="bookmarkPost(status._id, i)"
+                :class="
+                  bookmarks.includes(status._id) ? 'bg-green' : 'bg-orange'
+                "
+                class="rounded"
                 :props="{ name: 'mdi-bookmark-box', color: '#fff' }"
                 title="Bookmark this post"
               />
@@ -119,9 +117,7 @@
           </div>
           <div class="flex px-4 pb-4">
             <span class="font-bold">{{ status.reactions.length }}&nbsp;</span>
-            {{
-              status.reactions.length === 1 ? "Reaction" : "Reactions"
-            }}
+            {{ status.reactions.length === 1 ? "Reaction" : "Reactions" }}
             •&nbsp;
             <span
               @click="openComments(i, status._id)"
@@ -171,24 +167,29 @@ let timeout;
 const userId = ref(userStore.$state.userId);
 const dynamicColor = ref({});
 
+const bookmarks = ref(userStore.bookmarks);
 
-const myBookmarks = ref(userStore.bookmarks);
+//Bookmarks is the actual array of bookmarked posts in the model
+//didClickBookmark is the array of booleans that will be used to change the color of the bookmark icon
 const didClickBookmark = ref(Array(props.modelValue.length).fill(false));
-
-
-const bookmarkPost = async (id, index) => {
-  didClickBookmark.value[index] = !didClickBookmark.value[index];
-  console.log(didClickBookmark.value[index])
-  if(didClickBookmark.value[index]){
-    await store.bookmarkPost(id);
+console.log(props.modelValue);
+console.log("bmarks", didClickBookmark.value);
+const bookmarkPost = (id, index) => {
+  const i = bookmarks.value.indexOf(id);
+  console.log(i);
+  if (i === -1) {
+    // bookmarks.value.push(id)
+  
+     store.bookmarkPost(id)
+    didClickBookmark.value[index] = true;
   } else {
-  await store.unBookmarkPost(id);
+    console.log("Unbookmarking")
+    // store.bookmarkPost(id)
+    store.unBookmarkPost(id);
+    bookmarks.value.splice(i, 1);
+    didClickBookmark.value[index] = false;
   }
 };
-
-
-
-
 
 const checkMatching = (id) => {
   if (utilityObj.value[id]) {
@@ -234,7 +235,6 @@ onMounted(() => {
     };
   });
 });
-
 
 const openTooltip = (id) => {
   if (utilityObj.value[id] === undefined) {

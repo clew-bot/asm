@@ -23,6 +23,12 @@ export default defineEventHandler(async (event) => {
     const findBookmarks = await UserModel.aggregate([
         // Populate the bookmarks array with the UserPost documents, along with their author and poll fields
         {
+            $match: {
+                _id: new toId(id),
+            },
+
+        },
+        {
             $lookup: {
                 from: 'userposts',
                 localField: 'bookmarks',

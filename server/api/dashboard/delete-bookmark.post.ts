@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
       return await UserModel.findOneAndUpdate(
         { _id: new toId(id) },
-        { $pull: { bookmarks: body } }
+        { $pull: { bookmarks: new toId(body) } }
       );
    
     }

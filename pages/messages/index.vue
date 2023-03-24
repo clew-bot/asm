@@ -7,6 +7,7 @@
     <template #rightSide><LayoutRightBarSuggested/></template>
     <div v-if="!loading">
       <MessagesMessageUsers :props="data"/>
+      <!-- {{ data.getMyConversations.conversations.length === 0 }} -->
     </div>
     <div v-else
     class="flex justify-center items-center h-screen relative">
@@ -16,6 +17,12 @@
           color="white"
           indeterminate
         ></v-progress-circular>
+    </div>
+    <div>
+      <div v-if="`${data?.getMyConversations.conversations.length === 0}`" class="text-center">
+        <div class="text-2xl font-semibold text-slate-100">No Messages</div>
+        <div class="text-lg font-semibold text-slate-100">Your messages will go here.</div>
+      </div>
     </div>
 </NuxtLayout>
 

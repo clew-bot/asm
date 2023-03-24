@@ -23,9 +23,9 @@
         ></v-progress-circular>
       </div>
       <div v-else>
-        <div class="flex justify-center items-center h-screen">
-          <div class="text-white text-2xl">No notifications</div>
-        </div>
+        <div class="text-center">
+        <div class="text-2xl font-semibold text-slate-100 pt-5">No Notifications</div>
+      </div>
       </div>
   </NuxtLayout>
 </template>

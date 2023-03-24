@@ -3,7 +3,7 @@
   <NuxtLayout name="dash">
     <template #header>Bookmarks</template>
     <template #rightSide><LayoutRightBarSuggested /></template>
-    <div class="grid grid-flow-row m-4 mb-20">
+    <div v-if="bookmarks.length > 0" class="grid grid-flow-row m-4 mb-20">
       <div
         class="m-1 p-1 rounded bg-slate-500 relative"
         v-for="bookmark in bookmarks[0].bookmarks"
@@ -53,6 +53,12 @@
         <div v-if="typeof bookmark.poll[0] !== 'undefined'" class="py-3 -mx-5">
             <StatusPollView :poll="bookmark.poll[0]" />
         </div>
+      </div>
+    </div>
+    <div>
+      <div v-if="bookmarks.length === 0" class="text-center">
+        <div class="text-2xl font-semibold text-slate-100">No Bookmarks</div>
+        <div class="text-lg text-slate-100">When you bookmark a post, it will show up here.</div>
       </div>
     </div>
   </NuxtLayout>
