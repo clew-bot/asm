@@ -21,6 +21,12 @@ To start up the app locally, follow these steps:
 
 Alternatively, you can start up the application with Docker by using ```docker-compose up```.
 
+## ENV Variables
+```MONGO_URI``` : MongoDB connection string to access DB
+```JWT_SECRET``` : Jsonwebtoken secret 
+```VUE_APP_IMAGE_TOKEN``` : Image API key 
+```PORT``` : Port number to connect
+
 ## Technologies Used
 - Nuxt 3
 - MongoDB
