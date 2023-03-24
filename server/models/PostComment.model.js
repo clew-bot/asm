@@ -8,7 +8,7 @@ const PostCommentSchema = new mongoose.Schema({
         required: true
     },
     postRef: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: UserPost,
     },

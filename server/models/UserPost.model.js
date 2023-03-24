@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
+// import Reactions from "./Reactions.model";
 import UserModel from "./User.model";
+
 const UserPostSchema = new mongoose.Schema({
     author: {
-        type: String,
+ type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: UserModel,
     },
@@ -53,7 +55,7 @@ const UserPostSchema = new mongoose.Schema({
     UserPostSchema.pre('remove', function(next) {
         // 'this' is the client being removed. Provide callbacks here if you want
         // to be notified of the calls' result.
-        ReactionsModel.remove({postReactedTo: this._id}).exec();
+        ReactionModel.remove({postReactedTo: this._id}).exec();
         // ReactionsModel.remove({client_id: this._id}).exec();
         next();
     });

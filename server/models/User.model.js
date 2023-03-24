@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema({
         default: "https://thumbsnap.com/i/yFAPDCZg.png",
     },
     pinnedPost: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         default: "",
         ref: "UserPost",
     },

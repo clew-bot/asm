@@ -33,8 +33,6 @@ export default defineEventHandler(async (event) => {
     ])
 
 
-    // const suggestedPeople = await UserModel.find({_id: { $ne: new toId(id) }}).limit(3).select(['username', 'profilePicture', 'name', 'handleName'])
-
 
     return suggestedPeople;
 })
