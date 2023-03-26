@@ -167,8 +167,7 @@ const resetVals = () => {
 }
 
 const deletePicture = (index) => {
-  console.log(source.value)
-  console.log(index)
+
   videoSrc.value.splice(index, 1);
   source.value.splice(index, 1);
   allFiles.value.splice(index, 1);
